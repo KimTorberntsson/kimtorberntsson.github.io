@@ -1,0 +1,63 @@
+---
+layout: default
+active: photos
+title: photos
+photos: 
+- nr: 1
+  title: "Bird portrait"
+- nr: 2
+  title: "Portrait of my beautiful sister Frida"
+- nr: 3
+  title: "Dog portrait"
+- nr: 4
+  title: "Mattias and Linn kissing"
+- nr: 5
+  title: "Bamse sleeping"
+- nr: 6
+  title: "Wet flower"
+- nr: 7
+  title: "Minna looking down on me"
+- nr: 8
+  title: "Amanda Mair on stage"
+- nr: 9
+  title: "Love and rings"
+- nr: 10
+  title: "Piano"
+- nr: 11
+  title: "Frog portrait"
+- nr: 12
+  title: "Butterfly from behind (Photocredit: Mikaela Blom)"
+- nr: 13
+  title: "Vanligt Folk doing crazy stuff on stage"
+- nr: 14
+  title: "Concert with El Perro Del Mar"
+- nr: 15
+  title: "Macro picture of straw"
+- nr: 16
+  title: "Autumn calling"
+- nr: 17
+  title: "City of Prague"
+- nr: 18
+  title: "Hungry insect"
+- nr: 19
+  title: "After the olympics"
+- nr: 20
+  title: "Wintergatan on stage"
+- nr: 21
+  title: "Blurry butterfly"
+- nr: 22
+  title: "Olive Trees at Zakynthos"
+- nr: 23
+  title: "Zakynthos landscape"
+- nr: 24
+  title: "Minna looking awesome in glasses (Photocredit: Mikaela Blom)"
+---
+
+<div id="photos">
+	<h1>Photos</h1>
+
+	{% for photo in page.photos %}
+	<a href="/assets/photos/full-size/img{{ photo.nr }}.jpg" data-lightbox="images" data-title="{{ photo.title }}"><img class="thumb" src="/assets/photos/thumbs/img{{ photo.nr }}.jpg" alt="" /></a>
+	{% endfor %}
+
+</div>

@@ -1,0 +1,95 @@
+header {
+	position: relative;
+	z-index: 1;
+	height: 100vh;
+}
+
+nav {
+	padding: 1.3em;
+	float: right;
+}
+
+nav ul li {
+	display: inline-block;
+	width: 5em;
+	text-align: center;
+}
+
+nav ul li a {
+	text-decoration: none;
+	color: black;
+	opacity: 0.5;
+}
+
+nav ul li a:hover {
+	opacity: 0.8;
+}
+
+main {
+    position: relative;
+    margin-bottom: 6em;
+    z-index: 0;
+    background: white;
+}
+
+article {
+	z-index: -1;
+	position: relative;
+	background: white;
+	max-width: 40em;
+	margin: 0 auto;
+	padding-bottom: 3em;
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	z-index: -2;
+	height: 6em;
+	width: 100%;
+	text-align: center;
+	background: LightGrey;
+}
+
+.navicon {
+	width: 3em;
+}
+
+#active {
+	width: 4em;
+}
+
+.icon {
+	width: 3em;
+	padding: 1.5em 0.5em;
+	opacity: 0.5;
+}
+
+.icon:hover {
+	opacity: 0.8;
+}
+
+#links ul li {
+	display: inline;
+}
+
+#arrow-down {
+	width: 7em;
+	opacity: 0.5;
+}
+
+#arrow-up {
+	position: fixed;
+	bottom: 15%;
+	right: 10%;
+	opacity: 0.5;
+	z-index: 0;
+}
+
+#arrow-down:hover, #arrow-up:hover {
+	opacity: 1.0;
+}
+
+#arrow-down a img, #arrow-up a img {
+	width: 7em;
+}

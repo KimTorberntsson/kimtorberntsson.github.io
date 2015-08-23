@@ -1,0 +1,11 @@
+# Site settings
+title: Kim Torberntsson's Homepage
+email: kimtorberntsson@gmail.com
+description: > # this means to ignore newlines until "baseurl:"
+  This is my (Kim Torberntsson's) personal homepage, which contains
+  my blog, some photos and my resume. 
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://kimtorberntsson.com" # the base hostname & protocol for your site
+
+# Build settings
+markdown: kramdown

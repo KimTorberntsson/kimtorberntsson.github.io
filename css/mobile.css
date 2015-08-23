@@ -1,0 +1,22 @@
+main {
+	margin-bottom: 4em;
+}
+
+nav {
+	float: none;
+	text-align: center;
+}
+
+footer {
+	height: 4em;
+}
+
+.icon {
+	width: 2em;
+	padding: 1em 0.3em;
+}
+
+#arrow-up, #arrow-down{
+	display: none;
+}
+

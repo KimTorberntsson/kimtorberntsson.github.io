@@ -1,0 +1,14 @@
+<header id="header">
+  <nav>
+    <ul>
+      <li><a href="/index.html"><img {% if page.active == "home" %} id="active" {% endif %} class="navicon" src="/assets/nav/home.svg" alt="link to index page" />Home</a></li>
+      <li><a href="/resume"><img {% if page.active == "resume" %} id="active" {% endif %} class="navicon" src="/assets/nav/cv.svg" alt="link to cv page" />Resume</a></li>
+      <li><a href="/photos"><img {% if page.active == "photos" %} id="active" {% endif %}  class="navicon" src="/assets/nav/photos.svg" alt="link to photos page"/>Photos</a></li>
+    </ul>
+  </nav>
+  <div id="arrow-down">
+    <a href="#main">
+      <img src="/assets/nav/arrow-down.png" alt="link to the main content on the page"/>
+    </a>
+  </div>
+</header>
