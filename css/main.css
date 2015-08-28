@@ -168,7 +168,24 @@ nav ul li .navicon {
 
 	main {
 		margin-bottom: 4.5em;
-	} 
+	}
+
+	nav {
+		float: none;
+		text-align: center;
+	}
+
+	nav ul li {
+		width: 4.0em;
+	}
+
+	nav ul li #active {
+		width: 3.5em;
+	}
+
+	nav ul li .navicon {
+		width: 2.7em;
+}
 
 	.icon {
 		width: 2.5em;
