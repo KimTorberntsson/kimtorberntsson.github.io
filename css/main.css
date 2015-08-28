@@ -153,10 +153,6 @@ nav ul li .navicon {
 	display: inline;
 }
 
-#posts h1 {
-	text-align: center;
-}
-
 /* Remove upward arrow when it covers article */
 @media (max-width: 60em) {
 	#arrow-up {
@@ -166,18 +162,14 @@ nav ul li .navicon {
 
 /* Fix icons for really small screens */
 @media (max-width: 500px) {
-	main {
-		margin-bottom: 4.5em;
-	}
-
-	nav {
-		float: none;
-		text-align: center;
-	}
 
 	footer {
 		height: 4.5em;
 	}
+
+	main {
+		margin-bottom: 4.5em;
+	} 
 
 	.icon {
 		width: 2.5em;
