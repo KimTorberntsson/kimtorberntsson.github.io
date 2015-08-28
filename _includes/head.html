@@ -7,17 +7,17 @@
 	<link rel="stylesheet" href="/css/reset.css" />
 	<link rel="stylesheet" href="/css/text.css" />
 	<link rel="stylesheet" href="/css/main.css" />
-	{% if page.title == "photos" %}<link rel="stylesheet" href="/css/photos.css" />
-	<link rel="stylesheet" href="/css/lightbox.css" />{% endif %}
-	<link rel="stylesheet" href="/css/mobile.css" media="all and (max-width: 480px)" />
+	<link rel="stylesheet" href="/css/syntax.css" />
+	{% if page.photos %}<link rel="stylesheet" href="/css/lightbox.css" />{% endif %}
 	<style>
 		header {
-			background: url("/assets/backgrounds/{{ page.title }}.jpg");
+			background: url("/assets/backgrounds/{{ page.background }}.jpg");
 			background-attachment: scroll;
 			background-size: cover;
 		}
 	</style>
 	<script type="text/javascript" src="/scripts/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="/scripts/smooth-scroll.js"></script>
-	{% if page.title == "photos" %}<script src="/scripts/lightbox.js"></script>{% endif %}
+	{% if page.photos %}<script src="/scripts/lightbox.js"></script>{% endif %}
+	{% include google_analytics.html %}
 </head>

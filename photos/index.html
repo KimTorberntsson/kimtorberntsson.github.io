@@ -1,7 +1,9 @@
 ---
-layout: default
-active: photos
-title: photos
+layout: page
+title: Photos
+active-nav: photos
+background: photos
+photo-folder: 24top
 photos: 
 - nr: 1
   title: "Bird portrait"
@@ -52,12 +54,8 @@ photos:
 - nr: 24
   title: "Minna looking awesome in glasses (Photocredit: Mikaela Blom)"
 ---
-
-<div id="photos">
-	<h1>Photos</h1>
-
-	{% for photo in page.photos %}
-	<a href="/assets/photos/full-size/img{{ photo.nr }}.jpg" data-lightbox="images" data-title="{{ photo.title }}"><img class="thumb" src="/assets/photos/thumbs/img{{ photo.nr }}.jpg" alt="" /></a>
-	{% endfor %}
-
+<div class="photo-gallery">
+  {% for photo in page.photos %}
+    <a href="/assets/photos/{{ page.photo-folder }}/full-size/img{{ photo.nr }}.jpg" data-lightbox="images" data-title="{{ photo.title }}"><img class="thumb" src="/assets/photos/{{ page.photo-folder }}/thumbs/img{{ photo.nr }}.jpg" alt="" /></a>
+  {% endfor %}
 </div>

@@ -1,7 +1,37 @@
+article {
+	z-index: -1;
+	position: relative;
+	background: white;
+	max-width: 40em;
+	margin: 0 auto;
+	padding-bottom: 3em;
+}
+
+em {
+	font-style: italic;
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	z-index: -2;
+	height: 6em;
+	width: 100%;
+	text-align: center;
+	background: LightGrey;
+}
+
 header {
 	position: relative;
 	z-index: 1;
 	height: 100vh;
+}
+
+main {
+	position: relative;
+	margin-bottom: 6em;
+	z-index: 0;
+	background: white;
 }
 
 nav {
@@ -15,81 +45,146 @@ nav ul li {
 	text-align: center;
 }
 
-nav ul li a {
-	text-decoration: none;
-	color: black;
-	opacity: 0.5;
+nav ul li #active {
+	width: 4em;
 }
 
-nav ul li a:hover {
-	opacity: 0.8;
-}
-
-main {
-    position: relative;
-    margin-bottom: 6em;
-    z-index: 0;
-    background: white;
-}
-
-article {
-	z-index: -1;
-	position: relative;
-	background: white;
-	max-width: 40em;
-	margin: 0 auto;
-	padding-bottom: 3em;
-}
-
-footer {
-	position: fixed;
-	bottom: 0;
-	z-index: -2;
-	height: 6em;
-	width: 100%;
-	text-align: center;
-	background: LightGrey;
-}
-
-.navicon {
+nav ul li .navicon {
 	width: 3em;
 }
 
-#active {
+#blog-links {
+	padding: 1.3em;
+	text-align: center;
+}
+
+#blog-links ul li div {
 	width: 4em;
+	display: inline-block;
+}
+
+#blog-links ul li .blogicon {
+	width: 3em;
+}
+
+.date {
+	text-align: center;
+	margin: 0em 1em 1em;
+	font-weight: 300;
+}
+
+.date-link {
+	float: right;
+	font-size: small;
+	text-transform: uppercase;
+	opacity: 0.7;
+}
+
+.highlight{
+	padding: 0% 5%;
+}
+
+.highlight pre {
+	padding: 3%;
 }
 
 .icon {
 	width: 3em;
 	padding: 1.5em 0.5em;
-	opacity: 0.5;
 }
 
-.icon:hover {
-	opacity: 0.8;
+.inverted {
+	-webkit-filter: invert(1.0);
+	filter: invert(1.0);
+}
+
+.photo-gallery {
+	text-align: center;
+}
+
+.post p img {
+	max-height: 10em;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.thumb {
+	height: 150px;
+	margin: 0.1em;
+}
+
+#arrow-down {
+	width: 7em;
+}
+
+#arrow-up {
+	position: fixed;
+	bottom: 15%;
+	right: 3em;
+	z-index: 0;
+}
+
+#arrow-down a img, #arrow-up a img {
+	width: 7em;
+}
+
+#blog-links ul li {
+	display: inline;
+	width: 4em;
+	text-align: center;
+}
+
+#blog-links {
+	text-align: center;
+	margin-bottom: -10%;
+}
+
+#blog-nav {
+	text-align: center;
+	margin-bottom: -5%;
+}
+
+#disqus_thread {
+	padding: 2.5% 5% 2.5%;
 }
 
 #links ul li {
 	display: inline;
 }
 
-#arrow-down {
-	width: 7em;
-	opacity: 0.5;
+#posts h1 {
+	text-align: center;
 }
 
-#arrow-up {
-	position: fixed;
-	bottom: 15%;
-	right: 10%;
-	opacity: 0.5;
-	z-index: 0;
+/* Remove upward arrow when it covers article */
+@media (max-width: 60em) {
+	#arrow-up {
+		display: none;
+	}
 }
 
-#arrow-down:hover, #arrow-up:hover {
-	opacity: 1.0;
-}
+/* Fix icons for really small screens */
+@media (max-width: 500px) {
+	main {
+		margin-bottom: 4.5em;
+	}
 
-#arrow-down a img, #arrow-up a img {
-	width: 7em;
+	nav {
+		float: none;
+		text-align: center;
+	}
+
+	footer {
+		height: 4.5em;
+	}
+
+	.icon {
+		width: 2.5em;
+		padding: 1em 0.3em;
+	}
+
+	#arrow-down{
+		display: none;
+	}
 }

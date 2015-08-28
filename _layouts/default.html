@@ -1,25 +1,17 @@
 <!DOCTYPE html>
+
 <html>
-
-  {% include head.html %}
-
-  <body>
-
-    {% include header.html %}
-
-    <main id="main">
-      <div id="arrow-up">
-        <a href="#header">
-          <img src="/assets/nav/arrow-up.png" alt="link to the header"/>
-        </a>
-      </div>
-      <article>
-        {{ content }}
-      </article>
-    </main>
-
-    {% include footer.html %}
-    
-  </body>
-
+	{% include head.html %}
+	<body>
+		{% include header.html %}
+		<main id="main">
+			<div id="arrow-up">
+				<a href="#header"><img src="/assets/nav/arrow-up.png" alt="link to the header"/></a>
+			</div>
+			<article>
+				{{ content }}
+			</article>
+		</main>
+		{% include footer.html %}
+	</body>
 </html>

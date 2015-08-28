@@ -1,15 +1,28 @@
 ---
-layout: default
+layout: blog
 ---
+
 <div class="post">
-
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
-    <p class="post-meta">{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}</p>
-  </header>
-
-  <article class="post-content">
-    {{ content }}
-  </article>
-
+	<h1>{{ page.title }}</h1>
+	<div class="date">{{ page.date | date: "%-d %B %Y" }}</div>
+	<hr>
+	{{ content }}
+	{% if page.photos %}
+	<div class="photo-gallery">
+		{% for photo in page.photos %}
+		<a href="/assets/photos/{{ page.photo-folder }}/full-size/img{{ photo.nr }}.jpg" data-lightbox="images" data-title="{{ photo.title }}"><img class="thumb" src="/assets/photos/{{ page.photo-folder }}/thumbs/img{{ photo.nr }}.jpg" alt="" /></a>
+		{% endfor %}
+	</div>
+	{% endif %}
+	<hr>
+	{% include comments.html %}
+	<hr>
+	<div id="blog-nav">
+		{% if page.previous %}
+		<a href="{{ page.previous.url }}"><img src="/assets/nav/arrow-left.svg" alt="link to previous page" class="icon"/></a>
+		{% endif %}
+		{% if page.next %}
+		<a href="{{ page.next.url }}"><img src="/assets/nav/arrow-right.svg" alt="link to previous page" class="icon"/></a>
+		{% endif %}
+	</div>
 </div>
