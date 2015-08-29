@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Welcome to my Blog"
+title: Welcome to my Blog
 date: 2015-08-24 15:51:00
 background: welcome
 ---
@@ -11,6 +11,6 @@ Hi there and welcome. One thing the old version of this site really lacked was a
 
 Eventually I heard about [Jekyll](http://jekyllrb.com) and decided to use it, since it basically solved every problem that I had. It took some time before I had time for a small programming project, but once I had I started working on adding the blog functionality to my old website, while still keeping the style and content that I had already written. I'll write a post about how and why I used Jekyll very soon. 
 
-And right, welcome. Normally I guess you should present what your blog will be about rather then how you built it, but in some twisted sense perhaps that is all the introduction of me that you need? And perhaps you remember how it was when we used to play with Lego. Once the dragon keep was built there was not really any fun playing with it. So, if I manage to keep the blog up and going (which I should, now that it looks as cool as the  old dragon keep) I imagine I'll add some photos every now and then, perhaps a review of something or just some thought or tip. There is an extra reason for doing this as you'll find out soon if you follow this feed (see what I did there). And yes, I know that it's a bit weird to write in English when you're from Sweden, but I really wanted to try to go international here and you guys all know English anyway. I really tried to squeeze in everything an awesome blog should haves. You can comment on the posts and there is even an rss-feed for you nerds out there (special for you Henning).
+And right, welcome. Normally I guess you should present what your blog will be about rather then how you built it, but in some twisted sense perhaps that is all the introduction of me that you need? And perhaps you remember how it was when we used to play with Lego. Once the dragon keep was built there was not really any fun playing with it. So, if I manage to keep the blog up and going (which I should, now that it looks as cool as the  old dragon keep) I imagine I'll add some photos every now and then, perhaps a review of something or just some thought or tip. There is an extra reason for doing this as you'll find out soon if you follow this feed (see what I did there). And yes, I know that it's a bit weird to write in English when you're from Sweden, but I really wanted to try to go international here and you guys all know English anyway. I really tried to squeeze in everything an awesome blog should have. You can comment on the posts and there is even an rss-feed for you nerds out there (I thought about you here Henning).
 
 

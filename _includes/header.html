@@ -1,4 +1,9 @@
 <header id="header">
+  <div id="arrow-down">
+    <a href="#main">
+      <img {% if page.dark-background %} class="inverted" {% endif%} src="/assets/nav/arrow-down.png" alt="link to the main content on the page"/>
+    </a>
+  </div>
   <nav>
     <ul>
       <li{% if page.dark-background %} class="inverted" {% endif%}><a href="/index.html"><img {% if page.active-nav == "home" %}id="active"{% endif %} class="navicon" src="/assets/nav/home.svg" alt="link to index page" />Home</a></li>
@@ -7,9 +12,4 @@
       <li{% if page.dark-background %} class="inverted" {% endif%}><a href="/blog"><img {% if page.active-nav == "blog" %} id="active" {% endif %} class="navicon" src="/assets/nav/blog.svg" alt="link to blog page"/>Blog</a></li>
     </ul>
   </nav>
-  <div id="arrow-down">
-    <a href="#main">
-      <img {% if page.dark-background %} class="inverted" {% endif%} src="/assets/nav/arrow-down.png" alt="link to the main content on the page"/>
-    </a>
-  </div>
 </header>

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Jonathan Johansson"
+title: Jonathan Johansson
 date: 2015-08-28 12:04:00
 background: jonathan-johansson
 dark-background: true

@@ -11,6 +11,9 @@ background: blog
 		<h2><a href='{{post.url}}'>{{ post.title }}</a></h2>
 		<div class="date">{{ post.date | date: "%-d %B %Y" }}</div>
 		{{ post.content}}
+		<div class="post-link">
+			<a href='{{post.url}}'>To full post</a>
+		</div>
 		<hr>
 	</div>
 {% endfor %}

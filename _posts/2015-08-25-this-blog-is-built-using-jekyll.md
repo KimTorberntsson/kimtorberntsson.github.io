@@ -1,8 +1,9 @@
 ---
 layout: post
-title: "This Blog is Built Using Jekyll"
+title: This Blog is Built Using Jekyll
 date: 2015-08-25 15:51:00
 background: jekyll
+dark-background: true
 ---
 
 Ok so this might get a bit technical.
