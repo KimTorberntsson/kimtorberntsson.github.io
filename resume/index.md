@@ -41,7 +41,7 @@ My master work is focused on computational sciences and I expect to have my mast
 
 ### 2014 - 2015: Lab Assistant at Uppsala University.
 
-I worked in the course “Analogue Electronics”, helping the students build an amplifier and at the courses “Computer Programming I & II”, helping the student learn Java programming.
+I worked in the course “Analogue Electronics”, helping the students build an amplifier and at the courses “Computer Programming I & II”, helping the students learn Java programming.
 
 ### 2014: Bachelors Thesis at Uppsala University.
 
