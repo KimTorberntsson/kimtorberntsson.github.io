@@ -4,7 +4,7 @@ article {
 	background: white;
 	max-width: 40em;
 	margin: 0 auto;
-	padding-bottom: 3em;
+	padding: 2em 0em 3em;
 }
 
 footer {
@@ -170,8 +170,6 @@ main {
 }
 
 #blog-links {
-	padding-top: 1em;
-	margin-bottom: -2.5em;
 	text-align: center;
 }
 
