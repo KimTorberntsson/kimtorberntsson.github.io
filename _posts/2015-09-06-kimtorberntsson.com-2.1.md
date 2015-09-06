@@ -1,6 +1,6 @@
 ---
 layout: post
-title: kimtorberntsson.com 2.1
+title: Site Update 2.1
 date: 2015-09-06 20:20:00
 background: kimtorberntsson.com-2.1
 ---
