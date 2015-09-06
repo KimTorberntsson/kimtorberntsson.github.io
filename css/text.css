@@ -3,6 +3,10 @@ body {
 	font-size: 100%;
 }
 
+em {
+	font-style: italic;
+}
+
 h1 {
 	font-size: 2.5em;
 	padding: 10% 5% 2.5%;
@@ -29,16 +33,104 @@ p {
 	font-weight: 300;
 }
 
+p img {
+	max-width: 80%;
+	min-width: 80%;
+	margin: 0% 10%;
+}
+
 a {
 	text-decoration: none;
 	color: black;
 	opacity: 0.6;
 }
 
-a:hover {
+p a {
+	font-weight: 600;
+}
+
+p a:hover {
+	color: #FF6600;
 	opacity: 0.9;
 }
 
-p a {
-	font-weight: 600;
+/* Orange underlining animation for h1 */
+
+h1 a {
+	display: inline-block;
+	position: relative;
+}
+
+h1 a:hover {
+	color: #FF6600;
+	opacity: 0.9;
+}
+
+h1 a:after {
+	content: '';
+	display: block;
+	margin: 5px auto;
+	height: 3px;
+	width: 0px;
+	background: transparent;
+	transition: width .5s ease, background-color .5s ease;
+}
+
+h1 a:hover:after {
+	width: 100%;
+	background: #FF6600;
+}
+
+/* Orange underlining animation for h2 */
+
+h2 a {
+	display: inline-block;
+	position: relative;
+}
+
+h2 a:hover {
+	color: #FF6600;
+	opacity: 0.9;
+}
+
+h2 a:after {
+	content: '';
+	display: block;
+	margin: 5px auto;
+	height: 3px;
+	width: 0px;
+	background: transparent;
+	transition: width .5s ease, background-color .5s ease;
+}
+
+h2 a:hover:after {
+	width: 100%;
+	background: #FF6600;
+}
+
+/* Orange underlining animation for post-link */
+
+.post-link p a {
+	display: inline-block;
+	position: relative;
+}
+
+.post-link p a:hover {
+	color: #FF6600;
+	opacity: 0.9;
+}
+
+.post-link p a:after {
+	content: '';
+	display: block;
+	margin: 5px auto;
+	height: 3px;
+	width: 0px;
+	background: transparent;
+	transition: width .5s ease, background-color .5s ease;
+}
+
+.post-link p a:hover:after {
+	width: 100%;
+	background: #FF6600;
 }

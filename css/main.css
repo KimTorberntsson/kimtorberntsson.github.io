@@ -7,10 +7,6 @@ article {
 	padding-bottom: 3em;
 }
 
-em {
-	font-style: italic;
-}
-
 footer {
 	position: fixed;
 	bottom: 0;
@@ -21,10 +17,89 @@ footer {
 	background: LightGrey;
 }
 
-header {
+footer #links ul li {
+	display: inline-block;
+}
+
+footer #links ul li a .icon {
+	width: 3em;
+	padding: 1.5em 0.5em;
+}
+
+footer #links ul li a .svg {
+	height: 3em;
+	width: 3em;
+}
+
+footer #links ul li:hover > a {
+	opacity: 0.9;
+}
+
+footer #links ul li a .svg:hover {
+	fill: #FF6600;
+}
+
+header nav {
+	height: 6em;
+}
+
+header #logo a .svg {
+	height: 5em;
+	width: 5em;
+	margin: 0.5em;
+	float: left;
+}
+
+header #logo a .svg:hover {
+	fill: #FF6600;
+}
+
+header #arrow-down a .svg {
+	height: 6em;
+	width: 6em;
+	float: right;
+}
+
+header #arrow-down a .svg:hover {
+	fill: #FF6600;
+}
+
+header nav {
+	background: white;
+	text-align: center;
+}
+
+header nav ul li {
+	display: inline-block;
+	width: 4em;
+	margin: 0.5em;
+	text-align: center;
+	font-weight: 200;
+}
+
+header nav ul li a .svg {
+	height: 3em;
+	width: 3em;
+}
+
+header nav ul li:hover > a {
+	opacity: 0.9;
+	color: #FF6600;
+}
+
+header nav ul li:hover > a .svg {
+	fill: #FF6600;
+}
+
+header nav ul li a #active {
+	width: 4em;
+	height: 4em;
+}
+
+header #background {
 	position: relative;
-	z-index: 1;
 	height: 100vh;
+	z-index: 1;
 }
 
 main {
@@ -32,38 +107,6 @@ main {
 	margin-bottom: 6em;
 	z-index: 0;
 	background: white;
-}
-
-nav {
-	padding: 1.3em;
-}
-
-nav ul li {
-	display: inline-block;
-	width: 5em;
-	text-align: center;
-}
-
-nav ul li #active {
-	width: 4em;
-}
-
-nav ul li .navicon {
-	width: 3em;
-}
-
-#blog-links {
-	padding: 1.3em;
-	text-align: center;
-}
-
-#blog-links ul li div {
-	width: 4em;
-	display: inline-block;
-}
-
-#blog-links ul li .blogicon {
-	width: 3em;
 }
 
 .date {
@@ -79,7 +122,7 @@ nav ul li .navicon {
 	opacity: 0.7;
 }
 
-.highlight{
+.highlight {
 	padding: 0% 5%;
 }
 
@@ -87,24 +130,12 @@ nav ul li .navicon {
 	padding: 3%;
 }
 
-.icon {
-	width: 3em;
-	padding: 1.5em 0.5em;
-}
-
-.inverted {
-	-webkit-filter: invert(1.0);
-	filter: invert(1.0);
+.list-posts li:hover > a p {
+	color: #FF6600;
 }
 
 .photo-gallery {
 	text-align: center;
-}
-
-p img {
-	max-width: 80%;
-	min-width: 80%;
-	margin: 0% 10%;
 }
 
 .post-link {
@@ -118,10 +149,8 @@ p img {
 	margin: 0.1em;
 }
 
-#arrow-down {
-	width: 7em;
-	margin-top: 0.5em;
-	float: right;
+.thumb:hover {
+	opacity: 0.5;
 }
 
 #arrow-up {
@@ -131,24 +160,64 @@ p img {
 	z-index: 0;
 }
 
-#arrow-down a img, #arrow-up a img {
+#arrow-up a .svg {
+	height: 7em;
 	width: 7em;
 }
 
-#blog-links ul li {
-	display: inline;
-	width: 4em;
-	text-align: center;
+#arrow-up a .svg:hover {
+	fill: #FF6600;
 }
 
 #blog-links {
+	padding-top: 1em;
+	margin-bottom: -2.5em;
 	text-align: center;
-	margin-bottom: -10%;
+}
+
+#blog-links ul li {
+	display: inline-block;
+	width: 4em;
+	margin: 0.2em;
+	text-align: center;
+	font-weight: 200;
+}
+
+#blog-links ul li a .svg {
+	height: 3em;
+	width: 3em;
+}
+
+#blog-links ul li:hover > a {
+	color: #FF6600;
+	opacity: 0.9;
+}
+
+#blog-links ul li:hover > a .svg {
+	fill: #FF6600;
 }
 
 #blog-nav {
 	text-align: center;
 	margin-bottom: -5%;
+}
+
+#blog-nav div {
+	padding: 1.5em 0.5em;
+	display: inline-block;
+}
+
+#blog-nav a .svg {
+	height: 3em;
+	width: 3em;
+}
+
+#blog-nav div:hover > a {
+	opacity: 0.9;
+}
+
+#blog-nav div:hover > a .svg {
+	fill: #FF6600;
 }
 
 #disqus_thread {
@@ -167,7 +236,7 @@ p img {
 }
 
 /* Fix icons for really small screens */
-@media (max-width: 500px) {
+@media (max-width: 40em) {
 
 	footer {
 		height: 4.5em;
@@ -177,29 +246,21 @@ p img {
 		margin-bottom: 4.5em;
 	}
 
-	nav {
-		float: none;
-		text-align: center;
+	header nav ul li{
+		margin: 0.5em 0;
 	}
 
-	nav ul li {
-		width: 4.0em;
-	}
-
-	nav ul li #active {
-		width: 3.5em;
-	}
-
-	nav ul li .navicon {
-		width: 2.7em;
-}
-
-	.icon {
+	footer #links ul li a .icon {
 		width: 2.5em;
+		height: 2.5em;
 		padding: 1em 0.3em;
 	}
 
-	#arrow-down{
+	#arrow-down {
+		display: none;
+	}
+
+	#logo {
 		display: none;
 	}
 }

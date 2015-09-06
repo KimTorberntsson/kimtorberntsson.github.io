@@ -4,7 +4,7 @@ title: Blog Posts
 active-nav: blog
 background: blog
 ---
-<h1>{{ page.title }}</h1>
+<h1><a href='{{page.url}}'>{{ page.title }}</a></h1>
 <hr>
 {% for post in paginator.posts %}
 	<div class="post">
@@ -12,7 +12,7 @@ background: blog
 		<div class="date">{{ post.date | date: "%-d %B %Y" }}</div>
 		{{ post.content}}
 		<div class="post-link">
-			<a href='{{post.url}}'>To full post</a>
+			<p><a href='{{post.url}}'>To full post</a></p>
 		</div>
 		<hr>
 	</div>
@@ -21,10 +21,10 @@ background: blog
 <div id="blog-nav">
 {% if paginator.total_pages > 1 %}
 	{% if paginator.previous_page %}
-		<a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}"><img src="/assets/nav/arrow-left.svg" alt="link to previous page" class="icon"/></a>
+		<div><a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}"><img src="/assets/nav/arrow-left.svg" alt="link to previous page" class="icon svg"/></a></div>
 	{% endif %}
 	{% if paginator.next_page %}
-		<a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}"><img src="/assets/nav/arrow-right.svg" alt="link to previous page" class="icon"/></a>
+		<div><a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}"><img src="/assets/nav/arrow-right.svg" alt="link to previous page" class="icon svg"/></a></div>
 	{% endif %}
 {% endif %}
 </div>

@@ -4,19 +4,21 @@
 	<meta name="author" content="Kim Torberntsson"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title>Kim Torberntsson</title>
+	<link rel="apple-touch-icon" href="/assets/nav/logo.png">
 	<link rel="stylesheet" href="/css/reset.css" />
 	<link rel="stylesheet" href="/css/text.css" />
 	<link rel="stylesheet" href="/css/main.css" />
 	<link rel="stylesheet" href="/css/syntax.css" />
 	{% if page.photos %}<link rel="stylesheet" href="/css/lightbox.css" />{% endif %}
 	<style>
-		header {
+		header #background {
 			background: url("/assets/backgrounds/{{ page.background }}.jpg");
 			background-attachment: scroll;
 			background-size: cover;
 		}
 	</style>
 	<script type="text/javascript" src="/scripts/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="/scripts/svg-transform.js"></script>
 	<script type="text/javascript" src="/scripts/smooth-scroll.js"></script>
 	{% if page.photos %}<script src="/scripts/lightbox.js"></script>{% endif %}
 	{% include google_analytics.html %}
