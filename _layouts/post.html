@@ -10,7 +10,7 @@ layout: blog
 	{% if page.photos %}
 	<div class="photo-gallery">
 		{% for photo in page.photos %}
-		<a href="/assets/photos/{{ page.photo-folder }}/full-size/img{{ photo.nr }}.jpg" data-lightbox="images" data-title="{{ photo.title }}"><img class="thumb" src="/assets/photos/{{ page.photo-folder }}/thumbs/img{{ photo.nr }}.jpg" alt="" /></a>
+		<a href="/assets/photos/{{ page.background }}/full-size/img{{ photo.nr }}.jpg" data-lightbox="images" data-title="{{ photo.title }}"><img class="thumb" src="/assets/photos/{{ page.background }}/thumbs/img{{ photo.nr }}.jpg" alt="" /></a>
 		{% endfor %}
 	</div>
 	{% endif %}

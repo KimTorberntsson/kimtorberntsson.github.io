@@ -3,7 +3,6 @@ layout: post
 title: Jonathan Johansson
 date: 2015-09-16 19:02:00
 background: jonathan-johansson
-photo-folder: jonathan-johansson
 photos:
 - nr: 1
   title: "Jonathan Johansson"
