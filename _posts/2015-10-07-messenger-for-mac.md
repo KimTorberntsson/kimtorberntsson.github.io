@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Messenger For Mac
+title: Messenger for Mac
 date: 2015-10-07 17:54:00
 background: messages
 ---
