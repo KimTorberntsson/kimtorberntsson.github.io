@@ -123,11 +123,12 @@ main {
 }
 
 .highlight {
-	padding: 0% 5%;
-}
-
-.highlight pre {
+	margin: 3%;
 	padding: 3%;
+	line-height: 1.3em;
+	overflow: scroll;
+	border-radius: 15px;
+	box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.10)
 }
 
 .list-posts li:hover > a p {
