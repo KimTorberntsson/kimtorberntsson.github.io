@@ -58,11 +58,11 @@ p a:hover {
 	opacity: 0.9;
 }
 
-li a {
+.post li a {
 	font-weight: 600;
 }
 
-li a:hover {
+.post li a:hover {
 	color: #FF6600;
 	opacity: 0.9;
 }
