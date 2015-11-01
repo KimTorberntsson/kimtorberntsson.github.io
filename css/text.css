@@ -112,6 +112,16 @@ h2 a:hover:after {
 	background: #FF6600;
 }
 
+.post ul {
+	padding-left: 10%;
+	list-style-type: disc;
+}
+
+.post ul li {
+	margin-top: 4.0%;
+	font-weight: 300;
+}
+
 /* Orange underlining animation for post-link */
 
 .post-link p a {
