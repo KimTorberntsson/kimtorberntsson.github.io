@@ -58,6 +58,15 @@ p a:hover {
 	opacity: 0.9;
 }
 
+li a {
+	font-weight: 600;
+}
+
+li a:hover {
+	color: #FF6600;
+	opacity: 0.9;
+}
+
 /* Orange underlining animation for h1 */
 
 h1 a {
@@ -118,7 +127,7 @@ h2 a:hover:after {
 }
 
 .post ul li {
-	margin-top: 4.0%;
+	margin: 5.0% 0%;
 	font-weight: 300;
 }
 
