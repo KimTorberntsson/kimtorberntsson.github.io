@@ -3,6 +3,11 @@ body {
 	font-size: 100%;
 }
 
+code, pre {
+	font-family: Menlo, Monaco, Consolas, "Courier New", monospace, sans-serif;
+	font-size: 90%;
+}
+
 em {
 	font-style: italic;
 }

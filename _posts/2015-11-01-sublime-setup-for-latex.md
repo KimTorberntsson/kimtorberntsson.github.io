@@ -32,7 +32,7 @@ Lastly I want to mention two small cosmetic changes I did to Sublime Text. The a
 
 When I dragged a folder onto Sublime Text 3 I found something really horrific (worse than anything I saw this Halloween). In addition to these really nice arrows that indicate folders, they have added extremely ugly icons for different files and folders. These were so terrible that I would have to downgrade to Sublime Text 2 if there was no way of getting rid of them. Luckily (as so many times before) the day was saved by [Stack Overflow](http://stackoverflow.com/questions/25487263/hide-icons-in-sidebar). Basically you have to replace the code concerning the folder and file icons in the default theme for the icons with the following:
 
-{% highlight css%}
+{% highlight css %}
 {
     "class": "icon_file_type",
     "content_margin": [0,0]
@@ -47,4 +47,4 @@ When I dragged a folder onto Sublime Text 3 I found something really horrific (w
 }
 {% endhighlight %}
 
-Hope someone found this helpful. This is the best way to write LaTeX that I have seen, with the possible exception of just writing everything online using [Overleaf](https://www.overleaf.com/?utm_expid=71700200-3.zinQGCQWTZa5ZTVcJEdM-w.0#.VjZnaIS9gS0). I still think that Sublime provides a better text editor, and somehow it feels a bit better to have the files in a [Dropbox](https://www.dropbox.com) folder. It is a bit easier to get started with Overleaf though.
+Hope someone found this helpful. This is the best way to write LaTeX that I have seen, with the possible exception of just writing everything online using [Overleaf](https://www.overleaf.com/?utm_expid=71700200-3.zinQGCQWTZa5ZTVcJEdM-w.0#.VjZnaIS9gS0). I still think that Sublime provides a better text editor, and somehow it feels a bit better to have the files in a [Dropbox](https://www.dropbox.com) folder. It is easier to get started with Overleaf though.
