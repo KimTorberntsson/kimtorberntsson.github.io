@@ -26,15 +26,9 @@ There are also some nice aspects with using a generator instead of for example a
 And here are a few links I took inspiration from when building this blog:
 
 * [Jekyll Homepage](http://jekyllrb.com/)
-
 * [Codecourse's video guide](https://www.youtube.com/watch?v=iWowJBRMtpc)
-
 * [Joshua Lande's blog](http://joshualande.com/jekyll-github-pages-poole/)
-
 * [Joel Glovier's blog](http://joelglovier.com/writing/rss-for-jekyll/ )
-
 * [Github Pages](https://pages.github.com/)
-
 * [Smashing Magazine's guide](http://www.smashingmagazine.com/2014/08/build-blog-jekyll-github-pages/)
-
 * [David Ensinger about Github Pages and DNS](http://davidensinger.com/2013/03/setting-the-dns-for-github-pages-on-namecheap/)
