@@ -11,10 +11,10 @@
 	</div>
 	<nav>
 		<ul>
-			<li><a href="/"><img {% if page.active-nav == "home" %}id="active"{% endif %} class="svg navicon" src="/assets/nav/home.svg" alt="link to index page" />About</a></li>
+			<li><a href="/"><img {% if page.active-nav == "blog" %} id="active" {% endif %} class="svg navicon" src="/assets/nav/blog.svg" alt="link to blog page"/>Blog</a></li>
 			<li><a href="/resume"><img {% if page.active-nav == "resume" %} id="active" {% endif %} class="svg navicon" src="/assets/nav/cv.svg" alt="link to cv page" />Resume</a></li>
-			<li><a href="/photos"><img {% if page.active-nav == "photos" %} id="active" {% endif %} class="svg navicon" src="/assets/nav/photos.svg" alt="link to photos page"/>Photos</a></li>
-			<li><a href="/blog"><img {% if page.active-nav == "blog" %} id="active" {% endif %} class="svg navicon" src="/assets/nav/blog.svg" alt="link to blog page"/>Blog</a></li>
+			<li><a href="/photos"><img {% if page.active-nav == "photos" %} id="active" {% endif %} class="svg navicon" src="/assets/nav/photos.svg" alt="link to photos page"/>Gallery</a></li>
+			<li><a href="/about"><img {% if page.active-nav == "about" %}id="active"{% endif %} class="svg navicon" src="/assets/nav/home.svg" alt="link to index page" />About</a></li>
 		</ul>
 	</nav>
 	<div id="background"></div>
