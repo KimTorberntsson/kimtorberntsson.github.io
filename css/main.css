@@ -153,6 +153,15 @@ main {
 	opacity: 0.5;
 }
 
+.video {
+	margin: 1em;
+	text-align: center;
+}
+
+.video iframe {
+	width: 80%;
+}
+
 #arrow-up {
 	position: fixed;
 	bottom: 15%;

@@ -7,13 +7,6 @@ layout: blog
 	<div class="date">{{ page.date | date: "%-d %B %Y" }}</div>
 	<hr>
 	{{ content }}
-	{% if page.photos %}
-	<div class="photo-gallery">
-		{% for photo in page.photos %}
-		<a href="/assets/photos/{{ page.background }}/full-size/img{{ photo.nr }}.jpg" data-lightbox="images" data-title="{{ photo.title }}"><img class="thumb" src="/assets/photos/{{ page.background }}/thumbs/img{{ photo.nr }}.jpg" alt="" /></a>
-		{% endfor %}
-	</div>
-	{% endif %}
 	<hr>
 	<div id="blog-nav">
 		{% if page.previous %}

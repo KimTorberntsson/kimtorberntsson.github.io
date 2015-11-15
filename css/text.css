@@ -3,6 +3,37 @@ body {
 	font-size: 100%;
 }
 
+blockquote {
+	background: #f9f9f9;
+	border-left: 0.5em solid #ccc;
+	font-family: Georgia, serif;
+	font-size: normal;
+	font-style: italic;
+	margin: 2.5% 5%;
+	padding: 2.5%;
+	position: relative;
+	color: #383838;
+}
+
+blockquote:before {
+	display: block;
+	content: "\201C";
+	font-size: 5em;
+	position: absolute;
+	left: 0%;
+	color: #7a7a7a;
+}
+
+blockquote cite {
+	color: #999999;
+	font-size: small;
+	display: block;
+}
+ 
+blockquote cite:before {
+	content: "\2014 \2009";
+}
+
 code, pre {
 	font-family: Menlo, Monaco, Consolas, "Courier New", monospace, sans-serif;
 	font-size: 90%;
