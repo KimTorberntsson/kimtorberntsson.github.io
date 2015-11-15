@@ -247,6 +247,7 @@ main {
 
 	blockquote:before {
 		display: none;
+	}
 
 	footer {
 		height: 4.5em;
