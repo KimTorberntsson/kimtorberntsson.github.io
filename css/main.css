@@ -242,8 +242,11 @@ main {
 	}
 }
 
-/* Fix icons for really small screens */
+/* Fix styles for really small screens */
 @media (max-width: 40em) {
+
+	blockquote:before {
+		display: none;
 
 	footer {
 		height: 4.5em;
