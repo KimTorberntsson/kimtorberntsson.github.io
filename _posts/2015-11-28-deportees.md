@@ -29,6 +29,7 @@ There is so much to love with Deportees, starting with [Peder Stenberg](https://
 > If you love me like I'm gone
 >
 > I will love you like I'm not
+> <cite>Deportees - Love Me Like I'm Gone </cite>
 
 I just have to mention the drummer [Thomas Hedlund](https://sv.wikipedia.org/wiki/Thomas_Hedlund_(musiker)) as well. He has such intensity when playing and it's truly a wonder to watch him live. I really think he is one of the more creative drummers I have ever heard and you just have to love the way he manages to include a cowbell and a really huge cymbal into his drumming. It was a shame that there was so much smoke on stage that I could not get a good picture of him.
 
