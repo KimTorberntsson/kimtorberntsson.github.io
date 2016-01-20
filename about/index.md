@@ -5,7 +5,9 @@ active-nav: about
 background: about
 ---
 
-Welcome to my personal little location on the web. If you don't already know my name is Kim Torberntsson. I live in Uppsala with my lovely fiancée Mikaela Blom and am currently studying Engineering Physics at Uppsala University. During the autumn of 2014 I took a course in web design and learned just enough to build a simple web site. About a year later the 2.0 version of the site was finished, now built using Jekyll and featuring a new sub-page with my personal blog.
+Welcome to my personal little location on the web. If you don't already know (then how did you get here?) my name is Kim Torberntsson. I'm studying Engineering Physics at Uppsala University and I used to live in Uppsala with my lovely fiancée [Mikaela Blom](https://www.facebook.com/mikaela.blom?fref=ts), but during half a year I'm doing my master thesis project at Stanford in California. Sorry for leaving you behind Mikaela, but we'll live together soon again. And I didn't want to miss this amazing chance.
+
+During the autumn of 2014 I took a course in web design and learned just enough to build a simple web site. About a year later the 2.0 version of the site was finished, now built using Jekyll and featuring a new sub-page with my personal blog.
 
 ![Portrait of me (Kim Torberntsson)](/assets/pictures/portrait-kim.jpg)
 
