@@ -2,7 +2,6 @@
 layout: post
 title: Five Short Movie Reviews
 date: 2015-12-04 18:58:00
-background: movie-tips
 ---
 
 Lately me and [Mikaela](https://www.facebook.com/mikaela.blom?fref=ts) have been catching up on some of the most interesting movies of 2014 (and actually one movie from 2015) and I though it would be fun to write something about them and also to recommend them, because it turned out that all of them were well worth the time. 

@@ -2,7 +2,6 @@
 layout: post
 title: Basketball, Student Party and Deadpool
 date: 2016-02-14 23:06:00
-background: basketball-party-cinema
 photos:
 - nr: 1
   title: "Stanford tries to score."

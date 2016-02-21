@@ -2,7 +2,6 @@
 layout: post
 title: Mikaela's New Apartment
 date: 2016-01-09 12:30:00
-background: mikaelas-apartment
 photos:
 - nr: 1
   title: "Picture of the main room in the apartment."

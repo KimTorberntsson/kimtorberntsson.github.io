@@ -2,7 +2,6 @@
 layout: post
 title: Master Thesis Work at Stanford
 date: 2015-09-21 19:42:00
-background: stanford
 ---
 
 I have some great news (which isn't news for a lot of you). I will do my masters thesis work together with [Vidar](https://www.facebook.com/vidar.stiernstrom?ref=ts&fref=ts) at [Stanford University](https://en.wikipedia.org/wiki/Stanford_University). I think I'll write that again: I'm doing my master thesis work at Stanford. This is really cool and almost unbelievable. Together we will study numerical methods and models for induced earthquakes for professor Eric Dunham under the California sun. We will leave just a few days after new years and then come back and collect our degrees at Uppsala in June. I am really into the field of area we are going to study, and everyone we have met seem to be great and professional people.

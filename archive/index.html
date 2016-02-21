@@ -1,13 +1,11 @@
 ---
-layout: blog
+layout: page
 title: Blog Archive
-active-nav: blog
-background: archive
 ---
 
+<h1 class="red-header"><a href='{{page.url}}'>{{ page.title }}</a></h1>
+<hr>
 <div id="posts">
-	<h1><a href='{{page.url}}'>{{ page.title }}</a></h1>
-	<hr>
 	<ul class="list-posts">
 		{% for post in site.posts %}
 		<li>
@@ -20,6 +18,6 @@ background: archive
 		</li>
 		{% endfor %}
 	</ul>
-	<hr>
 </div>
+<hr>
 

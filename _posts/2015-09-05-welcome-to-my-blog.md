@@ -2,7 +2,6 @@
 layout: post
 title: Welcome to my Blog
 date: 2015-09-05 9:15:00
-background: welcome
 ---
 
 Hi there and welcome. One thing the old version of this site really lacked was a blog. I had been thinking about including one, but at that time I built this page using only html and css. Managing a blog like that was just way to much work. In my experience, often times you write like a maniac when you set up a new blog and then after some time it just sort of dies. Now, imagine how terrible it would be to run a blog if you had to link together the new pages with each new entry and even worse, writing the text within html-tags. I would not even have bothered to write a single post. And it really was a shame, because it sure would be nice to have your own blog, where you control everything yourself. You could have your own domain name and also be absolutely certain that no ads will be anywhere on the page. And also get away from these blog site templates that are great to get started with, but quickly become a real pain in the ass as you really try to get creative.

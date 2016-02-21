@@ -2,7 +2,6 @@
 layout: post
 title: Another Five Short Movie Reviews
 date: 2015-12-22 19:43:00
-background: movie-tips-2
 ---
 
 If you read the last movie-review-post-thingy you know the drill by now. Here's another five movie reviews. By the way, I think it makes sense to recommend [IMDB](http://www.imdb.com) sometime now. As many of you know it's a database (well, more like a site perhaps) about movies that contains most of what you need to know about the film industry. I tend to be most interested in the Hollywood stuff, but there's lots of information about extremely obscure movies as well. I'm into IMDB mainly for two things; the watchlist and the ratings. 

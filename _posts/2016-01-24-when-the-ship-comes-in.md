@@ -2,7 +2,6 @@
 layout: post
 title: When The Ship Comes In
 date: 2016-01-24 14:30:00
-background: bob-dylan
 videos:
 - url: "https://www.youtube.com/embed/ldrp7WgDyss"
 ---

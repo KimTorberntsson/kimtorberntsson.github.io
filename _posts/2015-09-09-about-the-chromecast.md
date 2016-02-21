@@ -2,7 +2,6 @@
 layout: post
 title: About the Chromecast
 date: 2015-09-09 22:01:00
-background: chromecast
 ---
 
 This story, believe it or not, starts with a smart (dumb) tv. Me and Mikaela are users of [HBO Nordic](https://se.hbonordic.com) for some time now, and while the tv-series there are really amazing, the software have always been years behind the market leader [Netflix](https://www.netflix.com). Anyway, just a couple of weeks ago we were still using my [PS3](https://en.wikipedia.org/wiki/PlayStation_3) for Netflix and our smart (dumb) tv for HBO Nordic. Netflix on the PS3 was not too bad, but the smart (dumb) tv app was pretty horrific. Then HBO Nordic stopped supporting the smart (dumb) tv platform and therefore offered us a platform that they supported for free. You guessed right, we got ourself a little [chromecast](https://www.google.se/chrome/devices/chromecast/). 

@@ -1,20 +1,19 @@
 ---
-layout: blog
-active-nav: blog
+layout: page
 ---
 
 <div class="post">
-	<h1><a href='{{page.url}}'>{{ page.title }}</a></h1>
+	<h1 class="orange-header"><a href='{{page.url}}'>{{ page.title }}</a></h1>
 	<div class="date">{{ page.date | date: "%-d %B %Y" }}</div>
-	<hr>
+	<hr/>
 	{{ content }}
-	<hr>
+	<hr/>
 	<div id="blog-nav">
 		{% if page.previous %}
 		<div><a href="{{ page.previous.url }}"><img src="/assets/nav/arrow-left.svg" alt="link to previous page" class="icon svg"/></a></div>
 		{% endif %}
 		{% if page.next %}
-		<div><a href="{{ page.next.url }}"><img src="/assets/nav/arrow-right.svg" alt="link to previous page" class="icon svg"/></a></div>
+		<div><a href="{{ page.next.url }}"><img src="/assets/nav/arrow-right.svg" alt="link to next page" class="icon svg"/></a></div>
 		{% endif %}
 	</div>
 </div>

@@ -2,7 +2,6 @@
 layout: post
 title: Deportees
 date: 2015-11-28 22:00:00
-background: deportees
 photos:
 - nr: 1
   title: "Singer of Deportees Peder Stenberg."

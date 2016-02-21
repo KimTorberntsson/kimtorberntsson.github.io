@@ -2,7 +2,6 @@
 layout: post
 title: A Weekend on the Country Side
 date: 2015-09-22 10:45:00
-background: country-side
 photos:
 - nr: 1
   title: "The house"

@@ -1,20 +1,21 @@
 <header id="header">
-	<div id="logo">
+	<div id="logo" class="orange-icon">
 		<a href="/">
 			<img src="/assets/nav/logo.svg" class="svg" alt="link to the about page"/>
 		</a>
 	</div>
-	<div id="arrow-down">
+	<div id="arrow-down" {% if page.title == "Gallery" %} class="blue-icon" {% elsif page.title == "Blog Archive" %} class="red-icon" {% elsif page.title == "Hello" %} class="green-icon" {% else %} class="orange-icon" {% endif %}>
 		<a href="#main">
 			<img src="/assets/nav/arrow-down.svg" class="svg" alt="link to the main content on the page"/>
 		</a>
 	</div>
 	<nav>
 		<ul>
-			<li><a href="/"><img {% if page.active-nav == "blog" %} id="active" {% endif %} class="svg navicon" src="/assets/nav/blog.svg" alt="link to blog page"/>Blog</a></li>
-			<li><a href="/resume"><img {% if page.active-nav == "resume" %} id="active" {% endif %} class="svg navicon" src="/assets/nav/cv.svg" alt="link to cv page" />Resume</a></li>
-			<li><a href="/photos"><img {% if page.active-nav == "photos" %} id="active" {% endif %} class="svg navicon" src="/assets/nav/photos.svg" alt="link to photos page"/>Gallery</a></li>
-			<li><a href="/about"><img {% if page.active-nav == "about" %}id="active"{% endif %} class="svg navicon" src="/assets/nav/home.svg" alt="link to index page" />About</a></li>
+			<li class="blue-icon"><a href="/gallery"><img {% if page.title == "Gallery" %} id="active" {% endif %} class="svg navicon" src="/assets/nav/gallery.svg" alt="link to the gallery" />Gallery</a></li>
+			<li class="red-icon"><a href="/archive"><img {% if page.title == "Blog Archive" %} id="active" {% endif %} class="svg navicon" src="/assets/nav/archive.svg" alt="link to the archive section of the blog" />Archive</a></li>
+			<li class="orange-icon"><a href="/"><img {% if page.title == "Blog Posts" or page.date %} id="active" {% endif %} class="svg navicon" src="/assets/nav/blog.svg" alt="link to blog page"/>Blog</a></li>
+			<li class="purple-icon"><a href="/feed.xml"><img class="svg navicon" src="/assets/nav/rss.svg" alt="link to the rss feed" />RSS</a></li>
+			<li class="green-icon"><a href="/about"><img {% if page.title == "Hello" %} id="active" {% endif %} class="svg navicon" src="/assets/nav/about.svg" alt="link to the page with info about me" />About</a></li>
 		</ul>
 	</nav>
 	<div id="background"></div>

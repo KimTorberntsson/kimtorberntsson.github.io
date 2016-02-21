@@ -2,7 +2,6 @@
 layout: post
 title: Arriving at Stanford
 date: 2016-01-19 22:35:00
-background: arriving-at-stanford
 photos:
 - nr: 1
   title: "Ossian and Vidar outside the Church at the Stanford campus."

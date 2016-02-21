@@ -2,7 +2,6 @@
 layout: post
 title: Radical Face
 date: 2015-11-15 16:00:00
-background: radical-face
 photos:
 - nr: 1
   title: "Rickolus was a great opening act. He was a part of the Radical Face band, but got to play his own stuff for half an hour before the main concert started. I really liked that concept."

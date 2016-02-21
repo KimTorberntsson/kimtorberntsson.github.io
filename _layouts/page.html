@@ -1,6 +1,17 @@
----
-layout: default
----
+<!DOCTYPE html>
 
-<h1><a href='{{page.url}}'>{{ page.title }}</a></h1>
-{{ content }}
+<html>
+	{% include head.html %}
+	<body>
+		{% include header.html %}
+		<main id="main">
+			<div id="arrow-up" {% if page.title == "Gallery" %} class="blue-icon" {% elsif page.title == "Blog Archive" %} class="red-icon" {% elsif page.title == "Hello" %} class="green-icon" {% else %} class="orange-icon" {% endif %}>
+				<a href="#header"><img src="/assets/nav/arrow-up.svg" class="svg" alt="link to the header"/></a>
+			</div>
+			<article>
+				{{ content }}
+			</article>
+		</main>
+		{% include footer.html %}
+	</body>
+</html>

@@ -2,7 +2,6 @@
 layout: post
 title: A Weekend in Silicon Valley
 date: 2016-01-31 19:20:00
-background: silicon-valley
 photos:
 - nr: 1
   title: "Vidar and the Android Mascot in front of Google HQ."

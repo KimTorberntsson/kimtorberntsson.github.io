@@ -12,10 +12,13 @@
 	<link rel="stylesheet" href="/css/lightbox.css" />
 	<style>
 		header #background {
-			background: url("/assets/backgrounds/{{ page.background }}.jpg");
+			background: url("/assets/backgrounds/{% if page.title == "Blog Posts" %}{% for post in paginator.posts limit:1 %}{{post.title}}{% endfor %}{% else %}{{ page.title }}{% endif %}.jpg");
 			background-attachment: scroll;
 			background-size: cover;
-		}
+		}{% if page.title == "Hello"%} 
+		p a:hover {
+			color: #00C129;
+		}{% endif %}
 	</style>
 	<script type="text/javascript" src="/scripts/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="/scripts/svg-transform.js"></script>

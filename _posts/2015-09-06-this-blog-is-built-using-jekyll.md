@@ -2,7 +2,6 @@
 layout: post
 title: This Blog is Built Using Jekyll
 date: 2015-09-06 10:50:00
-background: jekyll
 ---
 
 Ok so this might get a bit technical.

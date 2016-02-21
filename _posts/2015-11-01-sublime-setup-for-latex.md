@@ -2,7 +2,6 @@
 layout: post
 title: Sublime Setup for LaTeX
 date: 2015-11-01 20:56:00
-background: latex
 ---
 
 First of, wasn't that a really amazing title for a blog post? Those of you who get it will get it I think.

@@ -1,0 +1,333 @@
+---
+---
+
+/* Variable Definitions */
+$blue: #00B6FF
+$purple: #7F00FF
+$orange: #FF6600
+$red: #FF0000
+$green: #00C129
+$pink: #E800B1
+$dark-blue: #0028AD
+
+article 
+	z-index: -1
+	position: relative
+	background: white
+	max-width: 40em
+	margin: 0 auto
+	padding: 2em 0em 3em
+
+footer 
+	position: fixed
+	bottom: 0
+	z-index: -2
+	height: 6em
+	width: 100%
+	text-align: center
+	background: LightGrey
+
+	#links ul 
+		li 
+			display: inline-block
+			a .icon 
+				width: 3em
+				padding: 1.5em 0.5em
+			a .svg 
+				height: 3em
+				width: 3em
+		li:hover > a 
+			opacity: 0.9
+
+header 
+	nav 
+		height: 6em
+		background: white
+		text-align: center
+
+	#logo a .svg 
+		height: 5em
+		width: 5em
+		margin: 0.5em
+		float: left
+	
+	#arrow-down a .svg 
+		height: 6em
+		width: 6em
+		float: right
+
+	ul 
+		li 
+			display: inline-block
+			width: 4em
+			margin: 0.5em
+			text-align: center
+			font-weight: 200
+			a .svg 
+				height: 3em
+				width: 3em
+		li:hover > a 
+			opacity: 0.9
+
+header 
+	#background 
+		position: relative
+		height: 100vh
+		z-index: 1
+	
+	nav ul 
+		li a #active 
+			width: 4em
+			height: 4em
+
+main 
+	position: relative
+	margin-bottom: 6em
+	z-index: 0
+	background: white
+
+/* Colors for the site */
+
+/* Icons */
+
+.blue-icon:hover 
+	> a 
+		color: $blue
+
+		.svg 
+			fill: $blue
+
+.red-icon:hover 
+	> a 
+		color: $red
+
+		.svg 
+			fill: $red
+
+.orange-icon:hover 
+	> a 
+		color: $orange
+
+		.svg 
+			fill: $orange
+
+.purple-icon:hover 
+	> a 
+		color: $purple
+
+		.svg 
+			fill: $purple
+
+.green-icon:hover 
+	> a 
+		color: $green
+
+		.svg 
+			fill: $green
+
+.pink-icon:hover 
+	> a 
+		color: $pink
+
+		.svg 
+			fill: $pink
+
+.dark-blue-icon:hover 
+	> a 
+		color: $dark-blue
+
+		.svg 
+			fill: $dark-blue
+
+/* Headers */
+
+.blue-header
+	a:hover
+		color: $blue
+
+	a:hover:after
+		background: $blue
+
+.red-header
+	a:hover
+		color: $red
+
+	a:hover:after
+		background: $red
+
+.orange-header
+	a:hover
+		color: $orange
+
+	a:hover:after
+		background: $orange
+
+.green-header
+	a:hover
+		color: $green
+
+	a:hover:after
+		background: $green
+
+/* Underlining animation for h1 */
+
+h1 
+	a
+		display: inline-block
+		position: relative
+
+	a:hover
+		opacity: 0.9
+
+	a:after
+		content: ''
+		display: block
+		margin: 5px auto
+		height: 3px
+		width: 0px
+		background: transparent
+		transition: width .5s ease, background-color .5s ease
+
+	a:hover:after
+		width: 100%
+
+h1 
+	
+
+/* Underlining animation for h2 */
+
+h2 
+	a
+		display: inline-block
+		position: relative
+
+	a:hover
+		opacity: 0.9
+
+	a:after
+		content: ''
+		display: block
+		margin: 5px auto
+		height: 3px
+		width: 0px
+		background: transparent
+		transition: width .5s ease, background-color .5s ease
+
+	a:hover:after
+		width: 100%
+
+.date 
+	text-align: center
+	margin: 0em 1em 1em
+	font-weight: 300
+
+.date-link 
+	float: right
+	font-size: small
+	text-transform: uppercase
+	opacity: 0.7
+
+
+.highlight 
+	margin: 4%
+	padding: 3%
+	line-height: 1.1em
+	overflow: scroll
+	border-radius: 10px
+
+.list-posts li:hover > a p 
+	color: $red
+
+.photo-gallery 
+	text-align: center
+
+.post-link 
+	text-align: center
+	margin-bottom: 1em
+	text-transform: uppercase
+
+.thumb 
+	height: 150px
+	margin: 0.1em
+
+.thumb:hover 
+	opacity: 0.5
+
+
+.video 
+	margin: 1em
+	text-align: center
+
+	iframe 
+		width: 80%
+
+#arrow-up 
+	position: fixed
+	bottom: 15%
+	right: 3em
+	z-index: 0
+	
+	a .svg 
+		height: 7em
+		width: 7em
+
+#blog-nav
+	text-align: center
+	margin-bottom: -5%
+	
+	div 
+		padding: 1.5em 0.5em
+		display: inline-block
+
+	div:hover > a .svg 
+		fill: $orange
+
+	div:hover > a 
+		opacity: 0.9
+
+	a .svg 
+		height: 3em
+		width: 3em
+
+/* Remove upward arrow when it covers article */
+@media (max-width: 60em) 
+	#arrow-up 
+		display: none
+
+/* Fix styles for really small screens */
+@media (max-width: 40em) 
+
+	blockquote:before 
+		display: none
+
+	footer 
+		height: 4.5em
+
+	main 
+		margin-bottom: 4.5em
+
+	header nav 
+		height: 4.7em
+	
+		ul li
+			width: 3em
+			margin: 0.25em
+
+			a 
+				.svg 
+					height: 2.5em
+					width: 2.5em
+				#active 
+					width: 3em
+					height: 3em
+
+	footer #links ul li a .icon 
+		width: 2.5em
+		height: 2.5em
+		padding: 1em 0.3em
+	
+	#arrow-down 
+		display: none
+
+	#logo 
+		display: none

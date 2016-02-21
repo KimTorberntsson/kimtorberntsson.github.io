@@ -2,7 +2,6 @@
 layout: post
 title: Site Update 2.1
 date: 2015-09-06 20:20:00
-background: kimtorberntsson.com-2.1
 ---
 
 I had a talk with [Martin](http://martinhultgren.se) about my new site and he gave me some very good suggestions for improvements. He pointed out that it was not possible to see that you were on my page somewhere in the header, so perhaps there should be a logo or something for clarity. I really wanted to improve on these things so this whole sunday was eaten up by this project (sorry [Mikaela](https://www.facebook.com/mikaela.blom?fref=ts)). 

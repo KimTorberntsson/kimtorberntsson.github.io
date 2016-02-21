@@ -2,7 +2,6 @@
 layout: post
 title: Superbowl & San Francisco
 date: 2016-02-07 19:20:00
-background: superbowl
 photos:
 - nr: 1
   title: "San Francisco from the docks."

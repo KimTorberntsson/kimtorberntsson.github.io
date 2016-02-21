@@ -1,14 +1,12 @@
 ---
-layout: blog
+layout: page
 title: Blog Posts
-active-nav: blog
-background: blog
 ---
-<h1><a href='{{page.url}}'>{{ page.title }}</a></h1>
-<hr>
+<h1 class="orange-header"><a href='{{page.url}}'>{{ page.title }}</a></h1>
+<hr/>
 {% for post in paginator.posts %}
 	<div class="post">
-		<h2><a href='{{post.url}}'>{{ post.title }}</a></h2>
+		<h2 class="orange-header"><a href='{{post.url}}'>{{ post.title }}</a></h2>
 		<div class="date">{{ post.date | date: "%-d %B %Y" }}</div>
 		{{ post.content}}
 		<div class="post-link">
@@ -24,7 +22,7 @@ background: blog
 		<div><a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}"><img src="/assets/nav/arrow-left.svg" alt="link to previous page" class="icon svg"/></a></div>
 	{% endif %}
 	{% if paginator.next_page %}
-		<div><a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}"><img src="/assets/nav/arrow-right.svg" alt="link to previous page" class="icon svg"/></a></div>
+		<div><a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}"><img src="/assets/nav/arrow-right.svg" alt="link to next page" class="icon svg"/></a></div>
 	{% endif %}
 {% endif %}
-</div>
+</div/>
