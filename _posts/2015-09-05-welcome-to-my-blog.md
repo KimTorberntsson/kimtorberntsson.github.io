@@ -13,5 +13,3 @@ Eventually I heard about [Jekyll](http://jekyllrb.com) and decided to use it, si
 And right, welcome. Normally I guess you should present what your blog will be about rather then how you built it, but in some twisted sense perhaps that is all the introduction of me that you need (and being honest you all know me already)? Anyway, if I manage to keep the blog up and going (which I should, now that it looks so cool) I imagine I'll add some photos every now and then, perhaps a review of something or just some thought or tip. There is an extra reason for doing this as you'll find out soon if you follow this feed (see what I did there). And yes, I know that it's a bit weird to write in English when you're from Sweden, but I really wanted to try to go international here and you guys all know English anyway. 
 
 I tried to squeeze in everything that I think an awesome blog should have. You can comment on the posts (I use [Disqus](http://www.disqus.com) for that) if you go to their dedicated pages and there is even an [rss-feed](/feed.xml) for you nerds out there who dig that.
-
-

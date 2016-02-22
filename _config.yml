@@ -10,6 +10,12 @@ url: "http://kimtorberntsson.com" # the base hostname & protocol for your site
 # Build settings
 markdown: kramdown
 
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
 # Pagination
+gems: [jekyll-paginate]
 paginate: 5
 paginate_path: "/blog/page:num/"
+
