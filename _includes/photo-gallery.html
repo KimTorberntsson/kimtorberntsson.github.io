@@ -1,5 +1,0 @@
-<div class="photo-gallery">
-	{% for photo in page.photos %}
-		<a href="/assets/photos/{{ page.title }}/full-size/img{{ photo.nr }}.jpg" data-lightbox="{{ page.title }}" data-title="{{ photo.title }}"><img class="thumb" src="/assets/photos/{{ page.title }}/thumbs/img{{ photo.nr }}.jpg" alt="" /></a>
-	{% endfor %}
-</div>

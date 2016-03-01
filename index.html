@@ -8,7 +8,23 @@ title: Blog Posts
 	<div class="post">
 		<h2 class="orange-header"><a href='{{post.url}}'>{{ post.title }}</a></h2>
 		<div class="date">{{ post.date | date: "%-d %B %Y" }}</div>
-		{{ post.content}}
+		{{ post.content }}
+		{% if post.videos %}
+		<div>
+		{% for video in post.videos %}
+			<div class="video">
+				<iframe width="560" height="315" src="{{ video.url }}" allowfullscreen></iframe>
+			</div>
+		{% endfor %}
+		</div>
+		{% endif %}
+		{% if post.photos %}
+		<div class="photo-gallery">
+			{% for photo in post.photos %}
+				<a href="/assets/photos/{{ post.title }}/full-size/img{{ photo.nr }}.jpg" data-lightbox="{{ post.title }}" data-title="{{ photo.title }}"><img class="thumb" src="/assets/photos/{{ post.title }}/thumbs/img{{ photo.nr }}.jpg" alt="" /></a>
+			{% endfor %}
+		</div>
+		{% endif %}
 		<div class="post-link">
 			<p><a href='{{post.url}}'>To post page</a></p>
 		</div>

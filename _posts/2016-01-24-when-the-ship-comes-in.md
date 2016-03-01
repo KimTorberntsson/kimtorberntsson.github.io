@@ -13,5 +13,3 @@ Then all of a sudden at the end credits of some episode, I immediately recognize
 I find Justin's song and really like it, but the best song of the album is really another song; a cover of [Bob Dylan's](https://en.wikipedia.org/wiki/Bob_Dylan) [When The Ship Comes In](https://en.wikipedia.org/wiki/When_the_Ship_Comes_In) performed by the Decemberists (and the Chieftains). It's funny when you start somewhere and then all of a sudden end up in some other seemingly completely unrelated place. Makes me think of my situation right now actually, but let's not get into that right now.
 
 Anyway, below is a Youtube video with the song. I'm sure you'll all love it and like most other Bob Dylan songs the [lyrics](http://www.bobdylan.com/us/songs/when-ship-comes) are amazing as well.
-
-{% include videos.html %}

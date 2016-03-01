@@ -32,5 +32,3 @@ photos:
 This weekend me and Mikaela visited [Ellen's](https://www.facebook.com/ellen.karlsson.79?fref=ts) parents at their farm outside of [Skövde](http://www.skovde.se) together with Peter. Ellen's family was extremely welcoming and really nice to us. We had an amazing time with all the animals and the beautiful nature and got to experience lot's of interesting things. We sat on horseback for a few minutes, set up a pen for the sheep, watched the sheep getting trimmed, got a really nice view of the landscape from a cliff, ate lots of great meals and of course played around with the dogs all the time.
 
 Most of the photos found below were shot by Mikaela by the way, so I can't take all of the credit for that.
-
-{% include photo-gallery.html %}

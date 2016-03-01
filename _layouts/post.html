@@ -7,6 +7,22 @@ layout: page
 	<div class="date">{{ page.date | date: "%-d %B %Y" }}</div>
 	<hr/>
 	{{ content }}
+	{% if page.videos %}
+	<div>
+	{% for video in page.videos %}
+		<div class="video">
+			<iframe width="560" height="315" src="{{ video.url }}" allowfullscreen></iframe>
+		</div>
+	{% endfor %}
+	</div>
+	{% endif %}
+	{% if page.photos %}
+	<div class="photo-gallery">
+		{% for photo in page.photos %}
+			<a href="/assets/photos/{{ page.title }}/full-size/img{{ photo.nr }}.jpg" data-lightbox="{{ page.title }}" data-title="{{ photo.title }}"><img class="thumb" src="/assets/photos/{{ page.title }}/thumbs/img{{ photo.nr }}.jpg" alt="" /></a>
+		{% endfor %}
+	</div>
+	{% endif %}
 	<hr/>
 	<div id="blog-nav">
 		{% if page.previous %}

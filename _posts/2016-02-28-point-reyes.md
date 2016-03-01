@@ -54,5 +54,3 @@ Me and Vidar have been talking about going hiking for a couple of weeks now and 
 The first day the weather was kind of crappy, with lots of really moist clouds that drenched everything in a really smug and evil manner. You hardly felt the rain but in a few hours you were soaked. Me, Vidar and Reid arrived earlier on Friday and took a shorter hike, but the view wasn't amazing because of the weather. Next day when we returned though, we saw the area in all of it's glory. We went for a hike down to the beach a couple of miles from our camp, where we just enjoyed the view for a while. Then we returned to the camping spot, had lunch and walked to the cars. 
 
 On the way back me, Brent and Roger drove along the coastline on some amazing roads on the way to the Golden Gate Bridge. It was one of the coolest roads I have ever been on and a great way to end the trip. We had a burger at a nice English pub in Palo Alto before they left me of at my place. I had a shower and had one of the better nights of sleep ever. It felt so good to rest after lots of walking and new impressions. 
-
-{% include photo-gallery.html %}

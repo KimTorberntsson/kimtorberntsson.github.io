@@ -56,5 +56,3 @@ After the bridge it was getting dark so we found a nerdy store where I bought [P
 Sunday was Super Bowl day and Brent was kind and invited me, Vidar and Ossian to his really nice place close to the Stanford University. Honestly I didn't understand that much of the game (but I got the basic concept explained to me). That wasn't too bad though, since there was so much else going on. I'd say that the  event was in some ways more similar to [Eurovision Song Contest](https://en.wikipedia.org/wiki/Eurovision_Song_Contest) than to say for example the world cup in Football (not American Football of course, the other one). It's kind of telling that at least half of us were more exited for the commercials. 
 
 Super Bowl was a really nice final to a pretty amazing weekend. I'm getting used to California and feel more and more at home with every passing day. I have to say though, that I'll probably never become a fan of football (the American one I mean). 
-
-{% include photo-gallery.html %}

@@ -64,5 +64,3 @@ That brings us all the way to today, which has been the first day at Stanford. W
 That's everything I had to say for now.
 
 Take care.
-
-{% include photo-gallery.html %}

@@ -20,5 +20,3 @@ photos:
 ---
 
 The 28 of March this year Mikaela and I went to see Jonathan Johansson perform at [V-Dala Nation](http://www.v-dala.se). This was some time ago, but with this new blog I thought it would be fun to throw in some pictures I shot at the concert. It was an amazing concert and you should really check out the new album [Lebensraum](https://play.spotify.com/album/6uCqaq0EbehjXshoinqpXd?play=true&utm_source=open.spotify.com&utm_medium=open), where he actually managed to surpass his previous records, and they're also amazing. I would even rate him as my favorite Swedish singer at the moment. I'd really recommend you too [see him](http://www.jonathanjohansson.se/#/tour) sometime.
-
-{% include photo-gallery.html %}

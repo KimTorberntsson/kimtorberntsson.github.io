@@ -35,5 +35,3 @@ I just have to mention the drummer [Thomas Hedlund](https://sv.wikipedia.org/wik
 Deportees also seem to love xylophones. That, together with (repetitive but still amazing) guitars and synthesizers drenched in delay and reverb give them a quite distinguished (while not completely unique) sound. It was a great concert, which ended with the members of Deportees selling t-shirts and records in person, which I found very sympathetic and intimate. They all seem so very down to earth, which makes them even easier to like. So if you never quite gave them time, perhaps you should do it [right now](https://play.spotify.com/artist/64WsK4rMjSwnyuzTPFHVH4?play=true&utm_source=open.spotify.com&utm_medium=open).
 
 The background picture was borrowed from [humlan.org](http://humlan.org/event/deportees/).
-
-{% include photo-gallery.html %}
