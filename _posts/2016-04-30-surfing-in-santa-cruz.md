@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Surfing in Santa Cruz
-date: 2016-04-13 18:30:00
+date: 2016-04-30 10:25:00
 photos:
 - nr: 1
   title: "Matias is showing the rest of us a couple of surfing moves."
