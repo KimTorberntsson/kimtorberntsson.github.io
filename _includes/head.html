@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="/css/text.css" />
 	<link rel="stylesheet" href="/css/main.css" />
 	<link rel="stylesheet" href="/css/syntax.css" />
-	<link rel="stylesheet" href="/css/lightbox.css" />
+	<link rel="stylesheet" href="/lightbox/css/lightbox.css" />
 	<style>
 		header #background {
 			background: url("/assets/backgrounds/{% if page.title == "Blog Posts" %}{% for post in paginator.posts limit:1 %}{{post.title}}{% endfor %}{% else %}{{ page.title }}{% endif %}.jpg");
@@ -23,7 +23,7 @@
 	<script type="text/javascript" src="/scripts/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="/scripts/svg-transform.js"></script>
 	<script type="text/javascript" src="/scripts/smooth-scroll.js"></script>
-	<script src="/scripts/lightbox.js"></script>
+	<script type="text/javascript" src="/lightbox/js/lightbox.js"></script>
 	{% include google_analytics.html %}
 	<link href='http://kimtorberntsson.com/feed.xml' rel='alternate' type='application/atom+xml'>
 </head>
