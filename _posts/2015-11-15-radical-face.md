@@ -43,6 +43,7 @@ Another thing I love with his music is his storytelling. His albums always have 
 > Oh, I am a long way from home
 >
 > Yeah I am a long way from home
-> <cite>Radical Face - Names </cite>
+>
+> <small>Radical Face - Names </small>
 
 You could say that I've been waiting for a chance to see him live since his debut album [Ghost](https://en.wikipedia.org/wiki/Ghost_(Radical_Face_album)) was released in 2007, so for quite some time now. He really is more of a studio musician than a live artist, so I never had any high hopes that he would come all the way from Florida to little Sweden, but sometimes you're really lucky. I took some photos of the concert and actually filmed two songs as well. For the first time in my life I have uploaded video to [Youtube](https://www.youtube.com/channel/UCA8m7r9pFAwlOdeB-v-6puA?view_as=public), so you can see them there (or right here in this blog post) if you want to. You can hear me (and Mikaela) sing if you recognize our voices, so sorry about that. The concert was really nice, funny and intimate and I hope to repeat it sometime before I die. Hope you like the photos and the videos and that some of you discover the treasure that is Ben Cooper's music.

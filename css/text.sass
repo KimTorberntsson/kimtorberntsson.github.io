@@ -25,6 +25,13 @@ blockquote
 	padding: 2.5%
 	position: relative
 	color: #383838
+	small
+		color: #999999
+		font-size: small
+		display: block
+ 
+	small:before
+		content: "\2014 \2009"
 
 blockquote:before
 	display: block
@@ -33,14 +40,6 @@ blockquote:before
 	position: absolute
 	left: 0%
 	color: #7a7a7a
-
-	cite
-		color: #999999
-		font-size: small
-		display: block
- 
-	cite:before
-		content: "\2014 \2009"
 
 code, pre
 	font-family: $code-font-stack
