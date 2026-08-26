@@ -20,7 +20,7 @@ def anchors(base_url, path):
     return ANCHOR.findall(html)
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def gallery(base_url):
     found = anchors(base_url, "/gallery/")
     assert found, "no photo anchors found on /gallery/"

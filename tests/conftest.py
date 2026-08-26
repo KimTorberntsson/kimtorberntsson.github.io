@@ -99,6 +99,13 @@ def production_site(tmp_path_factory):
     import shutil
     import subprocess
 
+    # run.sh builds once and shares it, so the parallel workers do not each
+    # spend ten seconds rebuilding the same site.
+    shared = os.environ.get("PRODUCTION_SITE")
+    if shared and os.path.isdir(os.path.join(shared, "assets")):
+        yield shared
+        return
+
     repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     dest = tmp_path_factory.mktemp("production-site")
     result = subprocess.run(

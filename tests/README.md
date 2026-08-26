@@ -11,17 +11,25 @@ End to end tests for the fullscreen photo viewer (`scripts/lightbox.js` and
 ```
 
 First run creates `tests/.venv` and downloads Chromium (about 95 MB, cached in
-`~/Library/Caches/ms-playwright`). After that it is just pytest.
+`~/Library/Caches/ms-playwright`). After that it is just pytest. The whole suite
+takes about 20 seconds.
 
-If a Jekyll server is already answering on `http://localhost:4000` the tests use
-it; otherwise they start `bundle exec jekyll serve` themselves and shut it down
-at the end.
+`run.sh` starts a Jekyll server if nothing is answering on
+`http://localhost:4000`, and builds the site once with the production config for
+the tests that check absolute URLs. Both happen there rather than in a fixture so
+that the parallel workers share them instead of racing to create their own.
 
 ```sh
 ./tests/run.sh -k swipe                  # only the swipe tests
+./tests/run.sh -p no:xdist               # serially, for readable output
+./tests/run.sh --durations=10            # find the slow ones
 ./tests/run.sh --headed --slowmo 400     # watch it happen in a window
 ./tests/run.sh --base-url http://localhost:4001
 ```
+
+Tests run across all cores by default (`-n auto`). Distribution is per test, not
+per file: grouping by file pinned the largest module to one worker and left the
+rest idle, which cost about 50 seconds.
 
 ## Layout
 
