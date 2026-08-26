@@ -90,5 +90,9 @@ def test_scrolling_to_the_end_reaches_the_footer(phone_page, path):
 
 def test_the_footer_links_are_still_there(phone_page):
     phone_page.goto(phone_page.base + "/about/", wait_until="load")
-    count = phone_page.evaluate("document.querySelectorAll('footer a').length")
-    assert count == 7, "expected seven social links, found %d" % count
+    links = phone_page.evaluate(
+        "[...document.querySelectorAll('footer a')].map(a => a.getAttribute('aria-label'))")
+    assert links == ["Facebook", "GitHub", "LinkedIn", "Instagram", "Tumblr"], \
+        "unexpected footer links: %s" % links
+    for gone in ("Twitter", "Email me"):
+        assert gone not in links
