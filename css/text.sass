@@ -5,15 +5,20 @@
 $font-stack: Helvetica, sans-serif
 $code-font-stack: Menlo, Monaco, Consolas, "Courier New", monospace, sans-serif
 $orange: #FF6600
+/* Off black. Pure black against pure white is the maximum contrast case and
+   reads harsh over a long post, and the old #666 was so light that links came
+   out fainter than the text around them. This sits between the two. One value,
+   so nothing drifts out of step. */
+$ink: #333333
 
 a
 	text-decoration: none
-	color: black
-	opacity: 0.6
+	color: inherit
 
 body
 	font-family: $font-stack
 	font-size: 100%
+	color: $ink
 
 blockquote
 	background: #f9f9f9
@@ -26,7 +31,7 @@ blockquote
 	position: relative
 	color: #383838
 	small
-		color: #999999
+		color: #6f6f6f
 		font-size: small
 		display: block
  
@@ -53,10 +58,6 @@ h1
 	padding: 5% 5% 2.5%
 	font-weight: 200
 	text-align: center
-	/* The title used to be a link, and `a { color: black; opacity: 0.6 }` was
-	   tinting it. Stated here so removing the link did not turn every title
-	   solid black. */
-	color: rgba(0, 0, 0, 0.6)
 
 h2
 	font-size: 2em
@@ -86,7 +87,6 @@ p
 
 	a:hover
 		color: $orange
-		opacity: 0.9
 
 	img
 		/* max-width alone: it constrains a large image without stretching a
@@ -110,4 +110,3 @@ p
 				font-weight: 600
 			a:hover
 				color: $orange
-				opacity: 0.9

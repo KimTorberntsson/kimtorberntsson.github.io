@@ -79,21 +79,26 @@ def test_the_dead_h1_animation_is_gone(page):
 
 
 @pytest.mark.parametrize("path", PAGES)
-def test_the_title_keeps_the_tone_it_had_as_a_link(page, path):
-    """`a { color: black; opacity: 0.6 }` was tinting the title. Dropping the
-    link would have turned every title solid black."""
+def test_the_title_uses_the_body_ink(page, path):
+    """It was #666, inherited from `a { opacity: 0.6 }` back when the title was
+    a link, so titles came out lighter than the text beneath them. There is one
+    ink colour now; read it off the body rather than pinning a literal."""
     page.goto(page.base + path, wait_until="load")
     page.wait_for_timeout(300)
-    shade = page.evaluate("""() => {
-        var h = document.querySelector('article h1');
-        var c = getComputedStyle(h).color;
-        var m = c.match(/[\\d.]+/g).map(Number);
-        var alpha = m.length > 3 ? m[3] : 1;
-        // Flatten onto the white the article sits on.
-        return Math.round(255 - (255 - m[0]) * alpha);
+    shades = page.evaluate("""() => {
+        var flat = el => {
+            var m = getComputedStyle(el).color.match(/[\\d.]+/g).map(Number);
+            var alpha = m.length > 3 ? m[3] : 1;
+            return Math.round(255 - (255 - m[0]) * alpha);
+        };
+        return {title: flat(document.querySelector('article h1')),
+                body: flat(document.body)};
     }""")
-    assert 90 <= shade <= 115, \
-        "the title on %s renders as %d on white, expected about 102" % (path, shade)
+    assert shades["title"] == shades["body"], \
+        "the title on %s is %d against body ink %d" % (
+            path, shades["title"], shades["body"])
+    assert shades["title"] < 120, \
+        "the ink is %d on white, too light to read as primary text" % shades["title"]
 
 
 def test_the_title_and_the_post_links_read_as_one_family(page):
@@ -112,3 +117,62 @@ def test_the_title_and_the_post_links_read_as_one_family(page):
     }""")
     assert abs(shades["title"] - shades["post"]) <= 8, \
         "title renders %d and post links %d" % (shades["title"], shades["post"])
+
+
+CONTRAST_ROLES = [
+    ("/2015/11/01/sublime-setup-for-latex.html", "body link", "article p a"),
+    ("/", "post title", "h2 a"),
+    ("/", "to post page", ".post-link a"),
+    ("/archive/", "archive title", ".list-posts p"),
+    ("/archive/", "archive date", ".date-link"),
+    ("/archive/", "year heading", ".year-heading"),
+    ("/2015/11/15/radical-face.html", "blockquote cite", "blockquote small"),
+]
+
+
+def _contrast(page, selector):
+    """WCAG contrast of a role against the white it sits on."""
+    flat = page.evaluate("""sel => {
+        var el = document.querySelector(sel);
+        if (!el) return null;
+        var s = getComputedStyle(el);
+        var m = s.color.match(/[\\d.]+/g).map(Number);
+        var alpha = m.length > 3 ? m[3] : 1;
+        var chain = 1, node = el;
+        while (node && node !== document.documentElement) {
+            chain *= parseFloat(getComputedStyle(node).opacity);
+            node = node.parentElement;
+        }
+        var eff = alpha * chain;
+        return {rgb: [0, 1, 2].map(i => 255 - (255 - m[i]) * eff),
+                size: parseFloat(s.fontSize), weight: parseInt(s.fontWeight, 10)};
+    }""", selector)
+    if flat is None:
+        return None
+
+    def channel(c):
+        c /= 255
+        return c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
+
+    r, g, b = flat["rgb"]
+    lum = 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b)
+    flat["ratio"] = 1.05 / (lum + 0.05)
+    return flat
+
+
+@pytest.mark.parametrize("path,role,selector", CONTRAST_ROLES)
+def test_every_text_role_meets_wcag_aa(page, path, role, selector):
+    """The archive date was 3.04:1 and the year heading 3.35:1, both under the
+    4.5:1 that AA asks of normal text."""
+    page.goto(page.base + path, wait_until="load")
+    page.wait_for_timeout(400)
+    measured = _contrast(page, selector)
+    if measured is None:
+        pytest.skip("%s is not on %s" % (role, path))
+
+    large = measured["size"] >= 24 or (measured["size"] >= 18.66
+                                       and measured["weight"] >= 700)
+    needed = 3.0 if large else 4.5
+    assert measured["ratio"] >= needed, \
+        "%s is %.2f:1 at %.0fpx, needs %.1f:1" % (
+            role, measured["ratio"], measured["size"], needed)

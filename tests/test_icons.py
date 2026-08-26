@@ -94,15 +94,18 @@ def test_the_current_section_is_marked_and_coloured(page, path, label):
                 text: active.length ? active[0].textContent.trim() : null,
                 current: active.length ? active[0].getAttribute('aria-current') : null,
                 activeFill: active.length ? fill(active[0]) : null,
-                plainFill: fill(plain)};
+                plainFill: fill(plain),
+                ink: getComputedStyle(document.body).color};
     }""")
     assert state["count"] == 1, "expected exactly one active nav item, got %d" % state["count"]
     assert state["text"] == label
     assert state["current"] == "page"
     assert state["activeFill"] != state["plainFill"], \
         "the current section is not coloured: %s" % state["activeFill"]
-    assert state["plainFill"] == "rgb(0, 0, 0)", \
-        "the other icons should stay black, got %s" % state["plainFill"]
+    # The icons take fill from currentColor, so they follow the body ink.
+    assert state["plainFill"] == state["ink"], \
+        "the other icons are %s, not the body ink %s" % (
+            state["plainFill"], state["ink"])
 
 
 def test_icon_only_links_have_accessible_names(page):

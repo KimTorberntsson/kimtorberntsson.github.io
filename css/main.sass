@@ -56,9 +56,6 @@ footer
 			a .svg 
 				height: 3em
 				width: 3em
-		li:hover > a 
-			opacity: 0.9
-
 header 
 	position: relative
 
@@ -90,20 +87,11 @@ header
 				font-weight: 200
 				a 
 					display: block
-					/* Full strength at rest. The global a { opacity: 0.6 } left
-					   these labels at #666, and at font-weight 200 that reads
-					   washed out. */
-					opacity: 1
 				a .svg 
 					display: block
 					margin: 0 auto
 					height: 2.4em
 					width: 2.4em
-			/* Lighten on hover rather than darken. Raising the opacity meant
-			   hovering made an already grey label darker, which is backwards
-			   now that resting is full strength. */
-			li:hover > a 
-				opacity: 0.6
 
 	#logo 
 		position: absolute
@@ -146,6 +134,12 @@ main
 /* Colors for the site */
 
 /* Icons */
+
+/* The icons are inline SVG, and fill does not inherit from color, so without
+   this they stay pure black while the text is off black. The colour classes
+   below still override it on hover and for the current section. */
+.svg 
+	fill: currentColor
 
 .blue-icon:hover > a, .blue-icon > a.is-active 
 	color: $blue
@@ -226,9 +220,6 @@ h2
 		display: inline-block
 		position: relative
 
-	a:hover
-		opacity: 0.9
-
 	a:after
 		content: ''
 		display: block
@@ -249,7 +240,7 @@ h2
 .date-link 
 	font-size: small
 	text-transform: uppercase
-	opacity: 0.7
+	color: #5f5f5f
 
 
 .highlight 
@@ -305,7 +296,7 @@ h2
 	text-align: left
 	text-transform: uppercase
 	letter-spacing: 0.08em
-	opacity: 0.45
+	color: #6a6a6a
 	padding: 1.6em 5% 0.2em
 
 	& + .list-posts 
@@ -394,9 +385,6 @@ h2
 
 	div:hover > a .svg 
 		fill: $orange
-
-	div:hover > a 
-		opacity: 0.9
 
 	a .svg 
 		height: 3em
