@@ -123,3 +123,38 @@ def test_the_skip_link_reaches_the_content(page):
     page.evaluate("document.querySelector('#arrow-down a').click()")
     page.wait_for_timeout(1200)
     assert page.evaluate("window.scrollY") > 200, "the skip link did not scroll"
+
+
+@pytest.mark.parametrize("width", [320, 375, 390, 414])
+def test_nav_labels_fit_their_items(browser, base_url, width):
+    """A fixed 3em item was narrower than "Gallery" and "Archive", so those
+    labels spilled into the gap between items, leaving about 3px between them.
+    """
+    context = browser.new_context(viewport={"width": width, "height": 800})
+    page = context.new_page()
+    page.goto(base_url + "/gallery/", wait_until="load")
+    page.wait_for_timeout(500)
+
+    items = page.evaluate("""() => [...document.querySelectorAll('nav li')].map(li => {
+        var a = li.querySelector('a');
+        var text = [...a.childNodes].find(n => n.nodeType === 3 && n.textContent.trim());
+        var range = document.createRange();
+        range.selectNode(text);
+        var tr = range.getBoundingClientRect(), lr = li.getBoundingClientRect();
+        return {label: text.textContent.trim(),
+                item: lr.width, text: tr.width,
+                left: lr.left, right: lr.right,
+                textLeft: tr.left, textRight: tr.right};
+    })""")
+    context.close()
+
+    spilling = [i for i in items if i["text"] > i["item"] + 1]
+    assert not spilling, "labels wider than their item at %dpx: %s" % (
+        width, [(i["label"], "%.0f in %.0f" % (i["text"], i["item"])) for i in spilling])
+
+    # And the labels must not run into each other.
+    ordered = sorted(items, key=lambda i: i["left"])
+    for earlier, later in zip(ordered, ordered[1:]):
+        gap = later["textLeft"] - earlier["textRight"]
+        assert gap > 2, "%r and %r are %.1fpx apart at %dpx" % (
+            earlier["label"], later["label"], gap, width)
