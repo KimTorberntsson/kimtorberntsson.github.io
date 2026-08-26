@@ -3,7 +3,7 @@ layout: page
 title: Blog Archive
 ---
 
-<h1 class="red-header"><a href='{{page.url}}'>{{ page.title }}</a></h1>
+<h1>{{ page.title }}</h1>
 <hr>
 <div id="posts">
 	{% assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
