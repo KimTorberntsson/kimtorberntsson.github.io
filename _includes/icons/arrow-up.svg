@@ -1,9 +1,0 @@
-<svg viewBox="0 0 128.000000 128.000000" class="{{ include.class }}" aria-hidden="true" focusable="false"><metadata>
-Created by potrace 1.12, written by Peter Selinger 2001-2015
-</metadata>
-<g transform="translate(0.000000,128.000000) scale(0.100000,-0.100000)">
-<path d="M456 656 c-104 -100 -185 -186 -179 -189 5 -3 92 73 191 169 l182
-176 180 -174 c178 -170 200 -189 200 -170 0 8 -374 373 -382 372 -1 -1 -88
--83 -192 -184z"/>
-</g>
-</svg>

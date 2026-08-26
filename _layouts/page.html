@@ -5,9 +5,6 @@
 	<body>
 		{% include header.html %}
 		<main id="main">
-			<div id="arrow-up" {% if page.title == "Gallery" %} class="blue-icon" {% elsif page.title == "Blog Archive" %} class="red-icon" {% elsif page.title == "Hello" %} class="green-icon" {% else %} class="orange-icon" {% endif %}>
-				<a href="#header" aria-label="Back to the top">{% include icons/arrow-up.svg class="svg" %}</a>
-			</div>
 			<article>
 				{{ content }}
 			</article>

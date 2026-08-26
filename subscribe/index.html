@@ -1,0 +1,51 @@
+---
+layout: page
+title: Subscribe
+hero: Overcast
+---
+
+<h1>Subscribe</h1>
+<hr/>
+
+<p>This blog has an RSS feed. Paste this address into a feed reader:</p>
+
+<div class="feed-address">
+	<code id="feed-url">{{ '/feed.xml' | absolute_url }}</code>
+	<button type="button" id="copy-feed" hidden>Copy</button>
+</div>
+
+<p>The reader checks for new posts and collects them for you. Opening the
+address in a browser instead just shows XML — that is the raw file, not a
+page.</p>
+
+<p>Every page links the feed in its head, so most readers only need
+<code>kimtorberntsson.com</code>. The file itself is
+<a href="/feed.xml" type="application/rss+xml">here</a>.</p>
+
+<script>
+	(function () {
+		var button = document.getElementById('copy-feed');
+		var url = document.getElementById('feed-url');
+		if (!button || !url || !navigator.clipboard) {
+			return;   // the address stays selectable either way
+		}
+		button.hidden = false;
+		button.addEventListener('click', function () {
+			var settle = function (label) {
+				button.textContent = label;
+				window.setTimeout(function () { button.textContent = 'Copy'; }, 1600);
+			};
+			navigator.clipboard.writeText(url.textContent.trim())
+				.then(function () { settle('Copied'); })
+				.catch(function () {
+					// No clipboard permission: select it so the keyboard works.
+					var range = document.createRange();
+					range.selectNodeContents(url);
+					var selection = window.getSelection();
+					selection.removeAllRanges();
+					selection.addRange(range);
+					settle('Selected');
+				});
+		});
+	}());
+</script>

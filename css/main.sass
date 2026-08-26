@@ -60,11 +60,28 @@ footer
 			opacity: 0.9
 
 header 
+	position: relative
+
 	nav 
-		min-height: 6em
+		min-height: 4.5em
 		background: white
 		text-align: center
+		display: flex
+		align-items: center
+		justify-content: center
+
 		ul 
+			display: flex
+			flex-wrap: wrap
+			justify-content: center
+			/* center, not baseline or stretch. The current section's icon is
+			   3em against everyone else's 2.5em, so centring drops that label
+			   slightly out of line with the others -- accepted, because the
+			   bigger icon sitting centred reads more clearly as the current
+			   section. stretch is the flex default and put every label at the
+			   top of the bar. */
+			align-items: center
+
 			li
 				display: inline-block
 				width: 4em
@@ -73,25 +90,32 @@ header
 				font-weight: 200
 				a 
 					display: block
+					/* Full strength at rest. The global a { opacity: 0.6 } left
+					   these labels at #666, and at font-weight 200 that reads
+					   washed out. */
+					opacity: 1
 				a .svg 
 					display: block
 					margin: 0 auto
-					height: 3em
-					width: 3em
+					height: 2.4em
+					width: 2.4em
+			/* Lighten on hover rather than darken. Raising the opacity meant
+			   hovering made an already grey label darker, which is backwards
+			   now that resting is full strength. */
 			li:hover > a 
-				opacity: 0.9
+				opacity: 0.6
+
+	#logo 
+		position: absolute
+		top: 0
+		left: 0
+		z-index: 1
 
 	#logo a .svg 
-		height: 5em
-		width: 5em
-		margin: 0.5em
-		float: left
+		height: 3.2em
+		width: 3.2em
+		margin: 0.65em
 	
-	#arrow-down a .svg 
-		height: 6em
-		width: 6em
-		float: right
-
 header 
 	/* Reserves the band. The padding area is transparent, so the fixed backdrop
 	   shows through it. svh is the viewport with the mobile browser chrome
@@ -115,11 +139,6 @@ header
 		background-size: cover
 		background-repeat: no-repeat
 	
-	nav ul 
-		li a.is-active .svg 
-			width: 4em
-			height: 4em
-
 main 
 	position: relative
 	background: white
@@ -128,54 +147,47 @@ main
 
 /* Icons */
 
-.blue-icon:hover 
-	> a 
-		color: $blue
+.blue-icon:hover > a, .blue-icon > a.is-active 
+	color: $blue
 
-		.svg 
-			fill: $blue
+	.svg 
+		fill: $blue
 
-.red-icon:hover 
-	> a 
-		color: $red
+.red-icon:hover > a, .red-icon > a.is-active 
+	color: $red
 
-		.svg 
-			fill: $red
+	.svg 
+		fill: $red
 
-.orange-icon:hover 
-	> a 
-		color: $orange
+.orange-icon:hover > a, .orange-icon > a.is-active 
+	color: $orange
 
-		.svg 
-			fill: $orange
+	.svg 
+		fill: $orange
 
-.purple-icon:hover 
-	> a 
-		color: $purple
+.purple-icon:hover > a, .purple-icon > a.is-active 
+	color: $purple
 
-		.svg 
-			fill: $purple
+	.svg 
+		fill: $purple
 
-.green-icon:hover 
-	> a 
-		color: $green
+.green-icon:hover > a, .green-icon > a.is-active 
+	color: $green
 
-		.svg 
-			fill: $green
+	.svg 
+		fill: $green
 
-.pink-icon:hover 
-	> a 
-		color: $pink
+.pink-icon:hover > a, .pink-icon > a.is-active 
+	color: $pink
 
-		.svg 
-			fill: $pink
+	.svg 
+		fill: $pink
 
-.dark-blue-icon:hover 
-	> a 
-		color: $dark-blue
+.dark-blue-icon:hover > a, .dark-blue-icon > a.is-active 
+	color: $dark-blue
 
-		.svg 
-			fill: $dark-blue
+	.svg 
+		fill: $dark-blue
 
 /* Headers */
 
@@ -248,6 +260,40 @@ h2
 	   code is wide enough to need one. */
 	overflow-x: auto
 	border-radius: 10px
+
+/* The feed address on the subscribe page. Wants to look like something you
+   copy rather than something you click. */
+.feed-address 
+	display: flex
+	align-items: center
+	justify-content: space-between
+	gap: 1em
+	margin: 0.5em 5% 1.5em
+	padding: 0.9em 1em
+	background: #f4f4f2
+	border-radius: 6px
+
+	code 
+		word-break: break-all
+		font-size: 0.9em
+
+	button 
+		flex: 0 0 auto
+		min-height: 2.6em
+		padding: 0 1em
+		border: 1px solid rgba(0, 0, 0, 0.2)
+		border-radius: 4px
+		background: white
+		font: inherit
+		font-size: 0.85em
+		text-transform: uppercase
+		letter-spacing: 0.05em
+		color: rgba(0, 0, 0, 0.6)
+		cursor: pointer
+
+	button:hover 
+		border-color: $orange
+		color: $orange
 
 /* Year dividers in the archive. Deliberately quieter and left aligned rather
    than inheriting h2's centred 2em, so they read as separators rather than as
@@ -335,16 +381,6 @@ h2
 		aspect-ratio: 16 / 9
 		border: 0
 
-#arrow-up 
-	position: fixed
-	bottom: 15%
-	right: 3em
-	z-index: 0
-	
-	a .svg 
-		height: 7em
-		width: 7em
-
 #blog-nav
 	text-align: center
 	margin-bottom: -5%
@@ -385,11 +421,6 @@ h2
 	header 
 		padding-bottom: 12em
 
-/* Remove upward arrow when it covers article */
-@media (max-width: 60em) 
-	#arrow-up 
-		display: none
-
 /* Fix styles for really small screens */
 @media (max-width: 40em) 
 
@@ -400,7 +431,7 @@ h2
 		min-height: 4.5em
 
 	header nav 
-		min-height: 4.7em
+		min-height: 4.2em
 	
 		ul li
 			width: auto
@@ -412,17 +443,10 @@ h2
 					height: 2.5em
 					width: 2.5em
 
-			a.is-active .svg 
-				width: 3em
-				height: 3em
-
 	footer #links ul li a .icon 
 		width: 2.5em
 		height: 2.5em
 		padding: 1em 0.3em
 	
-	#arrow-down 
-		display: none
-
 	#logo 
 		display: none

@@ -8,6 +8,8 @@ at the end of the document now.
 
 import pytest
 
+from conftest import sample_pixels
+
 PAGES = ["/", "/gallery/", "/archive/", "/about/"]
 
 
@@ -79,29 +81,6 @@ def test_bouncing_past_the_end_cannot_reveal_the_backdrop(phone_page):
 
 
 FOOTER_GREY = (211, 211, 211)   # LightGrey
-
-
-def sample_pixels(page, clip):
-    """Average colour of a screenshot region.
-
-    Chromium decodes its own PNG for us: a box-shadow is paint only, so there is
-    no element to hit test and nothing in the computed style that proves what
-    actually landed on screen.
-    """
-    import base64
-
-    encoded = base64.b64encode(page.screenshot(clip=clip)).decode()
-    return page.evaluate("""async data => {
-        var img = new Image();
-        await new Promise(done => { img.onload = done; img.src = 'data:image/png;base64,' + data; });
-        var c = document.createElement('canvas');
-        c.width = img.width; c.height = img.height;
-        c.getContext('2d').drawImage(img, 0, 0);
-        var px = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
-        var r = 0, g = 0, b = 0, n = px.length / 4;
-        for (var i = 0; i < px.length; i += 4) { r += px[i]; g += px[i+1]; b += px[i+2]; }
-        return [Math.round(r/n), Math.round(g/n), Math.round(b/n)];
-    }""", encoded)
 
 
 def test_the_bottom_of_the_window_is_footer_coloured(phone_page):
