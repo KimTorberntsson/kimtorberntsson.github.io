@@ -805,3 +805,30 @@ def test_scrolling_does_bring_the_rest_in(phone):
 
     assert len(fetched) > before + 20, \
         "scrolling loaded only %d more thumbnails" % (len(fetched) - before)
+
+
+def test_thumbnails_are_square(desktop):
+    """The suite had no shape assertion, so a regression shipped: the img width
+    and height attributes are presentational hints, and without an explicit
+    height: auto the hinted height won and aspect-ratio was ignored."""
+    desktop.goto("/gallery/")
+    shapes = desktop.page.evaluate(
+        """() => [...document.querySelectorAll('.thumb')].slice(0, 24).map(i => {
+            var r = i.getBoundingClientRect();
+            return Math.round(r.width) + 'x' + Math.round(r.height);
+        })"""
+    )
+    assert shapes, "no thumbnails found"
+    off = [s for s in shapes if s.split("x")[0] != s.split("x")[1]]
+    assert not off, "non-square thumbnails: %s" % sorted(set(off))
+
+
+def test_thumbnails_fill_their_grid_cell(desktop):
+    """A tile smaller than its cell means the grid and the image disagree."""
+    desktop.goto("/gallery/")
+    gap = desktop.page.evaluate("""() => {
+        var cell = document.querySelector('[data-lightbox]').getBoundingClientRect();
+        var img = document.querySelector('.thumb').getBoundingClientRect();
+        return {cell: Math.round(cell.width), img: Math.round(img.width)};
+    }""")
+    assert gap["img"] == gap["cell"], "image %spx in a %spx cell" % (gap["img"], gap["cell"])

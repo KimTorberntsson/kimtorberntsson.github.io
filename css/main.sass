@@ -267,6 +267,10 @@ h2
 .thumb 
 	display: block
 	width: 100%
+	/* height: auto is load bearing. The width and height attributes on the img
+	   are presentational hints, so without this the hinted height wins, both
+	   axes are definite, and aspect-ratio is ignored -- 150x200 tiles. */
+	height: auto
 	aspect-ratio: 1
 	object-fit: cover
 
