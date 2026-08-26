@@ -12,9 +12,7 @@
 	<link rel="stylesheet" href="/css/lightbox.css" />
 	<style>
 		header #background {
-			background: url("/assets/backgrounds/{% if page.title == "Blog Posts" %}{% for post in paginator.posts limit:1 %}{{post.title}}{% endfor %}{% else %}{{ page.title }}{% endif %}.jpg");
-			background-attachment: scroll;
-			background-size: cover;
+			background-image: url("/assets/backgrounds/{% if page.title == "Blog Posts" %}{% for post in paginator.posts limit:1 %}{{post.title}}{% endfor %}{% else %}{{ page.title }}{% endif %}.jpg");
 		}{% if page.title == "Hello"%} 
 		p a:hover {
 			color: #00C129;

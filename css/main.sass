@@ -73,6 +73,13 @@ header
 		position: relative
 		height: 100vh
 		z-index: 1
+		/* Centre the crop. Cover throws away whichever axis does not fit, and
+		   the default top left position meant a wide screen kept the top strip
+		   of the photo and cut the subject off the bottom. */
+		background-position: center
+		background-size: cover
+		background-repeat: no-repeat
+		background-attachment: scroll
 	
 	nav ul 
 		li a #active 
@@ -298,6 +305,18 @@ h2
 	a .svg 
 		height: 3em
 		width: 3em
+
+/* The hero photos are roughly 3:2. Past this width a full bleed box is so much
+   wider than that, that cover discards nearly half the photo's height, so cap it
+   and let the page show either side. The breakpoint equals the cap, so the hero
+   simply stops growing rather than stepping. */
+@media (min-width: 100em) 
+	header 
+		background: #f2f2f0
+
+		#background 
+			max-width: 100em
+			margin: 0 auto
 
 /* Remove upward arrow when it covers article */
 @media (max-width: 60em) 
