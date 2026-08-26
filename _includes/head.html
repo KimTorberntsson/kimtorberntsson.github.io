@@ -1,10 +1,39 @@
 <head>
 	<meta charset="utf-8">
-	<meta name="keywords" content="Kim Torberntsson, photos, photography, engineering, web design, resume, developer, programming, blog, personal"/>
-	<meta name="author" content="Kim Torberntsson"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<title>Kim Torberntsson &middot; {{page.title}}</title>
+
+	{% comment %}
+	The hero photo is named after the page, or after the newest post on the blog
+	index. Assigned once so the stylesheet and the share tags cannot disagree.
+	{% endcomment %}
+	{% if page.title == "Blog Posts" %}{% assign hero = paginator.posts.first.title %}{% else %}{% assign hero = page.title %}{% endif %}
+
+	{% comment %} No post carries a description, so derive one from the text. {% endcomment %}
+	{% if page.description %}{% assign description = page.description %}
+	{% elsif page.date %}{% assign description = page.content | strip_html | normalize_whitespace | strip | truncate: 160 %}
+	{% else %}{% assign description = site.description | strip_newlines | strip %}{% endif %}
+
+	<title>Kim Torberntsson &middot; {{ page.title }}</title>
+	<meta name="description" content="{{ description | xml_escape }}"/>
+	<meta name="author" content="Kim Torberntsson"/>
+	<meta name="keywords" content="Kim Torberntsson, photos, photography, engineering, web design, resume, developer, programming, blog, personal"/>
+	<link rel="canonical" href="{{ page.url | absolute_url }}"/>
+
+	<meta property="og:type" content="{% if page.date %}article{% else %}website{% endif %}"/>
+	<meta property="og:site_name" content="{{ site.title | xml_escape }}"/>
+	<meta property="og:title" content="{{ page.title | xml_escape }}"/>
+	<meta property="og:description" content="{{ description | xml_escape }}"/>
+	<meta property="og:url" content="{{ page.url | absolute_url }}"/>
+	<meta property="og:image" content="{{ '/assets/backgrounds/' | append: hero | append: '.jpg' | absolute_url | replace: ' ', '%20' | replace: '&', '%26' | replace: "'", '%27' }}"/>
+	{% if page.date %}<meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}"/>
+	{% endif %}<meta name="twitter:card" content="summary_large_image"/>
+	<meta name="twitter:title" content="{{ page.title | xml_escape }}"/>
+	<meta name="twitter:description" content="{{ description | xml_escape }}"/>
+	<meta name="twitter:image" content="{{ '/assets/backgrounds/' | append: hero | append: '.jpg' | absolute_url | replace: ' ', '%20' | replace: '&', '%26' | replace: "'", '%27' }}"/>
+
 	<link rel="apple-touch-icon" href="/assets/nav/logo.png">
+	<link rel="alternate" type="application/rss+xml" title="{{ site.title | xml_escape }}" href="{{ '/feed.xml' | absolute_url }}"/>
+
 	<link rel="stylesheet" href="/css/reset.css" />
 	<link rel="stylesheet" href="/css/text.css" />
 	<link rel="stylesheet" href="/css/main.css" />
@@ -12,13 +41,12 @@
 	<link rel="stylesheet" href="/css/lightbox.css" />
 	<style>
 		header #background {
-			background-image: url("/assets/backgrounds/{% if page.title == "Blog Posts" %}{% for post in paginator.posts limit:1 %}{{post.title}}{% endfor %}{% else %}{{ page.title }}{% endif %}.jpg");
-		}{% if page.title == "Hello"%} 
+			background-image: url("/assets/backgrounds/{{ hero }}.jpg");
+		}{% if page.title == "Hello" %}
 		p a:hover {
 			color: #00C129;
 		}{% endif %}
 	</style>
 	<script src="/scripts/lightbox.js" defer></script>
 	{% include google_analytics.html %}
-	<link href='http://kimtorberntsson.com/feed.xml' rel='alternate' type='application/atom+xml'>
 </head>

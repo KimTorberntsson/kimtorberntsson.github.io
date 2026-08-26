@@ -89,6 +89,29 @@ def base_url(request):
 
 
 @pytest.fixture(scope="session")
+def production_site(tmp_path_factory):
+    """A build made with the real config, in its own directory.
+
+    Tests about absolute URLs cannot read _site: `jekyll serve` regenerates it
+    continuously with site.url pointing at localhost, so whether the files hold
+    production URLs depends on which process wrote them last.
+    """
+    import shutil
+    import subprocess
+
+    repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    dest = tmp_path_factory.mktemp("production-site")
+    result = subprocess.run(
+        ["bundle", "exec", "jekyll", "build", "--destination", str(dest), "--quiet"],
+        cwd=repo_root, capture_output=True, text=True,
+    )
+    if result.returncode != 0:
+        pytest.fail("jekyll build failed:\n%s" % (result.stderr or result.stdout))
+    yield str(dest)
+    shutil.rmtree(str(dest), ignore_errors=True)
+
+
+@pytest.fixture(scope="session")
 def playwright():
     with sync_playwright() as p:
         yield p
