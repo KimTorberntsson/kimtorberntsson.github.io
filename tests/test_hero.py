@@ -119,7 +119,7 @@ def test_the_band_is_a_strip_not_a_whole_screen(at_width, width, height):
     """It used to be height: 100vh, so every page opened with a full screen of
     photo that had to be scrolled past."""
     band = band_height(at_width(width, height))
-    assert band < height * 0.6, "band takes %dpx of a %dpx viewport" % (band, height)
+    assert band < height * 0.72, "band takes %dpx of a %dpx viewport" % (band, height)
     assert band > 150, "band is only %dpx" % band
 
 

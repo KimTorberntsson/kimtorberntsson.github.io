@@ -58,13 +58,40 @@ def test_nothing_is_pushed_behind_anything(phone_page, path):
 
 @pytest.mark.parametrize("path", PAGES)
 def test_the_footer_follows_the_content_with_no_gap(phone_page, path):
-    """main carried a bottom margin to reserve room for the fixed footer."""
+    """A photo band above the footer was tried and dropped: the backdrop is
+    fixed to the viewport, so the gap at the bottom exposed an arbitrary lower
+    slice of the image rather than a composed crop."""
     phone_page.goto(phone_page.base + path, wait_until="load")
     state = layout(phone_page)
     assert state["mainMarginBottom"] in ("0px", "auto"), \
-        "main still reserves %s below itself" % state["mainMarginBottom"]
+        "main should not reserve space below itself: %s" % state["mainMarginBottom"]
     assert state["gapAfterMain"] == 0, \
-        "%dpx of gap between the content and the footer" % state["gapAfterMain"]
+        "%dpx between the content and the footer" % state["gapAfterMain"]
+
+
+def test_bouncing_past_the_end_cannot_reveal_the_backdrop(phone_page):
+    """The backdrop is fixed, so an elastic bounce would lift the content off
+    the bottom of the window and show the photo under the footer."""
+    phone_page.goto(phone_page.base + "/about/", wait_until="load")
+    behavior = phone_page.evaluate(
+        "getComputedStyle(document.documentElement).overscrollBehaviorY")
+    assert behavior == "none", "overscroll-behavior-y is %s" % behavior
+
+
+@pytest.mark.parametrize("path", PAGES)
+def test_the_footer_contains_its_own_content(phone_page, path):
+    """footer had a fixed height its content outgrew once the links became
+    inline-block for the tap targets, so it spilled past the grey bar and
+    showed as a sliver of photo underneath."""
+    phone_page.goto(phone_page.base + path, wait_until="load")
+    phone_page.wait_for_timeout(300)
+    spill = phone_page.evaluate("""() => {
+        var f = document.querySelector('footer').getBoundingClientRect();
+        var inner = [...document.querySelectorAll('footer *')]
+            .map(e => e.getBoundingClientRect().bottom);
+        return Math.round(Math.max(...inner) - f.bottom);
+    }""")
+    assert spill <= 0, "footer content spills %dpx past the bar" % spill
 
 
 @pytest.mark.parametrize("path", PAGES)

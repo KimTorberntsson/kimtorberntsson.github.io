@@ -5,6 +5,10 @@
    scripts/smooth-scroll.js, which animated over a full second with jQuery. */
 html
 	scroll-behavior: smooth
+	/* The backdrop is fixed, so an elastic bounce past the end of the page would
+	   lift the content off the bottom of the window and show the photo under the
+	   footer. */
+	overscroll-behavior-y: none
 
 @media (prefers-reduced-motion: reduce)
 	html
@@ -27,7 +31,7 @@ article
 	padding: 2em 0em 3em
 
 footer 
-	height: 6em
+	min-height: 6em
 	width: 100%
 	text-align: center
 	background: LightGrey
@@ -38,6 +42,8 @@ footer
 			a 
 				display: inline-block
 			a .icon 
+				display: block
+				margin: 0 auto
 				width: 3em
 				padding: 1.5em 0.5em
 			a .svg 
@@ -83,8 +89,8 @@ header
 	/* Reserves the band. The padding area is transparent, so the fixed backdrop
 	   shows through it. svh is the viewport with the mobile browser chrome
 	   showing, so the band does not resize as that chrome hides. */
-	padding-bottom: 45vh
-	padding-bottom: 45svh
+	padding-bottom: 60vh
+	padding-bottom: 60svh
 
 	#background 
 		position: fixed
@@ -379,7 +385,7 @@ h2
 		display: none
 
 	footer 
-		height: 4.5em
+		min-height: 4.5em
 
 	header nav 
 		min-height: 4.7em
