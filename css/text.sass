@@ -20,31 +20,28 @@ body
 	font-size: 100%
 	color: $ink
 
+/* A hairline in the site's own accent, and nothing else. This was a grey box, a
+   thick grey rule, a 5em serif quote glyph and Georgia italic all at once --
+   four devices, none of them used anywhere else on the site. */
 blockquote
-	background: #f9f9f9
-	border-left: 0.5em solid #ccc
-	font-family: Georgia, serif
-	font-size: normal
+	margin: 1.8em 5%
+	padding: 0 0 0 1.4em
+	border-left: 2px solid $orange
 	font-style: italic
-	margin: 2.5% 5%
-	padding: 2.5%
-	position: relative
-	color: #383838
+
+	p
+		/* p carries 5% side padding globally, which would indent again. */
+		padding: 0.3em 0
+
 	small
-		color: #6f6f6f
-		font-size: small
 		display: block
- 
+		padding-top: 0.5em
+		font-style: normal
+		font-size: small
+		color: #6f6f6f
+
 	small:before
 		content: "\2014 \2009"
-
-blockquote:before
-	display: block
-	content: "\201C"
-	font-size: 5em
-	position: absolute
-	left: 0%
-	color: #7a7a7a
 
 code, pre
 	font-family: $code-font-stack
