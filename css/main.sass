@@ -35,6 +35,8 @@ footer
 	#links ul 
 		li 
 			display: inline-block
+			a 
+				display: inline-block
 			a .icon 
 				width: 3em
 				padding: 1.5em 0.5em
@@ -46,7 +48,7 @@ footer
 
 header 
 	nav 
-		height: 6em
+		min-height: 6em
 		background: white
 		text-align: center
 		ul 
@@ -56,7 +58,11 @@ header
 				margin: 0.5em
 				text-align: center
 				font-weight: 200
+				a 
+					display: block
 				a .svg 
+					display: block
+					margin: 0 auto
 					height: 3em
 					width: 3em
 			li:hover > a 
@@ -241,8 +247,13 @@ h2
 	overflow: scroll
 	border-radius: 10px
 
-.list-posts li:hover > a p 
-	color: $red
+.list-posts 
+	li a 
+		display: block
+		padding: 0.3em 0
+
+	li:hover > a p 
+		color: $red
 
 /* State the column count outright rather than inferring it from a container
    width. An em width against px thumbnails made the count depend on the
@@ -266,6 +277,10 @@ h2
 	text-align: center
 	margin-bottom: 1em
 	text-transform: uppercase
+
+	a 
+		display: inline-block
+		padding: 0.9em 1.4em
 
 .thumb 
 	display: block
@@ -310,6 +325,9 @@ h2
 		padding: 1.5em 0.5em
 		display: inline-block
 
+	a 
+		display: inline-block
+
 	div:hover > a .svg 
 		fill: $orange
 
@@ -347,7 +365,7 @@ h2
 		height: 4.5em
 
 	header nav 
-		height: 4.7em
+		min-height: 4.7em
 	
 		ul li
 			width: 3em

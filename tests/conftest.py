@@ -142,6 +142,9 @@ def no_browser_errors(request):
         for name in ("desktop", "phone")
         if name in request.fixturenames
     ]
+    # A test module may define its own fixture called `phone`, which will not be
+    # a Viewer, so only check the ones that collect errors.
+    views = [v for v in views if hasattr(v, "errors")]
     yield
     for view in views:
         assert not view.errors, "browser reported errors: %s" % view.errors
