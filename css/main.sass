@@ -80,17 +80,27 @@ header
 		float: right
 
 header 
+	/* Reserves the band. The padding area is transparent, so the fixed backdrop
+	   shows through it. svh is the viewport with the mobile browser chrome
+	   showing, so the band does not resize as that chrome hides. */
+	padding-bottom: 45vh
+	padding-bottom: 45svh
+
 	#background 
-		position: relative
-		height: 100vh
-		z-index: 1
+		position: fixed
+		top: 0
+		right: 0
+		bottom: 0
+		left: 0
+		/* Behind the page. The nav, the article and the footer are opaque, so
+		   what remains visible is the gap between them. */
+		z-index: -1
 		/* Centre the crop. Cover throws away whichever axis does not fit, and
 		   the default top left position meant a wide screen kept the top strip
 		   of the photo and cut the subject off the bottom. */
 		background-position: center
 		background-size: cover
 		background-repeat: no-repeat
-		background-attachment: scroll
 	
 	nav ul 
 		li a.is-active .svg 
@@ -343,12 +353,19 @@ h2
    and let the page show either side. The breakpoint equals the cap, so the hero
    simply stops growing rather than stepping. */
 @media (min-width: 100em) 
-	header 
+	body 
 		background: #f2f2f0
 
-		#background 
-			max-width: 100em
-			margin: 0 auto
+	header #background 
+		max-width: 100em
+		margin: 0 auto
+
+/* 45% of a landscape phone is a sliver, so hold the band at a readable depth
+   on short viewports. A min-height would have been simpler, but the band is
+   padding now, and libsass mangles max(). */
+@media (max-height: 30em) 
+	header 
+		padding-bottom: 12em
 
 /* Remove upward arrow when it covers article */
 @media (max-width: 60em) 
