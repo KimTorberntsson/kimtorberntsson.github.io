@@ -250,7 +250,6 @@ h2
 	font-weight: 300
 
 .date-link 
-	float: right
 	font-size: small
 	text-transform: uppercase
 	opacity: 0.7
@@ -267,6 +266,16 @@ h2
 	li a 
 		display: block
 		padding: 0.3em 0
+
+	li a p 
+		display: flex
+		justify-content: space-between
+		align-items: baseline
+		gap: 0.75em
+
+	.date-link 
+		flex: 0 0 auto
+		white-space: nowrap
 
 	li:hover > a p 
 		color: $red
