@@ -259,7 +259,9 @@ h2
 	margin: 4%
 	padding: 3%
 	line-height: 1.1em
-	overflow: scroll
+	/* auto, not scroll: scroll reserves a scrollbar gutter whether or not the
+	   code is wide enough to need one. */
+	overflow-x: auto
 	border-radius: 10px
 
 .list-posts 

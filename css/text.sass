@@ -85,9 +85,14 @@ p
 		opacity: 0.9
 
 	img
-		max-width: 80%
-		min-width: 80%
-		margin: 0% 10%
+		/* max-width alone: it constrains a large image without stretching a
+		   small one, which is what min-width did. The 10% margins sat on top of
+		   the paragraph's own 5% padding, so images used 281px of a 390px phone
+		   column. */
+		display: block
+		max-width: 100%
+		height: auto
+		margin: 0 auto
 
 .post 
 	ul
