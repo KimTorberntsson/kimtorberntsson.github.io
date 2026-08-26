@@ -104,7 +104,7 @@ def test_a_page_shorter_than_the_window_still_ends_in_the_footer(phone_page):
     force the document short and look at what fills the rest of the window."""
     phone_page.goto(phone_page.base + "/about/", wait_until="load")
     phone_page.add_style_tag(content="""
-        header, header #hero { padding-bottom: 0 !important; }
+        header #hero { height: 0 !important; min-height: 0 !important; }
         main article > * { display: none !important; }
         main { min-height: 0 !important; }
     """)

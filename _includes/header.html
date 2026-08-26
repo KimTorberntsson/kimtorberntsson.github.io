@@ -11,5 +11,9 @@
 			<li class="purple-icon"><a href="/subscribe/"{% if page.title == "Subscribe" %} class="is-active" aria-current="page"{% endif %}>{% include icons/rss.svg class="svg navicon" %}Subscribe</a></li>
 		</ul>
 	</nav>
+	<div id="hero">
+		<h1>{% if page.hero_title %}{{ page.hero_title }}{% else %}{{ page.title }}{% endif %}</h1>
+		{% if page.date %}<p class="hero-date">{{ page.date | date: "%-d %B %Y" }}</p>{% endif %}
+	</div>
 	<div id="background"></div>
 </header>

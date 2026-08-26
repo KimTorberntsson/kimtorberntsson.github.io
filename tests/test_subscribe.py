@@ -27,7 +27,7 @@ def page(browser, base_url):
 def test_the_page_exists_and_uses_the_site_layout(page):
     assert page.evaluate("document.querySelectorAll('nav a').length") == 5
     assert page.evaluate("!!document.querySelector('#background')")
-    assert page.evaluate("document.querySelector('article h1').textContent.trim()") \
+    assert page.evaluate("document.querySelector('#hero h1').textContent.trim()") \
         == "Subscribe"
 
 

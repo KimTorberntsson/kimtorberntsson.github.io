@@ -105,11 +105,29 @@ header
 		margin: 0.65em
 	
 header 
-	/* Reserves the band. The padding area is transparent, so the fixed backdrop
-	   shows through it. svh is the viewport with the mobile browser chrome
-	   showing, so the band does not resize as that chrome hides. */
-	padding-bottom: 60vh
-	padding-bottom: 60svh
+	#hero 
+		/* The band. A real element now rather than the header's bottom padding,
+		   because the title sits in it. Transparent apart from the scrim, so the
+		   fixed backdrop shows through. */
+		height: 60vh
+		height: 60svh
+		display: flex
+		flex-direction: column
+		justify-content: flex-end
+		align-items: center
+		/* A photo can be light anywhere, so the text needs its own ground. */
+		background: linear-gradient(rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.6))
+
+		h1 
+			color: white
+			padding: 0 5% 0
+			text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45)
+
+		.hero-date 
+			padding: 0.2em 5% 1.5em
+			color: rgba(255, 255, 255, 0.9)
+			font-weight: 300
+			text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45)
 
 	#background 
 		position: fixed
@@ -406,8 +424,8 @@ h2
    on short viewports. A min-height would have been simpler, but the band is
    padding now, and libsass mangles max(). */
 @media (max-height: 30em) 
-	header 
-		padding-bottom: 12em
+	header #hero 
+		height: 12em
 
 /* Fix styles for really small screens */
 @media (max-width: 40em) 

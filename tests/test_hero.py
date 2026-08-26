@@ -187,5 +187,101 @@ def test_the_band_depth_does_not_depend_on_browser_chrome(at_width):
     page = at_width(390, 664)
     css = page.evaluate("""() => [...document.styleSheets]
         .flatMap(s => { try { return [...s.cssRules]; } catch (e) { return []; } })
-        .map(r => r.cssText).filter(t => t.includes('padding-bottom')).join(' ')""")
+        .map(r => r.cssText).filter(t => t.includes('#hero')).join(' ')""")
     assert "svh" in css, "the band is not using svh: %s" % css[:300]
+
+
+# ------------------------------------------------------------- the masthead
+
+# The palest heroes on the site: white bedding, snow, overcast sky. If a scrim
+# holds up anywhere it has to hold up here.
+PALE_HEROES = ["/2019/05/06/update-from-the-baby-bubble.html",
+               "/2019/04/24/astrid.html",
+               "/",
+               "/gallery/"]
+
+
+def _contrast_with_white(rgb):
+    def channel(c):
+        c /= 255
+        return c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
+
+    lum = 0.2126 * channel(rgb[0]) + 0.7152 * channel(rgb[1]) + 0.0722 * channel(rgb[2])
+    return 1.05 / (lum + 0.05)
+
+
+def test_the_title_is_the_hero_not_the_article(at_width):
+    page = at_width(1280)
+    state = page.evaluate("""() => ({
+        hero: document.querySelectorAll('#hero h1').length,
+        article: document.querySelectorAll('article h1').length,
+        colour: getComputedStyle(document.querySelector('#hero h1')).color,
+    })""")
+    assert state["hero"] == 1, "expected one title in the hero"
+    assert state["article"] == 0, "the title is still in the article as well"
+    assert state["colour"] == "rgb(255, 255, 255)"
+
+
+def test_the_date_appears_on_posts_only(at_width):
+    """A section page has no date to show."""
+    post = at_width(1280, path="/2019/04/24/astrid.html")
+    assert post.evaluate("!!document.querySelector('#hero .hero-date')"), \
+        "a post should carry its date under the title"
+    section = at_width(1280, path="/gallery/")
+    assert not section.evaluate("!!document.querySelector('#hero .hero-date')"), \
+        "a section page has no date, so it should not render one"
+
+
+def test_the_index_masthead_is_not_a_section_label(at_width):
+    """page.title there is "Blog Posts", which read as a label competing with the
+    first post's own title right below it."""
+    page = at_width(1280, path="/")
+    title = page.evaluate("document.querySelector('#hero h1').textContent.trim()")
+    assert title != "Blog Posts", "the index masthead is still the section label"
+    assert title, "the index masthead is empty"
+
+
+@pytest.mark.parametrize("path", PALE_HEROES)
+def test_white_text_stays_legible_over_a_pale_photo(at_width, path):
+    """The risk with a masthead over arbitrary photos. Measured from the pixels
+    beside the text, since a gradient is paint and tells you nothing in the
+    computed style."""
+    from conftest import sample_pixels
+
+    page = at_width(1280, path=path)
+    page.wait_for_timeout(700)
+    spots = page.evaluate("""() => {
+        var h1 = document.querySelector('#hero h1').getBoundingClientRect();
+        var d = document.querySelector('#hero .hero-date');
+        var beside = r => ({x: 20, y: Math.round(r.top), width: 140,
+                            height: Math.max(8, Math.round(r.height))});
+        return {title: beside(h1),
+                date: d ? beside(d.getBoundingClientRect()) : null};
+    }""")
+
+    # 40px counts as large text under WCAG, so 3:1; the date is normal text.
+    title = _contrast_with_white(sample_pixels(page, spots["title"]))
+    assert title >= 3.0, "the title is %.2f:1 against its photo on %s" % (title, path)
+
+    if spots["date"]:
+        date = _contrast_with_white(sample_pixels(page, spots["date"]))
+        assert date >= 4.5, "the date is %.2f:1 against its photo on %s" % (date, path)
+
+
+def test_the_scrim_only_darkens_the_bottom(at_width):
+    """It has to leave the top of the photo alone, or the band just looks murky."""
+    from conftest import sample_pixels
+
+    page = at_width(1280, path="/2016/02/28/point-reyes.html")
+    page.wait_for_timeout(700)
+    band = page.evaluate("""() => {
+        var r = document.querySelector('#hero').getBoundingClientRect();
+        return {top: Math.round(r.top), bottom: Math.round(r.bottom),
+                height: Math.round(r.height)};
+    }""")
+    high = sample_pixels(page, {"x": 20, "y": band["top"] + 10,
+                                "width": 200, "height": 40})
+    low = sample_pixels(page, {"x": 20, "y": band["bottom"] - 50,
+                               "width": 200, "height": 40})
+    assert sum(low) < sum(high), \
+        "the bottom of the band (%s) is not darker than the top (%s)" % (low, high)

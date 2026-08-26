@@ -40,7 +40,7 @@ def test_no_link_points_at_the_page_it_is_on(page, path):
 def test_the_title_is_plain_text(page, path):
     page.goto(page.base + path, wait_until="load")
     state = page.evaluate("""() => {
-        var h = document.querySelector('article h1');
+        var h = document.querySelector('#hero h1');
         return h ? {text: h.textContent.trim(), links: h.querySelectorAll('a').length} : null;
     }""")
     assert state, "no h1 on %s" % path
@@ -79,30 +79,28 @@ def test_the_dead_h1_animation_is_gone(page):
 
 
 @pytest.mark.parametrize("path", PAGES)
-def test_the_title_uses_the_body_ink(page, path):
-    """It was #666, inherited from `a { opacity: 0.6 }` back when the title was
-    a link, so titles came out lighter than the text beneath them. There is one
-    ink colour now; read it off the body rather than pinning a literal."""
+def test_the_title_sits_on_the_photo(page, path):
+    """The title is the hero's masthead now, not the first thing in the
+    article."""
     page.goto(page.base + path, wait_until="load")
-    page.wait_for_timeout(300)
-    shades = page.evaluate("""() => {
-        var flat = el => {
-            var m = getComputedStyle(el).color.match(/[\\d.]+/g).map(Number);
-            var alpha = m.length > 3 ? m[3] : 1;
-            return Math.round(255 - (255 - m[0]) * alpha);
-        };
-        return {title: flat(document.querySelector('article h1')),
-                body: flat(document.body)};
+    page.wait_for_timeout(400)
+    state = page.evaluate("""() => {
+        var hero = document.querySelector('#hero h1');
+        return {inHero: !!hero,
+                text: hero ? hero.textContent.trim() : null,
+                colour: hero ? getComputedStyle(hero).color : null,
+                inArticle: document.querySelectorAll('article h1').length};
     }""")
-    assert shades["title"] == shades["body"], \
-        "the title on %s is %d against body ink %d" % (
-            path, shades["title"], shades["body"])
-    assert shades["title"] < 120, \
-        "the ink is %d on white, too light to read as primary text" % shades["title"]
+    assert state["inHero"], "no title in the hero on %s" % path
+    assert state["text"], "the hero title is empty on %s" % path
+    assert state["colour"] == "rgb(255, 255, 255)", \
+        "the hero title is %s, not white" % state["colour"]
+    assert state["inArticle"] == 0, \
+        "%s still has a title inside the article too" % path
 
 
-def test_the_title_and_the_post_links_read_as_one_family(page):
-    """They matched before, both being black at 0.6."""
+def test_the_post_links_share_the_body_ink(page):
+    """Post titles are links, so they must not drift from the body ink."""
     page.goto(page.base + "/", wait_until="load")
     page.wait_for_timeout(400)
     shades = page.evaluate("""() => {
@@ -112,11 +110,11 @@ def test_the_title_and_the_post_links_read_as_one_family(page):
             var alpha = (m.length > 3 ? m[3] : 1) * parseFloat(s.opacity);
             return Math.round(255 - (255 - m[0]) * alpha);
         };
-        return {title: flatten(document.querySelector('article h1')),
+        return {body: flatten(document.body),
                 post: flatten(document.querySelector('h2 a'))};
     }""")
-    assert abs(shades["title"] - shades["post"]) <= 8, \
-        "title renders %d and post links %d" % (shades["title"], shades["post"])
+    assert abs(shades["body"] - shades["post"]) <= 8, \
+        "body ink renders %d and post links %d" % (shades["body"], shades["post"])
 
 
 CONTRAST_ROLES = [

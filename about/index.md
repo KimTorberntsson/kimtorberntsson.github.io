@@ -3,7 +3,6 @@ layout: page
 title: Hello
 ---
 
-<h1>{{ page.title }}</h1>
 
 Welcome to my personal blog. If you don't already know (then how did you get here?) my name is Kim Torberntsson. I've been working at Sectra in Linköping for the last couple of years, where I'm building software for radiologists all over the world.
 
