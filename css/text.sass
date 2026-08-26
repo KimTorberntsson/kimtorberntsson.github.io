@@ -69,7 +69,11 @@ hr
 	margin: 1em
 
 p
-	padding: 2.5% 5% 2.5%
+	/* Vertical padding in em, not per cent. A percentage resolves against the
+	   containing block's *width*, including for padding-top and bottom, so the
+	   gaps grew with the column: 9.75px on a phone against 16px once the article
+	   hit its 40em cap. Vertical rhythm should follow the font size. */
+	padding: 0.7em 5%
 	line-height: 1.5em
 	font-weight: 300
 

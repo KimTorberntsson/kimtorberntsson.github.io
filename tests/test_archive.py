@@ -104,3 +104,30 @@ def test_a_date_never_ends_up_nearer_the_next_row(at_width, width):
     confusing = [r for r in rows if r["toNextTop"] < r["toOwnTop"]]
     assert not confusing, "dates closer to the next row than their own at %dpx: %s" % (
         width, [r["title"] for r in confusing])
+
+
+@pytest.mark.parametrize("width", WIDTHS)
+def test_row_spacing_does_not_depend_on_the_column_width(at_width, width):
+    """Vertical padding was a percentage, and a percentage resolves against the
+    containing block's *width* -- including for padding-top and bottom. So rows
+    were 54px on a phone and 67px once the article hit its 40em cap.
+    """
+    measured = at_width(width).evaluate("""() => {
+        var rows = [...document.querySelectorAll('.list-posts li')];
+        var s = getComputedStyle(rows[0].querySelector('p'));
+        var line = parseFloat(s.lineHeight);
+        // Only rows whose title fits on one line are comparable: a narrow
+        // viewport wraps the longer titles, which is not what is being measured.
+        var single = rows.filter(li =>
+            li.querySelector('p').getBoundingClientRect().height
+                < line + 2 * parseFloat(s.paddingTop) + 2);
+        return {padding: parseFloat(s.paddingTop),
+                singleLineRows: single.length,
+                row: single.length
+                    ? Math.round(single[0].getBoundingClientRect().height) : null};
+    }""")
+    assert measured["padding"] == pytest.approx(11.2, abs=0.5), \
+        "vertical padding is %.1fpx at %dpx wide" % (measured["padding"], width)
+    assert measured["singleLineRows"], "no single line rows to compare at %dpx" % width
+    assert measured["row"] == pytest.approx(57, abs=2), \
+        "a single line row is %dpx at %dpx wide" % (measured["row"], width)
