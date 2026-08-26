@@ -289,7 +289,14 @@ h2
 	text-align: center
 
 	iframe 
-		width: 80%
+		display: block
+		width: 100%
+		/* height: auto or the iframe's height attribute, a presentational
+		   hint, keeps both axes definite and aspect-ratio is ignored: the
+		   width shrank with the column while the height stayed at 315px. */
+		height: auto
+		aspect-ratio: 16 / 9
+		border: 0
 
 #arrow-up 
 	position: fixed

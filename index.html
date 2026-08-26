@@ -13,7 +13,7 @@ title: Blog Posts
 		<div>
 		{% for video in post.videos %}
 			<div class="video">
-				<iframe width="560" height="315" src="{{ video.url }}" allowfullscreen></iframe>
+				<iframe width="560" height="315" src="{{ video.url }}" title="{{ video.title | default: post.title }}" loading="lazy" allowfullscreen></iframe>
 			</div>
 		{% endfor %}
 		</div>
