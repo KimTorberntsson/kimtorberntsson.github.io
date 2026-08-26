@@ -6,18 +6,21 @@ title: Blog Archive
 <h1 class="red-header"><a href='{{page.url}}'>{{ page.title }}</a></h1>
 <hr>
 <div id="posts">
+	{% assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+	{% for year in years %}
+	<h2 class="year-heading">{{ year.name }}</h2>
 	<ul class="list-posts">
-		{% for post in site.posts %}
+		{% for post in year.items %}
 		<li>
 			<a href="{{post.url}}">
 				<p>
 					{{ post.title }}
-					<span class="date-link">{{ post.date | date: "%-d %B %Y" }}</span>
+					<span class="date-link">{{ post.date | date: "%-d %B" }}</span>
 				</p>
 			</a>
 		</li>
 		{% endfor %}
 	</ul>
+	{% endfor %}
 </div>
 <hr>
-

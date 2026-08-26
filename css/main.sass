@@ -271,6 +271,22 @@ h2
 	overflow-x: auto
 	border-radius: 10px
 
+/* Year dividers in the archive. Deliberately quieter and left aligned rather
+   than inheriting h2's centred 2em, so they read as separators rather than as
+   headings competing with the post titles. The dates in each row drop the year,
+   since the divider carries it. */
+.year-heading 
+	font-size: 1.15em
+	font-weight: 400
+	text-align: left
+	text-transform: uppercase
+	letter-spacing: 0.08em
+	opacity: 0.45
+	padding: 1.6em 5% 0.2em
+
+	& + .list-posts 
+		border-top: 1px solid rgba(0, 0, 0, 0.12)
+
 .list-posts 
 	li a 
 		display: block
