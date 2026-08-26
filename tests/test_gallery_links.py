@@ -62,3 +62,58 @@ def test_thumbnails_resolve_too(base_url, gallery):
         except Exception as exc:
             broken.append((group, thumb, repr(exc)))
     assert not broken, "%d unreachable thumbnails, first few: %s" % (len(broken), broken[:5])
+
+
+# ----------------------------------------------------------------- thumbnail size
+
+SOF_MARKERS = {0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7,
+               0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF}
+
+
+def jpeg_dimensions(data):
+    """Width and height from a JPEG's start-of-frame header.
+
+    Avoids an image library for what is a dozen lines: the point is to catch a
+    photo that was never resized before it lands in thumbs/.
+    """
+    i = 2
+    while i + 9 < len(data):
+        if data[i] != 0xFF:
+            i += 1
+            continue
+        marker = data[i + 1]
+        if marker in SOF_MARKERS:
+            height = int.from_bytes(data[i + 5:i + 7], "big")
+            width = int.from_bytes(data[i + 7:i + 9], "big")
+            return width, height
+        if marker == 0xD8 or marker == 0x01 or 0xD0 <= marker <= 0xD7:
+            i += 2
+            continue
+        i += 2 + int.from_bytes(data[i + 2:i + 4], "big")
+    return None
+
+
+def test_no_thumbnail_is_a_full_size_photo(base_url, gallery):
+    """Canon FD shipped four thumbnails that were never resized: 1080x1080 and
+    1620x1080, 1.9 MB for four images where 55 KB does."""
+    oversized = []
+    for href, group, _ in gallery:
+        thumb = href.replace("/full-size/", "/thumbs/")
+        url = base_url + urllib.parse.quote(thumb, safe="/:&?=")
+        data = urllib.request.urlopen(url, timeout=30).read()
+        size = jpeg_dimensions(data)
+        assert size, "could not read dimensions of %s" % thumb
+        if max(size) > 256:
+            oversized.append((group, thumb, "%dx%d" % size, "%d KB" % (len(data) // 1024)))
+    assert not oversized, "thumbnails that were never resized: %s" % oversized
+
+
+def test_thumbnails_are_uniformly_square(base_url, gallery):
+    """The gallery grid crops to 1:1, so a stray aspect ratio wastes bytes."""
+    shapes = {}
+    for href, _, _ in gallery:
+        thumb = href.replace("/full-size/", "/thumbs/")
+        url = base_url + urllib.parse.quote(thumb, safe="/:&?=")
+        size = jpeg_dimensions(urllib.request.urlopen(url, timeout=30).read())
+        shapes["%dx%d" % size] = shapes.get("%dx%d" % size, 0) + 1
+    assert len(shapes) == 1, "mixed thumbnail sizes: %s" % shapes

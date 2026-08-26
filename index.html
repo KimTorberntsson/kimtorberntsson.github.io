@@ -21,7 +21,7 @@ title: Blog Posts
 		{% if post.photos %}
 		<div class="photo-gallery">
 			{% for photo in post.photos %}
-				<a href="/assets/photos/{{ post.title }}/full-size/img{{ photo.nr }}.jpg" data-lightbox="{{ post.title }}" data-title="{{ photo.title }}"><img class="thumb" src="/assets/photos/{{ post.title }}/thumbs/img{{ photo.nr }}.jpg" alt="" /></a>
+				<a href="/assets/photos/{{ post.title }}/full-size/img{{ photo.nr }}.jpg" data-lightbox="{{ post.title }}" data-title="{{ photo.title }}"><img class="thumb" src="/assets/photos/{{ post.title }}/thumbs/img{{ photo.nr }}.jpg" width="200" height="200" loading="lazy" decoding="async" alt="" /></a>
 			{% endfor %}
 		</div>
 		{% endif %}

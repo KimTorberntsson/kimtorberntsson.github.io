@@ -750,3 +750,58 @@ def test_the_bar_announces_changes(desktop):
     assert desktop.page.eval_on_selector(
         ".lb-bar", "e => e.getAttribute('aria-live')"
     ) == "polite"
+
+
+# ------------------------------------------------------------------ lazy loading
+
+
+def test_thumbnails_are_lazy(desktop):
+    desktop.goto("/gallery/")
+    attrs = desktop.page.evaluate(
+        """() => {
+            var all = [...document.querySelectorAll('.thumb')];
+            return {total: all.length,
+                    lazy: all.filter(i => i.loading === 'lazy').length,
+                    sized: all.filter(i => i.width && i.height).length};
+        }"""
+    )
+    assert attrs["total"] > 100, "expected the whole gallery"
+    assert attrs["lazy"] == attrs["total"], \
+        "%d of %d thumbnails are not lazy" % (attrs["total"] - attrs["lazy"], attrs["total"])
+    assert attrs["sized"] == attrs["total"], "every thumbnail should declare its size"
+
+
+def test_the_gallery_only_downloads_what_is_on_screen(phone):
+    """It used to pull all 324 thumbnails, 23 MB, before you scrolled."""
+    fetched = []
+    phone.page.on(
+        "response",
+        lambda r: fetched.append(r.url) if "/thumbs/" in r.url else None,
+    )
+    phone.goto("/gallery/")
+    phone.page.wait_for_timeout(3000)
+
+    on_page = phone.page.evaluate("document.querySelectorAll('.thumb').length")
+    assert on_page > 100
+    assert len(fetched) < on_page / 3, \
+        "%d of %d thumbnails downloaded before scrolling" % (len(fetched), on_page)
+
+
+def test_scrolling_does_bring_the_rest_in(phone):
+    """Lazy loading must defer the work, not lose it."""
+    fetched = set()
+    phone.page.on(
+        "response",
+        lambda r: fetched.add(r.url) if "/thumbs/" in r.url else None,
+    )
+    phone.goto("/gallery/")
+    phone.page.wait_for_timeout(1500)
+    before = len(fetched)
+
+    for _ in range(12):
+        phone.page.mouse.wheel(0, 2500)
+        phone.page.wait_for_timeout(150)
+    phone.page.wait_for_timeout(2000)
+
+    assert len(fetched) > before + 20, \
+        "scrolling loaded only %d more thumbnails" % (len(fetched) - before)
