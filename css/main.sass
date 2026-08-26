@@ -1,6 +1,15 @@
 ---
 ---
 
+/* The anchor links in the header and the arrows scroll smoothly. This replaces
+   scripts/smooth-scroll.js, which animated over a full second with jQuery. */
+html
+	scroll-behavior: smooth
+
+@media (prefers-reduced-motion: reduce)
+	html
+		scroll-behavior: auto
+
 /* Variable Definitions */
 $blue: #00B6FF
 $purple: #7F00FF
@@ -82,7 +91,7 @@ header
 		background-attachment: scroll
 	
 	nav ul 
-		li a #active 
+		li a.is-active .svg 
 			width: 4em
 			height: 4em
 
@@ -350,9 +359,10 @@ h2
 				.svg 
 					height: 2.5em
 					width: 2.5em
-				#active 
-					width: 3em
-					height: 3em
+
+			a.is-active .svg 
+				width: 3em
+				height: 3em
 
 	footer #links ul li a .icon 
 		width: 2.5em

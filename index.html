@@ -35,10 +35,10 @@ title: Blog Posts
 <div id="blog-nav">
 {% if paginator.total_pages > 1 %}
 	{% if paginator.previous_page %}
-		<div><a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}"><img src="/assets/nav/arrow-left.svg" alt="link to previous page" class="icon svg"/></a></div>
+		<div><a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}" aria-label="Newer posts">{% include icons/arrow-left.svg class="icon svg" %}</a></div>
 	{% endif %}
 	{% if paginator.next_page %}
-		<div><a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}"><img src="/assets/nav/arrow-right.svg" alt="link to next page" class="icon svg"/></a></div>
+		<div><a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" aria-label="Older posts">{% include icons/arrow-right.svg class="icon svg" %}</a></div>
 	{% endif %}
 {% endif %}
 </div/>

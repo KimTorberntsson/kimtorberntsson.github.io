@@ -26,10 +26,10 @@ layout: page
 	<hr/>
 	<div id="blog-nav">
 		{% if page.previous %}
-		<div><a href="{{ page.previous.url }}"><img src="/assets/nav/arrow-left.svg" alt="link to previous page" class="icon svg"/></a></div>
+		<div><a href="{{ page.previous.url }}" aria-label="Previous post">{% include icons/arrow-left.svg class="icon svg" %}</a></div>
 		{% endif %}
 		{% if page.next %}
-		<div><a href="{{ page.next.url }}"><img src="/assets/nav/arrow-right.svg" alt="link to next page" class="icon svg"/></a></div>
+		<div><a href="{{ page.next.url }}" aria-label="Next post">{% include icons/arrow-right.svg class="icon svg" %}</a></div>
 		{% endif %}
 	</div>
 </div>
