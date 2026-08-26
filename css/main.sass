@@ -35,6 +35,13 @@ footer
 	width: 100%
 	text-align: center
 	background: LightGrey
+	/* The backdrop is fixed, so anything that lifts the page off the bottom of
+	   the window shows the photo under the footer: elastic overscroll, and
+	   sub-pixel rounding of the document height. Offset down by a viewport and
+	   spread by a viewport, so the shadow's rectangle starts at the footer's own
+	   top edge -- where it is clipped away -- and continues well past the
+	   bottom. Paint only: it adds no scrollable height. */
+	box-shadow: 0 100vh 0 100vh LightGrey
 
 	#links ul 
 		li 

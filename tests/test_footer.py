@@ -78,6 +78,71 @@ def test_bouncing_past_the_end_cannot_reveal_the_backdrop(phone_page):
     assert behavior == "none", "overscroll-behavior-y is %s" % behavior
 
 
+FOOTER_GREY = (211, 211, 211)   # LightGrey
+
+
+def sample_pixels(page, clip):
+    """Average colour of a screenshot region.
+
+    Chromium decodes its own PNG for us: a box-shadow is paint only, so there is
+    no element to hit test and nothing in the computed style that proves what
+    actually landed on screen.
+    """
+    import base64
+
+    encoded = base64.b64encode(page.screenshot(clip=clip)).decode()
+    return page.evaluate("""async data => {
+        var img = new Image();
+        await new Promise(done => { img.onload = done; img.src = 'data:image/png;base64,' + data; });
+        var c = document.createElement('canvas');
+        c.width = img.width; c.height = img.height;
+        c.getContext('2d').drawImage(img, 0, 0);
+        var px = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
+        var r = 0, g = 0, b = 0, n = px.length / 4;
+        for (var i = 0; i < px.length; i += 4) { r += px[i]; g += px[i+1]; b += px[i+2]; }
+        return [Math.round(r/n), Math.round(g/n), Math.round(b/n)];
+    }""", encoded)
+
+
+def test_the_bottom_of_the_window_is_footer_coloured(phone_page):
+    """Sub-pixel rounding of the document height left a sliver of photo under
+    the footer even without any overscroll."""
+    phone_page.goto(phone_page.base + "/about/", wait_until="load")
+    phone_page.wait_for_timeout(500)
+    phone_page.evaluate("window.scrollTo(0, document.documentElement.scrollHeight)")
+    phone_page.wait_for_timeout(700)
+
+    size = phone_page.evaluate("[innerWidth, innerHeight]")
+    colour = sample_pixels(phone_page, {"x": 0, "y": size[1] - 3,
+                                        "width": size[0], "height": 3})
+    for got, want in zip(colour, FOOTER_GREY):
+        assert abs(got - want) <= 6, \
+            "the last rows are %s, not the footer's %s" % (colour, list(FOOTER_GREY))
+
+
+def test_a_page_shorter_than_the_window_still_ends_in_the_footer(phone_page):
+    """The same thing overscroll exposes, reachable without gesture support:
+    force the document short and look at what fills the rest of the window."""
+    phone_page.goto(phone_page.base + "/about/", wait_until="load")
+    phone_page.add_style_tag(content="""
+        header, header #hero { padding-bottom: 0 !important; }
+        main article > * { display: none !important; }
+        main { min-height: 0 !important; }
+    """)
+    phone_page.wait_for_timeout(700)
+
+    size = phone_page.evaluate("[innerWidth, innerHeight]")
+    exposed = phone_page.evaluate("""() => Math.round(innerHeight
+        - document.querySelector('footer').getBoundingClientRect().bottom)""")
+    assert exposed > 50, "expected the window to extend past the footer"
+
+    colour = sample_pixels(phone_page, {"x": 0, "y": size[1] - exposed + 4,
+                                        "width": size[0], "height": exposed - 8})
+    for got, want in zip(colour, FOOTER_GREY):
+        assert abs(got - want) <= 6, \
+            "below the footer is %s, not the footer's %s" % (colour, list(FOOTER_GREY))
+
+
 @pytest.mark.parametrize("path", PAGES)
 def test_the_footer_contains_its_own_content(phone_page, path):
     """footer had a fixed height its content outgrew once the links became
