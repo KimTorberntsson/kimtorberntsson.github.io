@@ -6,7 +6,7 @@
 	The hero photo is named after the page, or after the newest post on the blog
 	index. Assigned once so the stylesheet and the share tags cannot disagree.
 	{% endcomment %}
-	{% if page.title == "Blog Posts" %}{% assign hero = paginator.posts.first.title %}{% else %}{% assign hero = page.title %}{% endif %}
+	{% if page.hero %}{% assign hero = page.hero %}{% elsif page.title == "Blog Posts" %}{% assign hero = paginator.posts.first.title %}{% else %}{% assign hero = page.title %}{% endif %}
 
 	{% comment %} No post carries a description, so derive one from the text. {% endcomment %}
 	{% if page.description %}{% assign description = page.description %}
