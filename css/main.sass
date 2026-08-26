@@ -234,8 +234,23 @@ h2
 .list-posts li:hover > a p 
 	color: $red
 
+/* State the column count outright rather than inferring it from a container
+   width. An em width against px thumbnails made the count depend on the
+   reader's font size: four columns at 16px, five at 18px. Four 150px columns
+   plus gaps is 636px, which fits the 40em text column with no breakout. */
 .photo-gallery 
-	text-align: center
+	display: grid
+	grid-template-columns: repeat(2, 150px)
+	justify-content: center
+	gap: 12px
+
+@media (min-width: 480px) 
+	.photo-gallery 
+		grid-template-columns: repeat(3, 150px)
+
+@media (min-width: 700px) 
+	.photo-gallery 
+		grid-template-columns: repeat(4, 150px)
 
 .post-link 
 	text-align: center
@@ -243,11 +258,10 @@ h2
 	text-transform: uppercase
 
 .thumb 
-	height: 150px
-	margin: 0.1em
-
-.thumb:hover 
-	opacity: 0.5
+	display: block
+	width: 100%
+	aspect-ratio: 1
+	object-fit: cover
 
 
 .video 

@@ -1,0 +1,308 @@
+/* Fullscreen photo viewer. Replaces lightbox2 + its jQuery dependency. */
+
+.lb-lock {
+	overflow: hidden;
+}
+
+.lb-overlay {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 10000;
+	display: none;
+	flex-direction: column;
+	background: #101010;
+	opacity: 0;
+	transition: opacity 160ms ease;
+	touch-action: none;
+	-webkit-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.lb-overlay.is-visible {
+	display: flex;
+}
+
+.lb-overlay.is-open {
+	opacity: 1;
+}
+
+.lb-stage {
+	position: relative;
+	flex: 1 1 auto;
+	min-height: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	cursor: zoom-out;
+}
+
+/* Three slides side by side: previous, current, next. The track is dragged as
+   one piece, so the neighbouring photo is really on screen while you swipe
+   rather than appearing after the fact. */
+
+.lb-track {
+	position: absolute;
+	top: 0;
+	left: 0;
+	/* A definite width, so the slides can each be 100% of it. The three of them
+	   overflow it deliberately; .lb-stage clips. */
+	width: 100%;
+	height: 100%;
+	display: flex;
+	gap: 12px;
+	will-change: transform;
+}
+
+.lb-slide {
+	flex: 0 0 100%;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.lb-slide img {
+	display: block;
+	max-width: 100%;
+	max-height: 100%;
+	width: auto;
+	height: auto;
+	transform-origin: center center;
+	cursor: default;
+	-webkit-user-drag: none;
+}
+
+/* Bottom bar: caption and counter. Uses divs rather than p to dodge the
+   global paragraph padding in text.sass. */
+
+.lb-bar {
+	flex: 0 0 auto;
+	display: flex;
+	align-items: baseline;
+	gap: 0.85em;
+	padding: 0.9em 1.1em;
+	padding-bottom: calc(0.9em + env(safe-area-inset-bottom));
+	font-size: 0.95em;
+	font-weight: 300;
+	line-height: 1.4;
+}
+
+/* Position in the album leads, so it is read alongside the caption rather
+   than stranded in the opposite corner of a wide screen. */
+
+.lb-counter {
+	flex: 0 0 auto;
+	color: #fff;
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+.lb-counter:not(:empty) {
+	border-right: 1px solid rgba(255, 255, 255, 0.25);
+	padding-right: 0.85em;
+}
+
+.lb-caption {
+	flex: 1 1 auto;
+	color: #c8c8c8;
+}
+
+/* Controls */
+
+.lb-btn {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: #fff;
+	opacity: 0.55;
+	cursor: pointer;
+	transition: opacity 150ms ease;
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* .lb-btn sets a display, which overrides the user agent rule for [hidden].
+   Without this, hiding the arrows on a single photo album has no effect. */
+.lb-btn[hidden] {
+	display: none;
+}
+
+.lb-btn:hover,
+.lb-btn:focus-visible {
+	opacity: 1;
+	outline: none;
+}
+
+.lb-btn svg {
+	width: 60%;
+	height: 60%;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2.2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.6));
+}
+
+.lb-close {
+	top: env(safe-area-inset-top);
+	right: 0;
+	width: 3.4em;
+	height: 3.4em;
+}
+
+.lb-prev,
+.lb-next {
+	top: 50%;
+	width: 3.6em;
+	height: 5em;
+	transform: translateY(-50%);
+}
+
+.lb-prev {
+	left: 0;
+}
+
+.lb-next {
+	right: 0;
+}
+
+/* Loading indicator, only shown when the photo takes a moment. */
+
+.lb-spinner {
+	position: absolute;
+	width: 2.2em;
+	height: 2.2em;
+	border: 2px solid rgba(255, 255, 255, 0.25);
+	border-top-color: #fff;
+	border-radius: 50%;
+	opacity: 0;
+	pointer-events: none;
+	animation: lb-spin 700ms linear infinite;
+}
+
+.lb-spinner.is-visible {
+	opacity: 1;
+}
+
+@keyframes lb-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* On touch devices the arrows are replaced by swiping. */
+
+@media (hover: none) and (pointer: coarse) {
+	.lb-prev,
+	.lb-next {
+		display: none;
+	}
+
+	.lb-close {
+		width: 3em;
+		height: 3em;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.lb-overlay,
+	.lb-image,
+	.lb-btn {
+		transition: none;
+	}
+
+	.lb-spinner {
+		animation: none;
+	}
+}
+
+/* Thumbnails are viewer triggers rather than content: no tap flash, no
+   drag-select, no long-press callout on a 200px crop. Long-pressing to save
+   the real photo still works inside the viewer. */
+
+[data-lightbox] {
+	/* inline-block so a focus ring hugs the photo: as a plain inline element
+	   the anchor box is one line tall, and the outline lands nowhere near the
+	   150px thumbnail inside it. */
+	display: inline-block;
+	line-height: 0;
+	vertical-align: middle;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+/* Closing the viewer returns focus to the thumbnail it was opened from, so
+   keyboard users do not restart from the top of the page. No outline though:
+   keyboard focus reuses the same lift as hover, further down. */
+
+[data-lightbox]:focus {
+	outline: none;
+}
+
+[data-lightbox] img {
+	-webkit-user-drag: none;
+}
+
+/* Photos are the content, so they render at full strength. The old pairing of
+   a { opacity: 0.6 } in text.sass with .thumb:hover { opacity: 0.5 } multiplied
+   out to 0.3, dimming the very photo it meant to pick out. Inverted here:
+   hovering the grid fades the rest and leaves the one under the cursor whole. */
+
+[data-lightbox] {
+	opacity: 1;
+}
+
+/* Picking a photo out lifts it, rather than fading everything else. Dimming
+   the siblings made the whole grid flash the moment the cursor entered it; this
+   touches one element, so nothing blinks.
+
+   Keyboard focus borrows the same treatment, which is why it lives outside the
+   hover query: one visual language for "this is the one", and no focus ring to
+   design separately. */
+
+/* Transform the photo, not the anchor. The anchor box wraps the thumbnail's
+   margins, so lifting it grew a box whose edges were already touching its
+   neighbours, and put the shadow on top of them. */
+
+.photo-gallery [data-lightbox] img {
+	position: relative;
+	transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.photo-gallery [data-lightbox]:focus-visible img {
+	z-index: 1;
+	transform: scale(1.06);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+@media (hover: hover) {
+	.photo-gallery [data-lightbox]:hover img {
+		z-index: 1;
+		transform: scale(1.06);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.photo-gallery [data-lightbox] img {
+		transition: none;
+	}
+
+	.photo-gallery [data-lightbox]:hover img,
+	.photo-gallery [data-lightbox]:focus-visible img {
+		transform: none;
+	}
+}

@@ -4,3 +4,6 @@ _site/
 *.swp
 .sass-cache
 
+tests/.venv/
+__pycache__/
+.pytest_cache/
