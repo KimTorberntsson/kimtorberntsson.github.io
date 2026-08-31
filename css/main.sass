@@ -381,6 +381,78 @@ h2
 		aspect-ratio: 16 / 9
 		border: 0
 
+/* Where you are going, and what is there. The old control was two bare
+   chevrons: no direction, no destination. */
+#post-nav 
+	display: grid
+	grid-template-columns: 1fr 1fr
+	align-items: start
+	gap: 1.5em
+	padding: 0.5em 5% 1em
+
+	.post-nav-side 
+		display: flex
+		min-width: 0
+
+	.post-nav-side-newer 
+		justify-content: flex-end
+
+	a 
+		/* The arrow sits beside the direction word, on one line, with the title
+		   under both. On its own line above the label it read as a stray mark. */
+		display: grid
+		grid-template-columns: auto 1fr
+		align-items: center
+		column-gap: 0.4em
+		min-width: 0
+
+	.svg 
+		grid-row: 1
+		height: 1.1em
+		width: 1.1em
+
+	.post-nav-label 
+		grid-row: 1
+		font-size: 0.75em
+		text-transform: uppercase
+		letter-spacing: 0.06em
+		color: #6a6a6a
+
+	.post-nav-title 
+		grid-column: 1 / -1
+		font-weight: 600
+		line-height: 1.3
+
+	.post-nav-side-newer 
+		a 
+			grid-template-columns: 1fr auto
+			text-align: right
+
+		.svg 
+			grid-column: 2
+
+		.post-nav-label 
+			grid-column: 1
+
+/* Stack on a phone: two columns leave the titles half the width each. */
+@media (max-width: 34em) 
+	#post-nav 
+		grid-template-columns: 1fr
+		gap: 1.1em
+
+		.post-nav-side, .post-nav-side-newer 
+			justify-content: flex-start
+
+		.post-nav-side-newer a 
+			grid-template-columns: auto 1fr
+			text-align: left
+
+		.post-nav-side-newer .svg 
+			grid-column: 1
+
+		.post-nav-side-newer .post-nav-label 
+			grid-column: 2
+
 /* The hand-off from the front page to the complete list. The front page carries
    the newest few posts in full; everything older lives in the archive. */
 .see-all 

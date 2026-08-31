@@ -21,12 +21,24 @@ layout: page
 	</div>
 	{% endif %}
 	<hr/>
-	<div id="blog-nav">
-		{% if page.previous %}
-		<div><a href="{{ page.previous.url }}" aria-label="Previous post">{% include icons/arrow-left.svg class="icon svg" %}</a></div>
-		{% endif %}
-		{% if page.next %}
-		<div><a href="{{ page.next.url }}" aria-label="Next post">{% include icons/arrow-right.svg class="icon svg" %}</a></div>
-		{% endif %}
-	</div>
+	<nav id="post-nav" aria-label="Other posts">
+		<div class="post-nav-side">
+			{% if page.previous %}
+			<a href="{{ page.previous.url }}" rel="prev">
+				{% include icons/arrow-left.svg class="icon svg" %}
+				<span class="post-nav-label">Older</span>
+				<span class="post-nav-title">{{ page.previous.title }}</span>
+			</a>
+			{% endif %}
+		</div>
+		<div class="post-nav-side post-nav-side-newer">
+			{% if page.next %}
+			<a href="{{ page.next.url }}" rel="next">
+				{% include icons/arrow-right.svg class="icon svg" %}
+				<span class="post-nav-label">Newer</span>
+				<span class="post-nav-title">{{ page.next.title }}</span>
+			</a>
+			{% endif %}
+		</div>
+	</nav>
 </div>

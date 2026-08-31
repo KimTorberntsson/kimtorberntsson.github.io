@@ -33,7 +33,7 @@ MEASURE = """() => {
             inSentence: inSentence,
             region: el.closest('nav') ? 'nav'
                   : el.closest('footer') ? 'footer'
-                  : el.closest('#blog-nav') ? 'blog-nav'
+                  : el.closest('#post-nav') ? 'post-nav'
                   : el.closest('#posts') ? 'archive'
                   : el.closest('.photo-gallery') ? 'gallery' : 'other',
         });
@@ -58,7 +58,7 @@ def targets(page, path):
 
 
 @pytest.mark.parametrize("path", PAGES)
-@pytest.mark.parametrize("region", ["nav", "footer", "blog-nav", "archive"])
+@pytest.mark.parametrize("region", ["nav", "footer", "post-nav", "archive"])
 def test_chrome_targets_meet_the_48px_bar(phone, path, region):
     found = [t for t in targets(phone, path) if t["region"] == region]
     if not found:
@@ -86,7 +86,7 @@ def test_the_anchors_wrap_their_icons(phone, path):
     page.wait_for_timeout(600)
     bad = page.evaluate("""() => {
         var out = [];
-        document.querySelectorAll('nav a, footer a, #blog-nav a').forEach(a => {
+        document.querySelectorAll('nav a, footer a, #post-nav a').forEach(a => {
             var icon = a.querySelector('svg');
             if (!icon) return;
             var ar = a.getBoundingClientRect(), ir = icon.getBoundingClientRect();
