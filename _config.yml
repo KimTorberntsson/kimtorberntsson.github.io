@@ -14,9 +14,6 @@ kramdown:
     input: GFM
     syntax_highlighter: rouge
 
-# Pagination
-plugins: [jekyll-paginate, jekyll-sitemap]
-paginate: 5
-paginate_path: "/blog/page:num/"
+plugins: [jekyll-sitemap]
 
 # jekyll-sitemap is on the GitHub Pages allow list, so no local-only plugin.

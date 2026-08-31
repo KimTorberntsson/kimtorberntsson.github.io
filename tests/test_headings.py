@@ -120,7 +120,6 @@ def test_the_post_links_share_the_body_ink(page):
 CONTRAST_ROLES = [
     ("/2015/11/01/sublime-setup-for-latex.html", "body link", "article p a"),
     ("/", "post title", "h2 a"),
-    ("/", "to post page", ".post-link a"),
     ("/archive/", "archive title", ".list-posts p"),
     ("/archive/", "archive date", ".date-link"),
     ("/archive/", "year heading", ".year-heading"),

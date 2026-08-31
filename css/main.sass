@@ -356,15 +356,6 @@ h2
 	.photo-gallery 
 		grid-template-columns: repeat(4, 150px)
 
-.post-link 
-	text-align: center
-	margin-bottom: 1em
-	text-transform: uppercase
-
-	a 
-		display: inline-block
-		padding: 0.9em 1.4em
-
 .thumb 
 	display: block
 	width: 100%
@@ -390,23 +381,30 @@ h2
 		aspect-ratio: 16 / 9
 		border: 0
 
-#blog-nav
+/* The hand-off from the front page to the complete list. The front page carries
+   the newest few posts in full; everything older lives in the archive. */
+.see-all 
 	text-align: center
-	margin-bottom: -5%
-	
-	div 
-		padding: 1.5em 0.5em
-		display: inline-block
+	/* Sat 40px under the rule and 48px above the footer, which read as the link
+	   being stuck to the divider with a void beneath it. */
+	padding: 1.7em 5% 0
+	text-transform: uppercase
+	letter-spacing: 0.05em
+	font-size: 0.9em
 
 	a 
-		display: inline-block
+		/* inline-flex with padding, or the box is one line tall and the tap
+		   target is 16px. */
+		display: inline-flex
+		align-items: center
+		gap: 0.6em
+		padding: 0.9em 1.4em
+		font-weight: 600
 
-	div:hover > a .svg 
-		fill: $orange
-
-	a .svg 
-		height: 3em
-		width: 3em
+	.svg 
+		flex: 0 0 auto
+		height: 1.6em
+		width: 1.6em
 
 /* The hero photos are roughly 3:2. Past this width a full bleed box is so much
    wider than that, that cover discards nearly half the photo's height, so cap it

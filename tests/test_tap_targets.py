@@ -34,7 +34,6 @@ MEASURE = """() => {
             region: el.closest('nav') ? 'nav'
                   : el.closest('footer') ? 'footer'
                   : el.closest('#blog-nav') ? 'blog-nav'
-                  : el.closest('.post-link') ? 'post-link'
                   : el.closest('#posts') ? 'archive'
                   : el.closest('.photo-gallery') ? 'gallery' : 'other',
         });
@@ -59,7 +58,7 @@ def targets(page, path):
 
 
 @pytest.mark.parametrize("path", PAGES)
-@pytest.mark.parametrize("region", ["nav", "footer", "blog-nav", "post-link", "archive"])
+@pytest.mark.parametrize("region", ["nav", "footer", "blog-nav", "archive"])
 def test_chrome_targets_meet_the_48px_bar(phone, path, region):
     found = [t for t in targets(phone, path) if t["region"] == region]
     if not found:
