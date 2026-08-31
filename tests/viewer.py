@@ -156,6 +156,36 @@ class Viewer:
     def viewport(self):
         return self.page.evaluate("[innerWidth, innerHeight]")
 
+    def backdrop_point(self):
+        """A point inside the stage but outside the photo.
+
+        Computed rather than hardcoded: the stage is the full overlay height
+        now, so how much bare backdrop is left depends on the photo's aspect
+        ratio. Returns None when the photo fills the stage entirely.
+        """
+        return self.page.evaluate("""() => {
+            var stage = document.querySelector('.lb-stage').getBoundingClientRect();
+            var img = document.querySelector('.lb-image').getBoundingClientRect();
+            // Not the vertical middle: the prev and next buttons live there.
+            var clearY = Math.round(stage.top + stage.height * 0.2);
+            if (img.left - stage.left > 12) {
+                return {x: Math.round(stage.left + (img.left - stage.left) / 2),
+                        y: clearY};
+            }
+            if (stage.bottom - img.bottom > 12) {
+                return {x: Math.round(stage.left + stage.width / 2),
+                        y: Math.round(img.bottom + (stage.bottom - img.bottom) / 2)};
+            }
+            return null;
+        }""")
+
+    def click_backdrop(self):
+        spot = self.backdrop_point()
+        assert spot, "the photo fills the stage, there is no backdrop to click"
+        self.page.mouse.click(spot["x"], spot["y"])
+        self.page.wait_for_timeout(350)
+        return self
+
     def close_with_escape(self):
         self.page.keyboard.press("Escape")
         self.page.wait_for_timeout(350)

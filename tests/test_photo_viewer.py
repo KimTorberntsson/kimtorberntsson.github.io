@@ -100,9 +100,7 @@ def test_backdrop_closes_but_the_photo_itself_does_not(desktop):
     desktop.page.wait_for_timeout(350)
     assert desktop.is_open(), "clicking the photo should do nothing"
 
-    # Left edge, below the prev button, which occupies the vertical middle.
-    desktop.page.mouse.click(60, 830)
-    desktop.page.wait_for_timeout(350)
+    desktop.click_backdrop()
     assert not desktop.is_open(), "clicking the backdrop should close"
 
 
@@ -254,8 +252,7 @@ def test_pointer_users_get_focus_back_with_no_indicator(desktop):
     desktop.goto("/gallery/")
     require(desktop, "Astrid")
     desktop.open("Astrid", 1)
-    desktop.page.mouse.click(60, 830)   # backdrop, clear of the controls
-    desktop.page.wait_for_timeout(350)
+    desktop.click_backdrop()
 
     state = desktop.page.evaluate("""() => {
         var a = document.activeElement;
@@ -832,3 +829,51 @@ def test_thumbnails_fill_their_grid_cell(desktop):
         return {cell: Math.round(cell.width), img: Math.round(img.width)};
     }""")
     assert gap["img"] == gap["cell"], "image %spx in a %spx cell" % (gap["img"], gap["cell"])
+
+
+def test_the_photo_does_not_move_when_the_caption_changes_length(desktop):
+    """The caption bar was in the flow, so its height tracked the caption -- and
+    these run from a few characters to over three hundred -- while the stage
+    absorbed the difference. Moving between photos slid sideways and then jumped
+    up or down. The bar is overlaid now, so the stage never resizes."""
+    desktop.goto("/gallery/")
+    total = require(desktop, "San Francisco With Family I")
+    desktop.open("San Francisco With Family I", 0)
+
+    seen = []
+    for step in range(6):
+        seen.append(desktop.page.evaluate("""() => {
+            var stage = document.querySelector('.lb-stage').getBoundingClientRect();
+            return {height: Math.round(stage.height),
+                    middle: Math.round(stage.top + stage.height / 2),
+                    caption: document.querySelector('.lb-caption').textContent.length};
+        }"""))
+        desktop.page.keyboard.press("ArrowRight")
+        desktop.wait_counter("%d / %d" % (step + 2, total))
+
+    assert len({s["height"] for s in seen}) == 1, \
+        "the stage changed height: %s" % sorted({s["height"] for s in seen})
+    assert len({s["middle"] for s in seen}) == 1, \
+        "the photo's centre moved: %s" % sorted({s["middle"] for s in seen})
+    assert len({s["caption"] for s in seen}) > 1, \
+        "the captions were all the same length, so this proved nothing"
+
+
+def test_the_caption_does_not_block_a_swipe(phone):
+    """It sits over the photo, so it has to let gestures through to the stage."""
+    phone.goto("/gallery/")
+    total = require(phone, "Point Reyes")
+    phone.open("Point Reyes", 0)
+
+    bar = phone.page.evaluate("""() => {
+        var b = document.querySelector('.lb-bar');
+        var r = b.getBoundingClientRect();
+        return {pointerEvents: getComputedStyle(b).pointerEvents,
+                midY: Math.round(r.top + r.height / 2)};
+    }""")
+    assert bar["pointerEvents"] == "none", \
+        "the caption bar swallows pointer events: %s" % bar["pointerEvents"]
+
+    width, _ = phone.viewport()
+    phone.swipe(-width * 0.5, 0, y=bar["midY"])
+    phone.wait_counter("2 / %d" % total)

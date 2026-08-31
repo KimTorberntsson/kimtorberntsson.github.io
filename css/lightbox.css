@@ -79,18 +79,33 @@
 }
 
 /* Bottom bar: caption and counter. Uses divs rather than p to dodge the
-   global paragraph padding in text.sass. */
+   global paragraph padding in text.sass.
+
+   Overlaid on the stage rather than sitting under it. In the flow its height
+   followed the caption -- which run from a few characters to over three hundred
+   -- and the stage absorbed the difference, so the photo jumped up or down every
+   time the caption changed line count. Out of the flow, the stage is always the
+   full height and the photo never moves.
+
+   pointer-events: none so a swipe that starts over the caption still reaches
+   the stage, which is where the gestures are bound. */
 
 .lb-bar {
-	flex: 0 0 auto;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	pointer-events: none;
 	display: flex;
 	align-items: baseline;
 	gap: 0.85em;
-	padding: 0.9em 1.1em;
+	padding: 2.5em 1.1em 0.9em;
 	padding-bottom: calc(0.9em + env(safe-area-inset-bottom));
 	font-size: 0.95em;
 	font-weight: 300;
 	line-height: 1.4;
+	/* The caption sits over the photo now, so it needs its own ground. */
+	background: linear-gradient(rgba(16, 16, 16, 0), rgba(16, 16, 16, 0.75) 55%);
 }
 
 /* Position in the album leads, so it is read alongside the caption rather
