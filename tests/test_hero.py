@@ -9,7 +9,7 @@ subject off wide screens.
 import pytest
 
 PHOTO_WIDTH, PHOTO_HEIGHT = 1631, 1080   # the backgrounds are roughly 3:2
-CAP_PX = 1600                # css/main.sass caps the hero at 100em
+CAP_PX = 1920                # css/main.sass caps the hero at full HD
 
 
 def hero(page):
@@ -63,14 +63,14 @@ def test_the_hero_actually_has_a_photo(at_width):
     assert "/assets/backgrounds/" in state["image"], state["image"]
 
 
-@pytest.mark.parametrize("width", [390, 768, 1280, 1440])
+@pytest.mark.parametrize("width", [390, 768, 1280, 1440, 1700])
 def test_the_hero_is_edge_to_edge_up_to_the_cap(at_width, width):
     state = hero(at_width(width))
     assert state["width"] == width
     assert state["left"] == 0
 
 
-@pytest.mark.parametrize("width", [1700, 1920, 2560, 3440])
+@pytest.mark.parametrize("width", [2000, 2560, 3440])
 def test_the_hero_stops_growing_on_wide_screens(at_width, width):
     state = hero(at_width(width))
     assert state["width"] == CAP_PX, "hero is %dpx wide at %dpx" % (state["width"], width)

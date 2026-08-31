@@ -553,16 +553,22 @@ h2
 		height: 2.4em
 		width: 2.4em
 
-/* The hero photos are roughly 3:2. Past this width a full bleed box is so much
-   wider than that, that cover discards nearly half the photo's height, so cap it
-   and let the page show either side. The breakpoint equals the cap, so the hero
-   simply stops growing rather than stepping. */
-@media (min-width: 100em) 
+/* The photos are mostly 1620-1920px wide, so past a point a full bleed hero is
+   only stretching them. The cap is full HD: a 1920 screen fills edge to edge,
+   which is the commonest desktop size, and anything wider shows the page either
+   side rather than a soft photo. Today's photos are stretched 1.18x to reach it,
+   which is mild; re-exported at 2400px they would be 0.80x.
+
+   In px rather than em on purpose. This limits how far a fixed number of pixels
+   is stretched, so it must not move with the reader's font size the way an em
+   cap would. The breakpoint equals the cap, so the hero stops growing rather
+   than stepping. */
+@media (min-width: 1920px) 
 	body 
 		background: #f2f2f0
 
 	header #background 
-		max-width: 100em
+		max-width: 1920px
 		margin: 0 auto
 
 /* 45% of a landscape phone is a sliver, so hold the band at a readable depth
