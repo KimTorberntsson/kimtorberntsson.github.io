@@ -28,7 +28,7 @@ def test_the_page_exists_and_uses_the_site_layout(page):
     assert page.evaluate("document.querySelectorAll('nav a').length") == 5
     assert page.evaluate("!!document.querySelector('#background')")
     assert page.evaluate("document.querySelector('#hero h1').textContent.trim()") \
-        == "Subscribe"
+        == "How to Subscribe"
 
 
 def test_the_address_is_shown_and_can_be_copied(page):

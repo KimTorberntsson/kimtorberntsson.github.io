@@ -285,3 +285,32 @@ def test_the_scrim_only_darkens_the_bottom(at_width):
                                "width": 200, "height": 40})
     assert sum(low) < sum(high), \
         "the bottom of the band (%s) is not darker than the top (%s)" % (low, high)
+
+
+def test_every_page_hero_photo_exists(production_site, base_url):
+    """The photo is named after the page title, so renaming a page silently
+    breaks its hero unless the page carries a `hero` override. That trap has
+    fired twice, hence the test."""
+    import os
+    import re
+    import urllib.parse
+    import urllib.request
+
+    missing = []
+    for root, _, files in os.walk(production_site):
+        for name in files:
+            if not name.endswith(".html"):
+                continue
+            path = os.path.join(root, name)
+            html = open(path, encoding="utf-8", errors="replace").read()
+            found = re.search(r'#background\s*\{\s*background-image:\s*url\("([^"]+)"\)', html)
+            if not found:
+                continue
+            url = base_url + urllib.parse.quote(found.group(1), safe="/:%")
+            request = urllib.request.Request(url, method="HEAD")
+            try:
+                if urllib.request.urlopen(request, timeout=20).status != 200:
+                    missing.append((path[len(production_site):], found.group(1)))
+            except Exception:
+                missing.append((path[len(production_site):], found.group(1)))
+    assert not missing, "pages whose hero photo does not exist: %s" % missing[:6]

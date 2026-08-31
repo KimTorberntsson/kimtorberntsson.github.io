@@ -185,3 +185,34 @@ def test_the_first_and_last_posts_only_have_one_neighbour(page):
         labels = page.evaluate("""() => [...document.querySelectorAll('#post-nav a')]
             .map(a => a.querySelector('.post-nav-label').textContent.trim())""")
         assert labels == [expected], "%s offers %s" % (path, labels)
+
+
+# ------------------------------------------------------------------- the titles
+
+
+TITLES = [("/", "Latest Posts"), ("/archive/", "Blog Archive"),
+          ("/gallery/", "Photo Gallery"), ("/about/", "About Me"),
+          ("/subscribe/", "How to Subscribe")]
+
+
+@pytest.mark.parametrize("path,expected", TITLES)
+def test_each_page_has_its_masthead(page, path, expected):
+    page.goto(page.base + path, wait_until="load")
+    page.wait_for_timeout(700)
+    assert page.evaluate(
+        "document.querySelector('#hero h1').textContent.trim()") == expected
+
+
+@pytest.mark.parametrize("path,expected", TITLES)
+def test_renaming_a_page_did_not_unmark_its_nav_item(page, path, expected):
+    """The active state used to match on page.title, so every rename above would
+    have silently unmarked the nav. It matches on the URL now."""
+    page.goto(page.base + path, wait_until="load")
+    page.wait_for_timeout(700)
+    active = page.evaluate("""() => {
+        var a = document.querySelector('nav a.is-active');
+        return a ? a.getAttribute('href') : null;
+    }""")
+    assert active, "no nav item marked on %s" % path
+    assert path.startswith(active.rstrip("/") or "/"), \
+        "%s marks %s as current" % (path, active)

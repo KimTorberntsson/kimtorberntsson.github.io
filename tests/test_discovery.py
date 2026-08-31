@@ -57,8 +57,8 @@ def test_the_404_page_is_not_advertised(built):
 
 
 def test_every_post_in_the_sitemap_carries_its_date(built):
-    """Only posts have one. The section and paginated pages have no date to
-    report, so requiring it of every entry would be wrong."""
+    """Only posts have one. The section pages have no date to report, so
+    requiring it of every entry would be wrong."""
     entries = re.findall(r"<url>\s*<loc>([^<]+)</loc>\s*(<lastmod>[^<]+</lastmod>)?",
                          built("sitemap.xml"))
     posts = [(loc, mod) for loc, mod in entries

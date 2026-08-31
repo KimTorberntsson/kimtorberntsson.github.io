@@ -4,11 +4,11 @@
 	</div>
 	<nav>
 		<ul>
-			<li class="orange-icon"><a href="/"{% if page.title == "Blog Posts" or page.date %} class="is-active" aria-current="page"{% endif %}>{% include icons/blog.svg class="svg navicon" %}Blog</a></li>
-			<li class="blue-icon"><a href="/gallery"{% if page.title == "Gallery" %} class="is-active" aria-current="page"{% endif %}>{% include icons/gallery.svg class="svg navicon" %}Gallery</a></li>
-			<li class="red-icon"><a href="/archive"{% if page.title == "Blog Archive" %} class="is-active" aria-current="page"{% endif %}>{% include icons/archive.svg class="svg navicon" %}Archive</a></li>
-			<li class="green-icon"><a href="/about"{% if page.title == "Hello" %} class="is-active" aria-current="page"{% endif %}>{% include icons/about.svg class="svg navicon" %}About</a></li>
-			<li class="purple-icon"><a href="/subscribe/"{% if page.title == "Subscribe" %} class="is-active" aria-current="page"{% endif %}>{% include icons/rss.svg class="svg navicon" %}Subscribe</a></li>
+			<li class="orange-icon"><a href="/"{% if page.url == "/" or page.date %} class="is-active" aria-current="page"{% endif %}>{% include icons/blog.svg class="svg navicon" %}Latest</a></li>
+			<li class="red-icon"><a href="/archive"{% if page.url == "/archive/" %} class="is-active" aria-current="page"{% endif %}>{% include icons/archive.svg class="svg navicon" %}Archive</a></li>
+			<li class="blue-icon"><a href="/gallery"{% if page.url == "/gallery/" %} class="is-active" aria-current="page"{% endif %}>{% include icons/gallery.svg class="svg navicon" %}Gallery</a></li>
+			<li class="green-icon"><a href="/about"{% if page.url == "/about/" %} class="is-active" aria-current="page"{% endif %}>{% include icons/about.svg class="svg navicon" %}About</a></li>
+			<li class="purple-icon"><a href="/subscribe/"{% if page.url == "/subscribe/" %} class="is-active" aria-current="page"{% endif %}>{% include icons/rss.svg class="svg navicon" %}Subscribe</a></li>
 		</ul>
 	</nav>
 	<div id="hero">

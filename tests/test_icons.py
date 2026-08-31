@@ -80,7 +80,7 @@ def test_hover_still_recolours_an_icon(page):
                                         ("/archive/", "Archive"),
                                         ("/about/", "About"),
                                         ("/subscribe/", "Subscribe"),
-                                        ("/", "Blog")])
+                                        ("/", "Latest")])
 def test_the_current_section_is_marked_and_coloured(page, path, label):
     """#active was an id used as a styling hook; it is a class on the link now."""
     page.goto(page.base + path, wait_until="load")
@@ -197,7 +197,7 @@ def test_the_nav_holds_only_pages(browser, base_url):
         "[...document.querySelectorAll('nav a')].map(a => a.getAttribute('href'))")
     context.close()
 
-    assert hrefs == ["/", "/gallery", "/archive", "/about", "/subscribe/"], hrefs
+    assert hrefs == ["/", "/archive", "/gallery", "/about", "/subscribe/"], hrefs
     assert not [h for h in hrefs if h.endswith(".xml")], \
         "the nav still links to a raw file: %s" % hrefs
 

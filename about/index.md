@@ -1,6 +1,7 @@
 ---
 layout: page
-title: Hello
+title: About Me
+hero: Hello
 ---
 
 
