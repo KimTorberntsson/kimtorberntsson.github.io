@@ -453,6 +453,15 @@ h2
 		font-weight: 600
 		line-height: 1.3
 
+	/* Everything else on the site answers a hover with its colour. These were
+	   the one set of links that did not. The icon follows because .svg takes
+	   fill from currentColor. */
+	a:hover, a:focus-visible 
+		color: $orange
+
+		.post-nav-label 
+			color: $orange
+
 	.post-nav-side-newer 
 		a 
 			grid-template-columns: 1fr auto
