@@ -176,6 +176,12 @@ main
    below still override it on hover and for the current section. */
 .svg 
 	fill: currentColor
+	/* The circle in each icon spans its viewBox exactly, so its outer edge sits
+	   on the clip boundary. At a fractional size -- the post nav arrows are
+	   17.6px -- whichever edge rounds unfavourably loses its antialiased pixel
+	   and looks flattened, and which edge that is changes as the window
+	   resizes. There is nothing outside the artwork to spill, so let it paint. */
+	overflow: visible
 
 .blue-icon:hover > a, .blue-icon > a.is-active 
 	color: $blue
