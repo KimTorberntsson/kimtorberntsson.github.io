@@ -8,4 +8,8 @@
       <li class="pink-icon"><a href="https://kimtorberntsson.tumblr.com" aria-label="Tumblr">{% include icons/tumblr.svg class="icon svg" %}</a></li>
     </ul>
   </div>
+  {% comment %}
+  site.time is the build time, so the year moves on its own at the next push.
+  {% endcomment %}
+  <p class="colophon">&copy; 2015&ndash;{{ site.time | date: '%Y' }} Kim Torberntsson</p>
 </footer>

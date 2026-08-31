@@ -167,3 +167,46 @@ def test_the_footer_links_are_still_there(phone_page):
         "unexpected footer links: %s" % links
     for gone in ("Twitter", "Email me"):
         assert gone not in links
+
+
+def test_the_footer_carries_a_colophon(phone_page):
+    """The year comes from site.time, so it moves on its own at the next build
+    rather than going stale in the markup."""
+    import datetime
+
+    phone_page.goto(phone_page.base + "/about/", wait_until="load")
+    phone_page.wait_for_timeout(400)
+    text = phone_page.evaluate("""() => {
+        var el = document.querySelector('.colophon');
+        return el ? el.textContent.trim() : null;
+    }""")
+    assert text, "no colophon in the footer"
+    assert "Kim Torberntsson" in text, text
+    assert str(datetime.date.today().year) in text, \
+        "the colophon does not carry the current year: %r" % text
+
+
+def test_the_colophon_is_legible_on_the_footer_grey(phone_page):
+    """It sits on LightGrey, not white, so it has to be darker than body text
+    would need to be to clear AA."""
+    phone_page.goto(phone_page.base + "/about/", wait_until="load")
+    phone_page.wait_for_timeout(400)
+    measured = phone_page.evaluate("""() => {
+        var el = document.querySelector('.colophon');
+        var parse = c => c.match(/[\\d.]+/g).slice(0, 3).map(Number);
+        return {fg: parse(getComputedStyle(el).color),
+                bg: parse(getComputedStyle(document.querySelector('footer')).backgroundColor)};
+    }""")
+
+    def channel(c):
+        c /= 255
+        return c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
+
+    def luminance(rgb):
+        return (0.2126 * channel(rgb[0]) + 0.7152 * channel(rgb[1])
+                + 0.0722 * channel(rgb[2]))
+
+    high, low = sorted((luminance(measured["fg"]), luminance(measured["bg"])),
+                       reverse=True)
+    ratio = (high + 0.05) / (low + 0.05)
+    assert ratio >= 4.5, "the colophon is %.2f:1 on the footer" % ratio
