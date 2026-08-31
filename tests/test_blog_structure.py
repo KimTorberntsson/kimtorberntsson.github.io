@@ -216,3 +216,61 @@ def test_renaming_a_page_did_not_unmark_its_nav_item(page, path, expected):
     assert active, "no nav item marked on %s" % path
     assert path.startswith(active.rstrip("/") or "/"), \
         "%s marks %s as current" % (path, active)
+
+
+def test_the_post_nav_stacks_newest_first_on_a_phone(browser, base_url, playwright):
+    """Side by side the arrows' direction matches where they sit. Stacked at the
+    same left margin it does not, so they come off and the words carry it -- and
+    the order flips to newest first, matching the front page and the archive."""
+    context = browser.new_context(**playwright.devices["iPhone 13"])
+    page = context.new_page()
+    page.goto(base_url + "/2016/02/28/point-reyes.html", wait_until="load")
+    page.wait_for_timeout(1200)
+    state = page.evaluate("""() => {
+        var links = [...document.querySelectorAll('#post-nav a')];
+        var byY = links.slice().sort((a, b) =>
+            a.getBoundingClientRect().top - b.getBoundingClientRect().top);
+        var lefts = [];
+        links.forEach(a => {
+            lefts.push(Math.round(a.querySelector('.post-nav-label').getBoundingClientRect().left));
+            lefts.push(Math.round(a.querySelector('.post-nav-title').getBoundingClientRect().left));
+        });
+        return {order: byY.map(a => a.querySelector('.post-nav-label').textContent.trim()),
+                lefts: lefts,
+                arrows: links.filter(a => {
+                    var s = a.querySelector('svg');
+                    return s && getComputedStyle(s).display !== 'none';
+                }).length,
+                stacked: byY.length === 2 &&
+                    byY[1].getBoundingClientRect().top >= byY[0].getBoundingClientRect().bottom};
+    }""")
+    context.close()
+
+    assert state["stacked"], "the two links are not stacked on a phone"
+    assert state["order"] == ["Newer", "Older"], \
+        "stacked order is %s, not newest first" % state["order"]
+    assert state["arrows"] == 0, "the arrows should come off when stacked"
+    assert len(set(state["lefts"])) == 1, \
+        "labels and titles do not share a left edge: %s" % state["lefts"]
+
+
+def test_the_post_nav_keeps_its_arrows_side_by_side(page):
+    """On a wide screen the arrows earn their place: left one on the left, right
+    one on the right."""
+    page.goto(page.base + "/2016/02/28/point-reyes.html", wait_until="load")
+    page.wait_for_timeout(900)
+    state = page.evaluate("""() => {
+        var links = [...document.querySelectorAll('#post-nav a')];
+        var byX = links.slice().sort((a, b) =>
+            a.getBoundingClientRect().left - b.getBoundingClientRect().left);
+        return {order: byX.map(a => a.querySelector('.post-nav-label').textContent.trim()),
+                arrows: links.filter(a => {
+                    var s = a.querySelector('svg');
+                    return s && getComputedStyle(s).display !== 'none';
+                }).length,
+                sameRow: Math.abs(byX[0].getBoundingClientRect().top
+                                  - byX[1].getBoundingClientRect().top) < 6};
+    }""")
+    assert state["sameRow"], "the links are not side by side on a wide screen"
+    assert state["order"] == ["Older", "Newer"], state["order"]
+    assert state["arrows"] == 2, "both arrows should show side by side"

@@ -452,24 +452,35 @@ h2
 		.post-nav-label 
 			grid-column: 1
 
-/* Stack on a phone: two columns leave the titles half the width each. */
+/* Stack on a phone: two columns leave the titles half the width each.
+   Newer goes on top, matching the newest first order of the front page and the
+   archive, and the arrows come off. Side by side their direction matches where
+   they sit; stacked at the same left margin, a right pointing arrow above a
+   left pointing one points nowhere. The words carry it. */
 @media (max-width: 34em) 
 	#post-nav 
-		grid-template-columns: 1fr
+		display: flex
+		flex-direction: column
 		gap: 1.1em
 
-		.post-nav-side, .post-nav-side-newer 
+		.post-nav-side 
 			justify-content: flex-start
 
-		.post-nav-side-newer a 
-			grid-template-columns: auto 1fr
+		.post-nav-side-newer 
+			order: -1
+
+		.svg 
+			display: none
+
+		a, .post-nav-side-newer a 
+			/* One column, or the collapsed arrow column leaves its gap behind
+			   and Newer sits indented against Older. */
+			grid-template-columns: 1fr
 			text-align: left
 
-		.post-nav-side-newer .svg 
+		.post-nav-label, .post-nav-title, 
+		.post-nav-side-newer .post-nav-label, .post-nav-side-newer .post-nav-title 
 			grid-column: 1
-
-		.post-nav-side-newer .post-nav-label 
-			grid-column: 2
 
 /* The hand-off from the front page to the complete list. The front page carries
    the newest few posts in full; everything older lives in the archive. */
