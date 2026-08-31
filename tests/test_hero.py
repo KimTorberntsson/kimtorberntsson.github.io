@@ -372,3 +372,85 @@ def test_the_title_line_box_contains_its_descenders(at_width, path):
     assert metrics["lineHeight"] >= needed, \
         "the line box is %.0fpx but the font needs %.0fpx on %s" % (
             metrics["lineHeight"], needed, path)
+
+
+def test_the_hero_photo_is_preloaded(at_width):
+    """It is a CSS background, so the browser only discovers it after parsing
+    the stylesheet, and fetches it at a low priority. On a fast connection that
+    delay is the whole wait."""
+    page = at_width(1280)
+    link = page.evaluate("""() => {
+        var l = document.querySelector('link[rel="preload"][as="image"]');
+        if (!l) return null;
+        var bg = getComputedStyle(document.querySelector('#background')).backgroundImage;
+        return {href: l.getAttribute('href'),
+                matchesTheBackdrop: bg.indexOf(l.getAttribute('href').replace(/%20/g, ' ')) !== -1
+                    || bg.indexOf(l.getAttribute('href')) !== -1};
+    }""")
+    assert link, "the hero photo is not preloaded"
+    assert link["matchesTheBackdrop"], \
+        "the preload points somewhere else than the backdrop: %s" % link["href"]
+
+
+def test_the_hero_fades_in_rather_than_snapping(at_width):
+    """Read the rules rather than toggling the class and measuring: the
+    transition is armed, so removing it starts an animation back to zero and a
+    synchronous read catches whatever frame it is on."""
+    page = at_width(1280)
+    rules = page.evaluate("""() => {
+        var out = {};
+        for (var sheet of document.styleSheets) {
+            var list;
+            try { list = sheet.cssRules; } catch (e) { continue; }
+            for (var r of list) {
+                if (!r.selectorText) continue;
+                var sel = r.selectorText.replace(/\s+/g, ' ').trim();
+                if (sel === '.hero-fade #background')
+                    out.hidden = {opacity: r.style.opacity,
+                                  transition: r.style.transition
+                                              || r.style.transitionProperty};
+                if (sel === '.hero-fade.hero-ready #background')
+                    out.shown = {opacity: r.style.opacity};
+            }
+        }
+        out.classes = document.documentElement.className;
+        out.opacityNow = getComputedStyle(
+            document.querySelector('#background')).opacity;
+        return out;
+    }""")
+
+    assert rules.get("hidden"), "no rule hides the backdrop before the photo lands"
+    assert rules["hidden"]["opacity"] == "0", rules["hidden"]
+    assert "opacity" in rules["hidden"]["transition"], \
+        "nothing to fade with: %s" % rules["hidden"]["transition"]
+    assert rules.get("shown") and rules["shown"]["opacity"] == "1", rules.get("shown")
+
+    assert "hero-fade" in rules["classes"], "the document is not marked for the fade"
+    assert "hero-ready" in rules["classes"], "the photo never reported itself loaded"
+    assert rules["opacityNow"] == "1", \
+        "the backdrop never became visible: %s" % rules["opacityNow"]
+
+
+def test_the_title_stays_readable_while_the_photo_loads(at_width):
+    """The band is white until the photo arrives, and the title is white text."""
+    from conftest import sample_pixels
+
+    page = at_width(1280)
+    page.evaluate("document.documentElement.classList.remove('hero-ready')")
+    page.wait_for_timeout(400)
+    spot = page.evaluate("""() => {
+        var h1 = document.querySelector('#hero h1').getBoundingClientRect();
+        return {x: 20, y: Math.round(h1.top), width: 140,
+                height: Math.max(8, Math.round(h1.height))};
+    }""")
+    behind = sample_pixels(page, spot)
+
+    def channel(c):
+        c /= 255
+        return c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
+
+    lum = (0.2126 * channel(behind[0]) + 0.7152 * channel(behind[1])
+           + 0.0722 * channel(behind[2]))
+    ratio = 1.05 / (lum + 0.05)
+    assert ratio >= 3.0, \
+        "white title is %.2f:1 against the empty band, rgb%s" % (ratio, tuple(behind))

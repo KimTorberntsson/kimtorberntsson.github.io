@@ -39,6 +39,26 @@
 	<link rel="stylesheet" href="/css/main.css" />
 	<link rel="stylesheet" href="/css/syntax.css" />
 	<link rel="stylesheet" href="/css/lightbox.css" />
+	{% comment %}
+	The hero is a CSS background, so the browser only discovers it after the
+	stylesheet is parsed, and fetches it at a low priority. Preloading starts it
+	with everything else. The script marks the document once the photo is in, so
+	the band can fade rather than snap; without script the hero simply shows as
+	soon as it arrives, as before.
+	{% endcomment %}
+	{% assign hero_src = '/assets/backgrounds/' | append: hero | append: '.jpg' | replace: ' ', '%20' | replace: '&', '%26' | replace: "'", '%27' %}
+	<link rel="preload" as="image" id="hero-photo" href="{{ hero_src }}"/>
+	<script>
+		(function () {
+			var root = document.documentElement;
+			root.className += ' hero-fade';
+			var photo = new Image();
+			photo.onload = photo.onerror = function () {
+				root.className += ' hero-ready';
+			};
+			photo.src = document.getElementById('hero-photo').href;
+		}());
+	</script>
 	<style>
 		header #background {
 			background-image: url("/assets/backgrounds/{{ hero }}.jpg");

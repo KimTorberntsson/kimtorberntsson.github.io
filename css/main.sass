@@ -1,6 +1,23 @@
 ---
 ---
 
+/* The hero is the largest thing on the page and it arrives after first paint,
+   so it used to snap in. Fade it instead. The class is only set when script
+   runs, so with script off the photo shows the moment it lands, as before. */
+.hero-fade #background 
+	opacity: 0
+	/* Armed on the base rule, not on the ready state. Declaring it only there
+	   works, but it means the element has no transition until the moment it is
+	   needed, which is a fragile thing to depend on. */
+	transition: opacity 500ms ease
+
+.hero-fade.hero-ready #background 
+	opacity: 1
+
+@media (prefers-reduced-motion: reduce) 
+	.hero-fade #background 
+		transition: none
+
 /* The anchor links in the header and the arrows scroll smoothly. This replaces
    scripts/smooth-scroll.js, which animated over a full second with jQuery. */
 html
