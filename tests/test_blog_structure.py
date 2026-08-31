@@ -274,3 +274,81 @@ def test_the_post_nav_keeps_its_arrows_side_by_side(page):
     assert state["sameRow"], "the links are not side by side on a wide screen"
     assert state["order"] == ["Older", "Newer"], state["order"]
     assert state["arrows"] == 2, "both arrows should show side by side"
+
+
+def test_a_post_marks_no_nav_item(page):
+    """A post is not a section. Marking Latest said "you are on the latest posts
+    page" when you were not, and a post from 2015 is not in Latest at all -- it
+    is in the archive. aria-current="page" was a plain untruth as well."""
+    for path in ("/2016/03/05/three-cool-tools.html",
+                 "/2015/09/05/welcome-to-my-blog.html"):
+        page.goto(page.base + path, wait_until="load")
+        page.wait_for_timeout(500)
+        marked = page.evaluate("""() => [...document.querySelectorAll('nav a')]
+            .filter(a => a.classList.contains('is-active')
+                      || a.getAttribute('aria-current'))
+            .map(a => a.getAttribute('href'))""")
+        assert marked == [], "%s marks %s as current" % (path, marked)
+
+
+def test_the_older_and_newer_links_answer_a_hover(page):
+    """Everything else on the site answers a hover with its colour; these were
+    the one set of links that did not."""
+    page.goto(page.base + "/2016/03/05/three-cool-tools.html", wait_until="load")
+    page.wait_for_timeout(700)
+
+    def colours():
+        return page.evaluate("""() => {
+            var a = document.querySelector('#post-nav a');
+            return [getComputedStyle(a.querySelector('.post-nav-title')).color,
+                    getComputedStyle(a.querySelector('.post-nav-label')).color,
+                    getComputedStyle(a.querySelector('svg')).fill];
+        }""")
+
+    page.mouse.move(2, 2)
+    page.wait_for_timeout(250)
+    resting = colours()
+    page.hover("#post-nav a")
+    page.wait_for_timeout(300)
+    hovered = colours()
+
+    assert hovered != resting, "hovering changes nothing"
+    assert set(hovered) == {"rgb(255, 102, 0)"}, \
+        "title, label and icon should all take the accent: %s" % hovered
+
+
+def test_the_archive_link_carries_the_archive_colour(page):
+    """It is the one way onward from the front page, so it gets the weight of a
+    nav item and the red the nav marks the archive with."""
+    page.goto(page.base + "/", wait_until="load")
+    page.wait_for_timeout(1200)
+    state = page.evaluate("""() => {
+        var a = document.querySelector('.see-all a');
+        var icon = a.querySelector('svg').getBoundingClientRect();
+        var navIcon = document.querySelector('nav li svg').getBoundingClientRect();
+        return {colour: getComputedStyle(a).color,
+                iconFill: getComputedStyle(a.querySelector('svg')).fill,
+                iconWidth: Math.round(icon.width),
+                navIconWidth: Math.round(navIcon.width),
+                labelSize: getComputedStyle(document.querySelector('.see-all')).fontSize,
+                navLabelSize: getComputedStyle(document.querySelector('nav li a')).fontSize};
+    }""")
+    ink = page.evaluate("getComputedStyle(document.body).color")
+    assert state["colour"] == ink, \
+        "should rest in the body ink like every other link: %s" % state["colour"]
+    assert state["iconFill"] == ink, state["iconFill"]
+    assert state["iconWidth"] == state["navIconWidth"], \
+        "icon is %dpx against the nav's %dpx" % (state["iconWidth"], state["navIconWidth"])
+    assert state["labelSize"] == state["navLabelSize"], \
+        "label is %s against the nav's %s" % (state["labelSize"], state["navLabelSize"])
+
+    # Hover takes the archive's red, not the generic orange from text.sass.
+    page.hover(".see-all a")
+    page.wait_for_timeout(300)
+    hovered = page.evaluate("""() => {
+        var a = document.querySelector('.see-all a');
+        return [getComputedStyle(a).color,
+                getComputedStyle(a.querySelector('svg')).fill];
+    }""")
+    assert set(hovered) == {"rgb(255, 0, 0)"}, \
+        "hover should be the archive red, got %s" % hovered
