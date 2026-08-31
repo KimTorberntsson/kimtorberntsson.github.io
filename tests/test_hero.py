@@ -348,3 +348,27 @@ def test_the_backdrop_still_covers_the_band(at_width):
     assert state["backdropBottom"] >= state["heroBottom"], \
         "the backdrop ends at %d but the band runs to %d" % (
             state["backdropBottom"], state["heroBottom"])
+
+
+@pytest.mark.parametrize("path", ["/gallery/", "/archive/", "/about/", "/"])
+def test_the_title_line_box_contains_its_descenders(at_width, path):
+    """reset.css sets line-height: 1 on everything, so the glyphs spilled out of
+    their own box. Nothing noticed until the box sat flush with the bottom of
+    the photo: the tail of a "y" or "g" then landed on the white content below,
+    in white, and vanished."""
+    page = at_width(1280, path=path)
+    metrics = page.evaluate("""() => {
+        var h1 = document.querySelector('#hero h1');
+        var s = getComputedStyle(h1);
+        var c = document.createElement('canvas').getContext('2d');
+        c.font = s.fontWeight + ' ' + s.fontSize + ' ' + s.fontFamily;
+        var m = c.measureText(h1.textContent.trim());
+        return {fontSize: parseFloat(s.fontSize),
+                lineHeight: parseFloat(s.lineHeight),
+                fontDescent: m.fontBoundingBoxDescent,
+                fontAscent: m.fontBoundingBoxAscent};
+    }""")
+    needed = metrics["fontAscent"] + metrics["fontDescent"]
+    assert metrics["lineHeight"] >= needed, \
+        "the line box is %.0fpx but the font needs %.0fpx on %s" % (
+            metrics["lineHeight"], needed, path)
