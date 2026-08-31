@@ -141,8 +141,18 @@ header
 		position: fixed
 		top: 0
 		right: 0
-		bottom: 0
 		left: 0
+		/* Only as tall as the nav and the band together, never the whole
+		   viewport. The photo is only ever visible in the gap between the nav
+		   and the content, which is always in the upper part of the screen, so
+		   there is nothing to see lower down.
+
+		   That is what stops an elastic overscroll on iOS from revealing the
+		   photo under the footer: it is not that the footer covers it, it is
+		   that the backdrop does not reach that far. overscroll-behavior does
+		   not stop the document bounce in Safari, and a box-shadow painted
+		   past the end of the document is clipped away with it. */
+		height: calc(6em + 60svh)
 		/* Behind the page. The nav, the article and the footer are opaque, so
 		   what remains visible is the gap between them. */
 		z-index: -1
@@ -504,6 +514,9 @@ h2
 @media (max-height: 30em) 
 	header #hero 
 		height: 12em
+
+	header #background 
+		height: 20em
 
 /* Fix styles for really small screens */
 @media (max-width: 40em) 

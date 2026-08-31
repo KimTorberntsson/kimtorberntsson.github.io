@@ -314,3 +314,37 @@ def test_every_page_hero_photo_exists(production_site, base_url):
             except Exception:
                 missing.append((path[len(production_site):], found.group(1)))
     assert not missing, "pages whose hero photo does not exist: %s" % missing[:6]
+
+
+@pytest.mark.parametrize("path", ["/", "/about/", "/gallery/", "/archive/"])
+def test_the_backdrop_never_reaches_the_bottom_of_the_window(at_width, path):
+    """An elastic overscroll on iOS lifts the content off the bottom of the
+    window while the fixed backdrop stays, so the photo appeared under the
+    footer. overscroll-behavior does not stop Safari's document bounce, and a
+    box-shadow painted past the end of the document is clipped away with it.
+
+    So the backdrop simply does not reach that far any more. It is only ever
+    visible in the gap between the nav and the content, which is always in the
+    upper part of the screen, and nothing can reveal what is not there.
+    """
+    page = at_width(1280, path=path)
+    room = page.evaluate("""() => {
+        var bg = document.querySelector('#background').getBoundingClientRect();
+        return Math.round(window.innerHeight - bg.bottom);
+    }""")
+    assert room > 60, \
+        "the backdrop stops only %dpx above the bottom of the window on %s" % (room, path)
+
+
+def test_the_backdrop_still_covers_the_band(at_width):
+    """It has to stop short of the bottom without stopping short of the photo."""
+    page = at_width(1280)
+    state = page.evaluate("""() => {
+        var bg = document.querySelector('#background').getBoundingClientRect();
+        var hero = document.querySelector('#hero').getBoundingClientRect();
+        return {backdropBottom: Math.round(bg.bottom),
+                heroBottom: Math.round(hero.bottom)};
+    }""")
+    assert state["backdropBottom"] >= state["heroBottom"], \
+        "the backdrop ends at %d but the band runs to %d" % (
+            state["backdropBottom"], state["heroBottom"])
