@@ -178,8 +178,14 @@ def test_the_arrow_sits_beside_the_direction_word(page):
 
 
 def test_the_first_and_last_posts_only_have_one_neighbour(page):
-    for path, expected in (("/2019/05/06/update-from-the-baby-bubble.html", "Older"),
-                           ("/2015/09/05/welcome-to-my-blog.html", "Newer")):
+    """Read the two ends off the archive rather than naming them, so that
+    publishing a post does not fail the test that the newest one has no newer."""
+    page.goto(page.base + "/archive/", wait_until="load")
+    ends = page.evaluate("""() => {
+        var links = [...document.querySelectorAll('.list-posts a')].map(a => a.pathname);
+        return [links[0], links[links.length - 1]];
+    }""")
+    for path, expected in zip(ends, ("Older", "Newer")):
         page.goto(page.base + path, wait_until="load")
         page.wait_for_timeout(700)
         labels = page.evaluate("""() => [...document.querySelectorAll('#post-nav a')]

@@ -7,6 +7,7 @@ subject off wide screens.
 """
 
 import pytest
+from playwright.sync_api import TimeoutError as PlaywrightTimeout
 
 PHOTO_WIDTH, PHOTO_HEIGHT = 1631, 1080   # the backgrounds are roughly 3:2
 CAP_PX = 1920                # css/main.sass caps the hero at full HD
@@ -397,6 +398,15 @@ def test_the_hero_fades_in_rather_than_snapping(at_width):
     transition is armed, so removing it starts an animation back to zero and a
     synchronous read catches whatever frame it is on."""
     page = at_width(1280)
+    # The fixture waits 400ms and the fade lasts 500, so a fixed wait reads a
+    # frame partway up -- 0.9976 rather than 1. Let the transition finish; if it
+    # never does, fall through and let the assertion below say so.
+    try:
+        page.wait_for_function(
+            "() => getComputedStyle(document.querySelector('#background'))"
+            ".opacity === '1'", timeout=3000)
+    except PlaywrightTimeout:
+        pass
     rules = page.evaluate("""() => {
         var out = {};
         for (var sheet of document.styleSheets) {
