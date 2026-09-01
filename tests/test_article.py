@@ -107,3 +107,27 @@ def test_gallery_thumbnails_describe_themselves(at_width):
         "[...document.querySelectorAll('.thumb')].map(i => i.getAttribute('alt'))")
     assert alts, "no thumbnails on that post"
     assert all(a and a.strip() for a in alts), "thumbnails without alt text: %s" % alts
+
+
+@pytest.mark.parametrize("width,height,name", [(844, 390, "landscape"),
+                                               (390, 844, "portrait")])
+def test_ios_cannot_inflate_the_text(at_width, width, height, name):
+    """Safari grows text in wide blocks unless told not to, so rotating a phone
+    to landscape blew the body copy up while the nav labels, sitting in narrow
+    blocks, stayed where they were. 100% rather than none, because none would
+    also stop the reader zooming."""
+    page = at_width("/2016/02/28/point-reyes.html", width, height)
+    values = page.evaluate("""() => {
+        var out = {};
+        ['html', 'body', 'article p'].forEach(sel => {
+            var el = document.querySelector(sel);
+            if (!el) return;
+            var s = getComputedStyle(el);
+            out[sel] = s.webkitTextSizeAdjust || s.textSizeAdjust || 'unset';
+        });
+        return out;
+    }""")
+    for selector, value in values.items():
+        assert value == "100%", \
+            "%s has text-size-adjust: %s at %s, so iOS may inflate it" % (
+                selector, value, name)

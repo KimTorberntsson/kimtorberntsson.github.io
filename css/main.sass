@@ -26,6 +26,12 @@ html
 	   lift the content off the bottom of the window and show the photo under the
 	   footer. */
 	overscroll-behavior-y: none
+	/* iOS Safari inflates text in wide blocks unless told not to, which is why
+	   the body copy jumped in size on rotating to landscape while the nav
+	   labels, in narrow blocks, stayed put. 100% rather than none: none would
+	   also block the reader's own zoom. */
+	-webkit-text-size-adjust: 100%
+	text-size-adjust: 100%
 
 @media (prefers-reduced-motion: reduce)
 	html
