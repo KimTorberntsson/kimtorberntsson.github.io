@@ -173,3 +173,33 @@ def test_every_text_role_meets_wcag_aa(page, path, role, selector):
     assert measured["ratio"] >= needed, \
         "%s is %.2f:1 at %.0fpx, needs %.1f:1" % (
             role, measured["ratio"], measured["size"], needed)
+
+
+def test_uppercase_is_reserved_for_small_labels(page):
+    """The site nearly followed a rule already: capitals for the little metadata
+    labels, sentence case for anything at reading size. The archive link was the
+    one thing breaking it, uppercase at the same size as the sentence-case nav.
+
+    Uppercase in the nav was the other way to square it, but capitals run about
+    15% wider and the labels started colliding.
+    """
+    offenders = []
+    for path in ("/", "/archive/", "/gallery/", "/2016/03/05/three-cool-tools.html"):
+        page.goto(page.base + path, wait_until="load")
+        page.wait_for_timeout(600)
+        offenders += page.evaluate("""() => {
+            var out = [];
+            document.querySelectorAll('nav a, article a, article p, article li,'
+                + ' .see-all a, .post-nav-label, .post-nav-title, .date-link,'
+                + ' footer a, .colophon').forEach(el => {
+                var s = getComputedStyle(el);
+                if (s.textTransform !== 'uppercase') return;
+                var size = parseFloat(s.fontSize);
+                // Year headings are digits, so their casing never shows.
+                if (!/[a-z]/i.test(el.textContent)) return;
+                if (size > 14) out.push(el.className || el.tagName);
+            });
+            return out;
+        }""")
+    assert not offenders, \
+        "uppercase above 14px, where sentence case is the site's habit: %s" % sorted(set(offenders))
