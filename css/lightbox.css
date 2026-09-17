@@ -76,6 +76,15 @@
 	transform-origin: center center;
 	cursor: default;
 	-webkit-user-drag: none;
+	/* A transform other than none puts the photo on its own compositing layer,
+	   so pinching promotes it and settling back to scale(1) demotes it again.
+	   Safari does not always repaint what the demoted layer was covering, and a
+	   pinch in and back out in small steps -- many promotions and demotions in a
+	   row -- strands a few rows of the photo along the bottom of the stage,
+	   which then survive into the next photo. Asking for the layer up front
+	   keeps it there for the life of the viewer, so there is no demotion to
+	   leave anything behind. */
+	will-change: transform;
 }
 
 /* Bottom bar: caption and counter. Uses divs rather than p to dodge the
