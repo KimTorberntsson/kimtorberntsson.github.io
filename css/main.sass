@@ -37,18 +37,99 @@ html
 	html
 		scroll-behavior: auto
 
-/* Variable Definitions */
-$blue: #00B6FF
-$purple: #7F00FF
-$orange: #FF6600
-$red: #FF0000
-$green: #00C129
-$pink: #E800B1
-$dark-blue: #0028AD
+/* Variable Definitions
+
+   Every colour is a custom property so that one media query can restate the
+   whole palette for a reader whose system is set to dark. The Sass names are
+   kept and point at the properties, so every rule below still reads $red
+   rather than var(--red), and the light rendering is unchanged.
+
+   color-scheme tells the browser which way the page leans, so the canvas
+   behind an elastic overscroll, form controls and scrollbars follow without
+   being styled one at a time.
+
+   The selector is escaped as \:root because libsass reads a leading colon in
+   the indented syntax as an old-style property name and refuses to build. It
+   compiles out to a plain :root. */
+\:root
+	color-scheme: light
+
+	/* The section accents. */
+	--blue: #00B6FF
+	--purple: #7F00FF
+	--orange: #FF6600
+	--red: #FF0000
+	--green: #00C129
+	--pink: #E800B1
+	--dark-blue: #0028AD
+
+	/* Surfaces, from the page outwards. */
+	--page: white
+	--page-behind: #f2f2f0
+	--footer: LightGrey
+	--panel: #f4f4f2
+	--control-face: white
+
+	/* Ink, strongest first. Each grey stays its own property rather than
+	   collapsing into one, because each was picked against its own ground. */
+	--ink: #333333
+	--ink-colophon: #4f4f4f
+	--ink-date: #5f5f5f
+	--ink-label: #6a6a6a
+	--ink-aside: #6f6f6f
+
+	/* Hairlines and control edges. */
+	--rule: rgba(0, 0, 0, 0.12)
+	--control-edge: rgba(0, 0, 0, 0.2)
+	--control-ink: rgba(0, 0, 0, 0.6)
+
+/* Dark. Purple and dark blue are the two accents that do not survive the swap:
+   against this page they measure 2.8:1 and 1.6:1, so both are lightened to
+   about 5:1 at the same hue. Blue, green and orange gain contrast on a dark
+   ground and keep their values -- orange reaches 6.1:1 here, having never
+   cleared AA on white. Red and pink are nudged up to clear it too. */
+@media (prefers-color-scheme: dark)
+	\:root
+		color-scheme: dark
+
+		--blue: #00B6FF
+		--purple: #B061FF
+		--orange: #FF6600
+		--red: #FF3B3B
+		--green: #00C129
+		--pink: #FC00C1
+		--dark-blue: #597FFF
+
+		--page: #16181a
+		--page-behind: #0e0f11
+		--footer: #212428
+		--panel: #1e2124
+		--control-face: #2a2d31
+
+		/* Off white against off black, the same reasoning as $ink: pure white
+		   on pure black is the maximum contrast case and glares over a long
+		   post. This lands at 12.7:1, within a tenth of the light page. */
+		--ink: #dadada
+		--ink-colophon: #9a9a9a
+		--ink-date: #9e9e9e
+		--ink-label: #9a9a9a
+		--ink-aside: #969696
+
+		--rule: rgba(255, 255, 255, 0.14)
+		--control-edge: rgba(255, 255, 255, 0.22)
+		--control-ink: rgba(255, 255, 255, 0.7)
+
+$blue: var(--blue)
+$purple: var(--purple)
+$orange: var(--orange)
+$red: var(--red)
+$green: var(--green)
+$pink: var(--pink)
+$dark-blue: var(--dark-blue)
 
 article 
 	position: relative
-	background: white
+	background: var(--page)
 	max-width: 40em
 	margin: 0 auto
 	padding: 2em 0em 3em
@@ -57,14 +138,14 @@ footer
 	min-height: 6em
 	width: 100%
 	text-align: center
-	background: LightGrey
+	background: var(--footer)
 	/* The backdrop is fixed, so anything that lifts the page off the bottom of
 	   the window shows the photo under the footer: elastic overscroll, and
 	   sub-pixel rounding of the document height. Offset down by a viewport and
 	   spread by a viewport, so the shadow's rectangle starts at the footer's own
 	   top edge -- where it is clipped away -- and continues well past the
 	   bottom. Paint only: it adds no scrollable height. */
-	box-shadow: 0 100vh 0 100vh LightGrey
+	box-shadow: 0 100vh 0 100vh var(--footer)
 
 	.colophon 
 		/* Against the footer's LightGrey rather than white, so it needs to be
@@ -72,7 +153,7 @@ footer
 		padding: 0 5% 1.4em
 		font-size: 0.8em
 		font-weight: 300
-		color: #4f4f4f
+		color: var(--ink-colophon)
 
 	#links ul 
 		li 
@@ -92,7 +173,7 @@ header
 
 	nav 
 		min-height: 4.5em
-		background: white
+		background: var(--page)
 		text-align: center
 		display: flex
 		align-items: center
@@ -194,7 +275,7 @@ header
 	
 main 
 	position: relative
-	background: white
+	background: var(--page)
 
 /* Colors for the site */
 
@@ -311,7 +392,7 @@ h2
 .date-link 
 	font-size: small
 	text-transform: uppercase
-	color: #5f5f5f
+	color: var(--ink-date)
 
 
 .highlight 
@@ -332,7 +413,7 @@ h2
 	gap: 1em
 	margin: 0.5em 5% 1.5em
 	padding: 0.9em 1em
-	background: #f4f4f2
+	background: var(--panel)
 	border-radius: 6px
 
 	code 
@@ -343,14 +424,14 @@ h2
 		flex: 0 0 auto
 		min-height: 2.6em
 		padding: 0 1em
-		border: 1px solid rgba(0, 0, 0, 0.2)
+		border: 1px solid var(--control-edge)
 		border-radius: 4px
-		background: white
+		background: var(--control-face)
 		font: inherit
 		font-size: 0.85em
 		text-transform: uppercase
 		letter-spacing: 0.05em
-		color: rgba(0, 0, 0, 0.6)
+		color: var(--control-ink)
 		cursor: pointer
 
 	button:hover 
@@ -367,11 +448,11 @@ h2
 	text-align: left
 	text-transform: uppercase
 	letter-spacing: 0.08em
-	color: #6a6a6a
+	color: var(--ink-label)
 	padding: 1.6em 5% 0.2em
 
 	& + .list-posts 
-		border-top: 1px solid rgba(0, 0, 0, 0.12)
+		border-top: 1px solid var(--rule)
 
 .list-posts 
 	li a 
@@ -469,7 +550,7 @@ h2
 		font-size: 0.75em
 		text-transform: uppercase
 		letter-spacing: 0.06em
-		color: #6a6a6a
+		color: var(--ink-label)
 
 	.post-nav-title 
 		grid-column: 1 / -1
@@ -569,7 +650,7 @@ h2
    than stepping. */
 @media (min-width: 1920px) 
 	body 
-		background: #f2f2f0
+		background: var(--page-behind)
 
 	header #background 
 		max-width: 1920px

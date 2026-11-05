@@ -4,12 +4,16 @@
 /* Variable Definitions */
 $font-stack: Helvetica, sans-serif
 $code-font-stack: Menlo, Monaco, Consolas, "Courier New", monospace, sans-serif
-$orange: #FF6600
-/* Off black. Pure black against pure white is the maximum contrast case and
+/* The palette itself lives in main.sass, as custom properties that a dark
+   media query restates. These names point at it so the rules below are
+   unchanged.
+
+   Off black. Pure black against pure white is the maximum contrast case and
    reads harsh over a long post, and the old #666 was so light that links came
-   out fainter than the text around them. This sits between the two. One value,
-   so nothing drifts out of step. */
-$ink: #333333
+   out fainter than the text around them. $ink sits between the two. One
+   value, so nothing drifts out of step. */
+$orange: var(--orange)
+$ink: var(--ink)
 
 a
 	text-decoration: none
@@ -38,7 +42,7 @@ blockquote
 		padding-top: 0.5em
 		font-style: normal
 		font-size: small
-		color: #6f6f6f
+		color: var(--ink-aside)
 
 	small:before
 		content: "\2014 \2009"
